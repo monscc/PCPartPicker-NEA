@@ -1,0 +1,1782 @@
+[
+    {
+        "id": "cpu-9800x3d",
+        "name": "AMD Ryzen 7 9800X3D",
+        "category": "CPU",
+        "price": 479.99,
+        "attributes": {
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "boost_clock": 5.2,
+            "power_draw": 120
+        }
+    },
+    {
+        "id": "cpu-9950x3d",
+        "name": "AMD Ryzen 9 9950X3D",
+        "category": "CPU",
+        "price": 699.99,
+        "attributes": {
+            "socket": "AM5",
+            "cores": 16,
+            "threads": 32,
+            "boost_clock": 5.7,
+            "power_draw": 170
+        }
+    },
+    {
+        "id": "cpu-i9-14900k",
+        "name": "Intel Core i9-14900K",
+        "category": "CPU",
+        "price": 435.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 24,
+            "threads": 32,
+            "boost_clock": 6.0,
+            "power_draw": 253
+        }
+    },
+    {
+        "id": "cpu-i7-14700k",
+        "name": "Intel Core i7-14700K",
+        "category": "CPU",
+        "price": 339.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 20,
+            "threads": 28,
+            "boost_clock": 5.6,
+            "power_draw": 253
+        }
+    },
+    {
+        "id": "cpu-9700x",
+        "name": "AMD Ryzen 7 9700X",
+        "category": "CPU",
+        "price": 318.99,
+        "attributes": {
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "boost_clock": 5.5,
+            "power_draw": 65
+        }
+    },
+    {
+        "id": "cpu-9600x",
+        "name": "AMD Ryzen 5 9600X",
+        "category": "CPU",
+        "price": 239.99,
+        "attributes": {
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "boost_clock": 5.4,
+            "power_draw": 65
+        }
+    },
+    {
+        "id": "cpu-i5-14600k",
+        "name": "Intel Core i5-14600K",
+        "category": "CPU",
+        "price": 234.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 14,
+            "threads": 20,
+            "boost_clock": 5.3,
+            "power_draw": 181
+        }
+    },
+    {
+        "id": "cpu-5700x3d",
+        "name": "AMD Ryzen 7 5700X3D",
+        "category": "CPU",
+        "price": 229.99,
+        "attributes": {
+            "socket": "AM4",
+            "cores": 8,
+            "threads": 16,
+            "boost_clock": 4.1,
+            "power_draw": 105
+        }
+    },
+    {
+        "id": "cpu-8600g",
+        "name": "AMD Ryzen 5 8600G",
+        "category": "CPU",
+        "price": 169.99,
+        "attributes": {
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "boost_clock": 5.0,
+            "power_draw": 65
+        }
+    },
+    {
+        "id": "cpu-i5-12400f",
+        "name": "Intel Core i5-12400F",
+        "category": "CPU",
+        "price": 109.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 6,
+            "threads": 12,
+            "boost_clock": 4.4,
+            "power_draw": 117
+        }
+    },
+    {
+        "id": "cpu-5600",
+        "name": "AMD Ryzen 5 5600",
+        "category": "CPU",
+        "price": 106.99,
+        "attributes": {
+            "socket": "AM4",
+            "cores": 6,
+            "threads": 12,
+            "boost_clock": 4.6,
+            "power_draw": 65
+        }
+    },
+    {
+        "id": "cpu-7800x3d",
+        "name": "AMD Ryzen 7 7800X3D",
+        "category": "CPU",
+        "price": 369.99,
+        "attributes": {
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "boost_clock": 5.0,
+            "power_draw": 120
+        }
+    },
+    {
+        "id": "cpu-i9-13900k",
+        "name": "Intel Core i9-13900K",
+        "category": "CPU",
+        "price": 449.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 24,
+            "threads": 32,
+            "boost_clock": 5.8,
+            "power_draw": 253
+        }
+    },
+    {
+        "id": "cpu-i5-13400f",
+        "name": "Intel Core i5-13400F",
+        "category": "CPU",
+        "price": 159.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 10,
+            "threads": 16,
+            "boost_clock": 4.6,
+            "power_draw": 148
+        }
+    },
+    {
+        "id": "cpu-7900x",
+        "name": "AMD Ryzen 9 7900X",
+        "category": "CPU",
+        "price": 379.99,
+        "attributes": {
+            "socket": "AM5",
+            "cores": 12,
+            "threads": 24,
+            "boost_clock": 5.4,
+            "power_draw": 170
+        }
+    },
+    {
+        "id": "cpu-5600x3d",
+        "name": "AMD Ryzen 5 5600X3D",
+        "category": "CPU",
+        "price": 199.99,
+        "attributes": {
+            "socket": "AM4",
+            "cores": 6,
+            "threads": 12,
+            "boost_clock": 4.4,
+            "power_draw": 105
+        }
+    },
+    {
+        "id": "cpu-i7-13700k",
+        "name": "Intel Core i7-13700K",
+        "category": "CPU",
+        "price": 329.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 16,
+            "threads": 24,
+            "boost_clock": 5.4,
+            "power_draw": 253
+        }
+    },
+    {
+        "id": "cpu-7600x",
+        "name": "AMD Ryzen 5 7600X",
+        "category": "CPU",
+        "price": 209.99,
+        "attributes": {
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "boost_clock": 5.3,
+            "power_draw": 105
+        }
+    },
+    {
+        "id": "cpu-i3-12100f",
+        "name": "Intel Core i3-12100F",
+        "category": "CPU",
+        "price": 79.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 4,
+            "threads": 8,
+            "boost_clock": 4.3,
+            "power_draw": 89
+        }
+    },
+    {
+        "id": "cpu-5500",
+        "name": "AMD Ryzen 5 5500",
+        "category": "CPU",
+        "price": 89.99,
+        "attributes": {
+            "socket": "AM4",
+            "cores": 6,
+            "threads": 12,
+            "boost_clock": 4.2,
+            "power_draw": 65
+        }
+    },
+    {
+        "id": "gpu-rtx4090",
+        "name": "NVIDIA GeForce RTX 4090 24GB",
+        "category": "GPU",
+        "price": 1599.99,
+        "attributes": {
+            "power_draw": 450,
+            "gpu_length": 304,
+            "vram": 24
+        }
+    },
+    {
+        "id": "gpu-rtx4080-super",
+        "name": "NVIDIA GeForce RTX 4080 SUPER 16GB",
+        "category": "GPU",
+        "price": 999.99,
+        "attributes": {
+            "power_draw": 320,
+            "gpu_length": 304,
+            "vram": 16
+        }
+    },
+    {
+        "id": "gpu-rtx4070ti-super",
+        "name": "NVIDIA GeForce RTX 4070 Ti SUPER 16GB",
+        "category": "GPU",
+        "price": 799.99,
+        "attributes": {
+            "power_draw": 285,
+            "gpu_length": 267,
+            "vram": 16
+        }
+    },
+    {
+        "id": "gpu-rtx4070-super",
+        "name": "NVIDIA GeForce RTX 4070 SUPER 12GB",
+        "category": "GPU",
+        "price": 599.99,
+        "attributes": {
+            "power_draw": 220,
+            "gpu_length": 267,
+            "vram": 12
+        }
+    },
+    {
+        "id": "gpu-rtx4070",
+        "name": "NVIDIA GeForce RTX 4070 12GB",
+        "category": "GPU",
+        "price": 549.99,
+        "attributes": {
+            "power_draw": 200,
+            "gpu_length": 244,
+            "vram": 12
+        }
+    },
+    {
+        "id": "gpu-rtx4060ti",
+        "name": "NVIDIA GeForce RTX 4060 Ti 8GB",
+        "category": "GPU",
+        "price": 399.99,
+        "attributes": {
+            "power_draw": 160,
+            "gpu_length": 244,
+            "vram": 8
+        }
+    },
+    {
+        "id": "gpu-rtx4060",
+        "name": "NVIDIA GeForce RTX 4060 8GB",
+        "category": "GPU",
+        "price": 289.99,
+        "attributes": {
+            "power_draw": 115,
+            "gpu_length": 224,
+            "vram": 8
+        }
+    },
+    {
+        "id": "gpu-rtx3060",
+        "name": "NVIDIA GeForce RTX 3060 12GB",
+        "category": "GPU",
+        "price": 269.99,
+        "attributes": {
+            "power_draw": 170,
+            "gpu_length": 242,
+            "vram": 12
+        }
+    },
+    {
+        "id": "gpu-rx7900xtx",
+        "name": "AMD Radeon RX 7900 XTX 24GB",
+        "category": "GPU",
+        "price": 949.99,
+        "attributes": {
+            "power_draw": 355,
+            "gpu_length": 287,
+            "vram": 24
+        }
+    },
+    {
+        "id": "gpu-rx7900xt",
+        "name": "AMD Radeon RX 7900 XT 20GB",
+        "category": "GPU",
+        "price": 749.99,
+        "attributes": {
+            "power_draw": 300,
+            "gpu_length": 287,
+            "vram": 20
+        }
+    },
+    {
+        "id": "gpu-rx7800xt",
+        "name": "AMD Radeon RX 7800 XT 16GB",
+        "category": "GPU",
+        "price": 499.99,
+        "attributes": {
+            "power_draw": 263,
+            "gpu_length": 270,
+            "vram": 16
+        }
+    },
+    {
+        "id": "gpu-rx7700xt",
+        "name": "AMD Radeon RX 7700 XT 12GB",
+        "category": "GPU",
+        "price": 419.99,
+        "attributes": {
+            "power_draw": 245,
+            "gpu_length": 270,
+            "vram": 12
+        }
+    },
+    {
+        "id": "gpu-rx7600xt",
+        "name": "AMD Radeon RX 7600 XT 16GB",
+        "category": "GPU",
+        "price": 329.99,
+        "attributes": {
+            "power_draw": 190,
+            "gpu_length": 245,
+            "vram": 16
+        }
+    },
+    {
+        "id": "gpu-rx7600",
+        "name": "AMD Radeon RX 7600 8GB",
+        "category": "GPU",
+        "price": 249.99,
+        "attributes": {
+            "power_draw": 165,
+            "gpu_length": 245,
+            "vram": 8
+        }
+    },
+    {
+        "id": "gpu-rx6700xt",
+        "name": "AMD Radeon RX 6700 XT 12GB",
+        "category": "GPU",
+        "price": 329.99,
+        "attributes": {
+            "power_draw": 230,
+            "gpu_length": 267,
+            "vram": 12
+        }
+    },
+    {
+        "id": "gpu-rx6650xt",
+        "name": "AMD Radeon RX 6650 XT 8GB",
+        "category": "GPU",
+        "price": 259.99,
+        "attributes": {
+            "power_draw": 180,
+            "gpu_length": 242,
+            "vram": 8
+        }
+    },
+    {
+        "id": "gpu-rx6600",
+        "name": "AMD Radeon RX 6600 8GB",
+        "category": "GPU",
+        "price": 199.99,
+        "attributes": {
+            "power_draw": 132,
+            "gpu_length": 190,
+            "vram": 8
+        }
+    },
+    {
+        "id": "gpu-rtx3070",
+        "name": "NVIDIA GeForce RTX 3070 8GB",
+        "category": "GPU",
+        "price": 449.99,
+        "attributes": {
+            "power_draw": 220,
+            "gpu_length": 267,
+            "vram": 8
+        }
+    },
+    {
+        "id": "gpu-rtx3050",
+        "name": "NVIDIA GeForce RTX 3050 8GB",
+        "category": "GPU",
+        "price": 229.99,
+        "attributes": {
+            "power_draw": 130,
+            "gpu_length": 232,
+            "vram": 8
+        }
+    },
+    {
+        "id": "gpu-gtx1660super",
+        "name": "NVIDIA GeForce GTX 1660 SUPER 6GB",
+        "category": "GPU",
+        "price": 189.99,
+        "attributes": {
+            "power_draw": 125,
+            "gpu_length": 229,
+            "vram": 6
+        }
+    },
+    {
+        "id": "mobo-x670e-hero",
+        "name": "ASUS ROG Crosshair X670E Hero",
+        "category": "Motherboard",
+        "price": 629.99,
+        "attributes": {
+            "socket": "AM5",
+            "form_factor": "ATX",
+            "ram_type": "DDR5",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-z790-apex",
+        "name": "ASUS ROG Maximus Z790 Apex",
+        "category": "Motherboard",
+        "price": 649.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "ATX",
+            "ram_type": "DDR5",
+            "memory_slots": 2,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-x670e-tomahawk",
+        "name": "MSI MAG X670E Tomahawk WiFi",
+        "category": "Motherboard",
+        "price": 319.99,
+        "attributes": {
+            "socket": "AM5",
+            "form_factor": "ATX",
+            "ram_type": "DDR5",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-z790-gaming",
+        "name": "ASUS TUF Gaming Z790-Plus WiFi",
+        "category": "Motherboard",
+        "price": 289.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "ATX",
+            "ram_type": "DDR5",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-b650-strix",
+        "name": "ASUS ROG STRIX B650E-F Gaming WiFi",
+        "category": "Motherboard",
+        "price": 269.99,
+        "attributes": {
+            "socket": "AM5",
+            "form_factor": "ATX",
+            "ram_type": "DDR5",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-b760-tomahawk",
+        "name": "MSI MAG B760 Tomahawk WiFi",
+        "category": "Motherboard",
+        "price": 219.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "ATX",
+            "ram_type": "DDR5",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-b650-aorus",
+        "name": "Gigabyte B650 AORUS Elite AX",
+        "category": "Motherboard",
+        "price": 199.99,
+        "attributes": {
+            "socket": "AM5",
+            "form_factor": "ATX",
+            "ram_type": "DDR5",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-b660-pro",
+        "name": "MSI PRO B660M-A DDR4",
+        "category": "Motherboard",
+        "price": 109.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "Micro-ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 4,
+            "wifi": false
+        }
+    },
+    {
+        "id": "mobo-b550-strix",
+        "name": "ASUS ROG STRIX B550-F Gaming",
+        "category": "Motherboard",
+        "price": 159.99,
+        "attributes": {
+            "socket": "AM4",
+            "form_factor": "ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 4,
+            "wifi": false
+        }
+    },
+    {
+        "id": "mobo-b550-tomahawk",
+        "name": "MSI MAG B550 Tomahawk",
+        "category": "Motherboard",
+        "price": 149.99,
+        "attributes": {
+            "socket": "AM4",
+            "form_factor": "ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 4,
+            "wifi": false
+        }
+    },
+    {
+        "id": "mobo-b450-max",
+        "name": "MSI B450 Tomahawk MAX II",
+        "category": "Motherboard",
+        "price": 89.99,
+        "attributes": {
+            "socket": "AM4",
+            "form_factor": "ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 4,
+            "wifi": false
+        }
+    },
+    {
+        "id": "mobo-z690-gaming",
+        "name": "Gigabyte Z690 Gaming X DDR4",
+        "category": "Motherboard",
+        "price": 179.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 4,
+            "wifi": false
+        }
+    },
+    {
+        "id": "mobo-b650m-mortar",
+        "name": "MSI MAG B650M Mortar WiFi",
+        "category": "Motherboard",
+        "price": 189.99,
+        "attributes": {
+            "socket": "AM5",
+            "form_factor": "Micro-ATX",
+            "ram_type": "DDR5",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-b760m-plus",
+        "name": "ASUS PRIME B760M-A WiFi D4",
+        "category": "Motherboard",
+        "price": 139.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "Micro-ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-x570-tuf",
+        "name": "ASUS TUF Gaming X570-Plus WiFi",
+        "category": "Motherboard",
+        "price": 189.99,
+        "attributes": {
+            "socket": "AM4",
+            "form_factor": "ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 4,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-h610m-hdv",
+        "name": "ASRock H610M-HDV/M.2",
+        "category": "Motherboard",
+        "price": 69.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "Micro-ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 2,
+            "wifi": false
+        }
+    },
+    {
+        "id": "mobo-a520m-hdv",
+        "name": "ASRock A520M-HDV",
+        "category": "Motherboard",
+        "price": 59.99,
+        "attributes": {
+            "socket": "AM4",
+            "form_factor": "Micro-ATX",
+            "ram_type": "DDR4",
+            "memory_slots": 2,
+            "wifi": false
+        }
+    },
+    {
+        "id": "mobo-b650-itx",
+        "name": "ASUS ROG STRIX B650E-I Gaming WiFi",
+        "category": "Motherboard",
+        "price": 299.99,
+        "attributes": {
+            "socket": "AM5",
+            "form_factor": "Mini-ITX",
+            "ram_type": "DDR5",
+            "memory_slots": 2,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-z790-itx",
+        "name": "Gigabyte Z790 I AORUS ULTRA",
+        "category": "Motherboard",
+        "price": 349.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "Mini-ITX",
+            "ram_type": "DDR5",
+            "memory_slots": 2,
+            "wifi": true
+        }
+    },
+    {
+        "id": "mobo-b550-itx",
+        "name": "ASUS ROG STRIX B550-I Gaming",
+        "category": "Motherboard",
+        "price": 209.99,
+        "attributes": {
+            "socket": "AM4",
+            "form_factor": "Mini-ITX",
+            "ram_type": "DDR4",
+            "memory_slots": 2,
+            "wifi": true
+        }
+    },
+    {
+        "id": "ram-gskill-64gb-ddr5-6400",
+        "name": "G.Skill Trident Z5 RGB 64GB (2x32GB) DDR5 6400MHz",
+        "category": "RAM",
+        "price": 239.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 6400
+        }
+    },
+    {
+        "id": "ram-corsair-64gb-ddr5-6000",
+        "name": "Corsair Dominator Platinum RGB 64GB (2x32GB) DDR5 6000MHz",
+        "category": "RAM",
+        "price": 259.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 6000
+        }
+    },
+    {
+        "id": "ram-gskill-32gb-ddr5-6000",
+        "name": "G.Skill Trident Z5 RGB 32GB (2x16GB) DDR5 6000MHz",
+        "category": "RAM",
+        "price": 129.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 6000
+        }
+    },
+    {
+        "id": "ram-kingston-32gb-ddr5-5600",
+        "name": "Kingston FURY Beast 32GB (2x16GB) DDR5 5600MHz",
+        "category": "RAM",
+        "price": 109.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 5600
+        }
+    },
+    {
+        "id": "ram-corsair-32gb-ddr5-5200",
+        "name": "Corsair Vengeance 32GB (2x16GB) DDR5 5200MHz",
+        "category": "RAM",
+        "price": 99.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 5200
+        }
+    },
+    {
+        "id": "ram-crucial-32gb-ddr5-4800",
+        "name": "Crucial 32GB (2x16GB) DDR5 4800MHz",
+        "category": "RAM",
+        "price": 89.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 4800
+        }
+    },
+    {
+        "id": "ram-gskill-16gb-ddr5-6000",
+        "name": "G.Skill Trident Z5 16GB (2x8GB) DDR5 6000MHz",
+        "category": "RAM",
+        "price": 79.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 6000
+        }
+    },
+    {
+        "id": "ram-corsair-16gb-ddr5-5200",
+        "name": "Corsair Vengeance 16GB (2x8GB) DDR5 5200MHz",
+        "category": "RAM",
+        "price": 64.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 5200
+        }
+    },
+    {
+        "id": "ram-gskill-64gb-ddr4-3600",
+        "name": "G.Skill Ripjaws V 64GB (2x32GB) DDR4 3600MHz",
+        "category": "RAM",
+        "price": 159.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3600
+        }
+    },
+    {
+        "id": "ram-corsair-32gb-ddr4-3600",
+        "name": "Corsair Vengeance RGB Pro 32GB (2x16GB) DDR4 3600MHz",
+        "category": "RAM",
+        "price": 79.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3600
+        }
+    },
+    {
+        "id": "ram-gskill-32gb-ddr4-3200",
+        "name": "G.Skill Ripjaws V 32GB (2x16GB) DDR4 3200MHz",
+        "category": "RAM",
+        "price": 69.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3200
+        }
+    },
+    {
+        "id": "ram-kingston-32gb-ddr4-3200",
+        "name": "Kingston FURY Beast 32GB (2x16GB) DDR4 3200MHz",
+        "category": "RAM",
+        "price": 64.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3200
+        }
+    },
+    {
+        "id": "ram-corsair-16gb-ddr4-3600",
+        "name": "Corsair Vengeance LPX 16GB (2x8GB) DDR4 3600MHz",
+        "category": "RAM",
+        "price": 39.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3600
+        }
+    },
+    {
+        "id": "ram-gskill-16gb-ddr4-3200",
+        "name": "G.Skill Aegis 16GB (2x8GB) DDR4 3200MHz",
+        "category": "RAM",
+        "price": 34.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3200
+        }
+    },
+    {
+        "id": "ram-crucial-16gb-ddr4-3200",
+        "name": "Crucial Ballistix 16GB (2x8GB) DDR4 3200MHz",
+        "category": "RAM",
+        "price": 32.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3200
+        }
+    },
+    {
+        "id": "ram-teamgroup-16gb-ddr4-3200",
+        "name": "Team T-FORCE VULCAN Z 16GB (2x8GB) DDR4 3200MHz",
+        "category": "RAM",
+        "price": 29.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3200
+        }
+    },
+    {
+        "id": "ram-kingston-16gb-ddr4-2666",
+        "name": "Kingston ValueRAM 16GB (2x8GB) DDR4 2666MHz",
+        "category": "RAM",
+        "price": 27.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 2666
+        }
+    },
+    {
+        "id": "ram-corsair-8gb-ddr4-3200",
+        "name": "Corsair Vengeance LPX 8GB (2x4GB) DDR4 3200MHz",
+        "category": "RAM",
+        "price": 24.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3200
+        }
+    },
+    {
+        "id": "ram-gskill-64gb-ddr4-4000",
+        "name": "G.Skill Trident Z Neo 64GB (2x32GB) DDR4 4000MHz",
+        "category": "RAM",
+        "price": 199.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 4000
+        }
+    },
+    {
+        "id": "ram-corsair-32gb-ddr4-4000",
+        "name": "Corsair Dominator Platinum RGB 32GB (2x16GB) DDR4 4000MHz",
+        "category": "RAM",
+        "price": 149.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 4000
+        }
+    },
+    {
+        "id": "ssd-samsung-990pro-4tb",
+        "name": "Samsung 990 Pro 4TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 349.99,
+        "attributes": {
+            "capacity": 4000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-wd-black-sn850x-4tb",
+        "name": "WD Black SN850X 4TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 329.99,
+        "attributes": {
+            "capacity": 4000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-crucial-t500-2tb",
+        "name": "Crucial T500 2TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 189.99,
+        "attributes": {
+            "capacity": 2000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-samsung-990pro-2tb",
+        "name": "Samsung 990 Pro 2TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 199.99,
+        "attributes": {
+            "capacity": 2000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-wd-black-sn850x-2tb",
+        "name": "WD Black SN850X 2TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 179.99,
+        "attributes": {
+            "capacity": 2000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-kingston-fury-2tb",
+        "name": "Kingston FURY Renegade 2TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 169.99,
+        "attributes": {
+            "capacity": 2000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-samsung-980pro-1tb",
+        "name": "Samsung 980 Pro 1TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 109.99,
+        "attributes": {
+            "capacity": 1000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-wd-black-sn770-1tb",
+        "name": "WD Black SN770 1TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 89.99,
+        "attributes": {
+            "capacity": 1000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-crucial-p5-plus-1tb",
+        "name": "Crucial P5 Plus 1TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 79.99,
+        "attributes": {
+            "capacity": 1000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-kingston-nv2-1tb",
+        "name": "Kingston NV2 1TB NVMe Gen4 SSD",
+        "category": "Storage",
+        "price": 59.99,
+        "attributes": {
+            "capacity": 1000,
+            "interface": "NVMe PCIe 4.0"
+        }
+    },
+    {
+        "id": "ssd-crucial-p3-500gb",
+        "name": "Crucial P3 500GB NVMe Gen3 SSD",
+        "category": "Storage",
+        "price": 39.99,
+        "attributes": {
+            "capacity": 500,
+            "interface": "NVMe PCIe 3.0"
+        }
+    },
+    {
+        "id": "ssd-wd-blue-500gb",
+        "name": "WD Blue SN570 500GB NVMe Gen3 SSD",
+        "category": "Storage",
+        "price": 42.99,
+        "attributes": {
+            "capacity": 500,
+            "interface": "NVMe PCIe 3.0"
+        }
+    },
+    {
+        "id": "ssd-samsung-870evo-2tb",
+        "name": "Samsung 870 EVO 2TB SATA SSD",
+        "category": "Storage",
+        "price": 149.99,
+        "attributes": {
+            "capacity": 2000,
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "ssd-crucial-mx500-2tb",
+        "name": "Crucial MX500 2TB SATA SSD",
+        "category": "Storage",
+        "price": 129.99,
+        "attributes": {
+            "capacity": 2000,
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "ssd-samsung-870evo-1tb",
+        "name": "Samsung 870 EVO 1TB SATA SSD",
+        "category": "Storage",
+        "price": 84.99,
+        "attributes": {
+            "capacity": 1000,
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "ssd-crucial-mx500-1tb",
+        "name": "Crucial MX500 1TB SATA SSD",
+        "category": "Storage",
+        "price": 69.99,
+        "attributes": {
+            "capacity": 1000,
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "ssd-wd-blue-500gb-sata",
+        "name": "WD Blue 500GB SATA SSD",
+        "category": "Storage",
+        "price": 44.99,
+        "attributes": {
+            "capacity": 500,
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "hdd-seagate-barracuda-4tb",
+        "name": "Seagate BarraCuda 4TB 7200RPM HDD",
+        "category": "Storage",
+        "price": 89.99,
+        "attributes": {
+            "capacity": 4000,
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "hdd-wd-blue-2tb",
+        "name": "WD Blue 2TB 7200RPM HDD",
+        "category": "Storage",
+        "price": 54.99,
+        "attributes": {
+            "capacity": 2000,
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "hdd-seagate-barracuda-1tb",
+        "name": "Seagate BarraCuda 1TB 7200RPM HDD",
+        "category": "Storage",
+        "price": 39.99,
+        "attributes": {
+            "capacity": 1000,
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "psu-corsair-rm1000e-1000w",
+        "name": "Corsair RM1000e 1000W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 149.99,
+        "attributes": {
+            "wattage": 1000,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-seasonic-focus-1000w",
+        "name": "Seasonic FOCUS GX-1000 1000W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 159.99,
+        "attributes": {
+            "wattage": 1000,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-evga-supernova-850w-plat",
+        "name": "EVGA SuperNOVA 850 P5 850W 80+ Platinum Fully Modular",
+        "category": "PSU",
+        "price": 139.99,
+        "attributes": {
+            "wattage": 850,
+            "efficiency": "80+ Platinum",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-corsair-rm850x-850w",
+        "name": "Corsair RM850x 850W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 129.99,
+        "attributes": {
+            "wattage": 850,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-be-quiet-straight-850w",
+        "name": "be quiet! Straight Power 11 850W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 134.99,
+        "attributes": {
+            "wattage": 850,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-seasonic-focus-850w",
+        "name": "Seasonic FOCUS GX-850 850W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 119.99,
+        "attributes": {
+            "wattage": 850,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-corsair-rm750x-750w",
+        "name": "Corsair RM750x 750W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 109.99,
+        "attributes": {
+            "wattage": 750,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-evga-supernova-750w",
+        "name": "EVGA SuperNOVA 750 GT 750W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 99.99,
+        "attributes": {
+            "wattage": 750,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-msi-mpg-a750gf-750w",
+        "name": "MSI MPG A750GF 750W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 94.99,
+        "attributes": {
+            "wattage": 750,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-thermaltake-toughpower-750w",
+        "name": "Thermaltake Toughpower GF1 750W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 89.99,
+        "attributes": {
+            "wattage": 750,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-corsair-rm650-650w",
+        "name": "Corsair RM650 650W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 84.99,
+        "attributes": {
+            "wattage": 650,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-seasonic-focus-650w",
+        "name": "Seasonic FOCUS GM-650 650W 80+ Gold Semi-Modular",
+        "category": "PSU",
+        "price": 74.99,
+        "attributes": {
+            "wattage": 650,
+            "efficiency": "80+ Gold",
+            "modular": "Semi-Modular"
+        }
+    },
+    {
+        "id": "psu-evga-br-600w",
+        "name": "EVGA 600 BR 600W 80+ Bronze Non-Modular",
+        "category": "PSU",
+        "price": 49.99,
+        "attributes": {
+            "wattage": 600,
+            "efficiency": "80+ Bronze",
+            "modular": "Non-Modular"
+        }
+    },
+    {
+        "id": "psu-corsair-cx650-650w",
+        "name": "Corsair CX650M 650W 80+ Bronze Semi-Modular",
+        "category": "PSU",
+        "price": 64.99,
+        "attributes": {
+            "wattage": 650,
+            "efficiency": "80+ Bronze",
+            "modular": "Semi-Modular"
+        }
+    },
+    {
+        "id": "psu-thermaltake-smart-500w",
+        "name": "Thermaltake Smart 500W 80+ Non-Modular",
+        "category": "PSU",
+        "price": 39.99,
+        "attributes": {
+            "wattage": 500,
+            "efficiency": "80+",
+            "modular": "Non-Modular"
+        }
+    },
+    {
+        "id": "psu-evga-500w",
+        "name": "EVGA 500 W1 500W 80+ Non-Modular",
+        "category": "PSU",
+        "price": 34.99,
+        "attributes": {
+            "wattage": 500,
+            "efficiency": "80+",
+            "modular": "Non-Modular"
+        }
+    },
+    {
+        "id": "psu-coolermaster-mwe-550w",
+        "name": "Cooler Master MWE 550 White V2 550W 80+ Non-Modular",
+        "category": "PSU",
+        "price": 44.99,
+        "attributes": {
+            "wattage": 550,
+            "efficiency": "80+",
+            "modular": "Non-Modular"
+        }
+    },
+    {
+        "id": "psu-corsair-rm850e-850w",
+        "name": "Corsair RM850e 850W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 119.99,
+        "attributes": {
+            "wattage": 850,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-be-quiet-pure-700w",
+        "name": "be quiet! Pure Power 11 FM 700W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 99.99,
+        "attributes": {
+            "wattage": 700,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "psu-antec-hcg-850w",
+        "name": "Antec High Current Gamer 850W 80+ Gold Fully Modular",
+        "category": "PSU",
+        "price": 114.99,
+        "attributes": {
+            "wattage": 850,
+            "efficiency": "80+ Gold",
+            "modular": "Fully Modular"
+        }
+    },
+    {
+        "id": "case-lian-li-o11-dynamic",
+        "name": "Lian Li O11 Dynamic EVO ATX Mid Tower (Tempered Glass)",
+        "category": "Case",
+        "price": 159.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 420
+        }
+    },
+    {
+        "id": "case-corsair-5000d-airflow",
+        "name": "Corsair 5000D AIRFLOW ATX Mid Tower (Tempered Glass)",
+        "category": "Case",
+        "price": 149.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 420
+        }
+    },
+    {
+        "id": "case-fractal-torrent",
+        "name": "Fractal Design Torrent ATX Mid Tower (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 199.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 461
+        }
+    },
+    {
+        "id": "case-nzxt-h7-flow",
+        "name": "NZXT H7 Flow RGB ATX Mid Tower (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 129.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 400
+        }
+    },
+    {
+        "id": "case-phanteks-p500a",
+        "name": "Phanteks Eclipse P500A D-RGB ATX Mid Tower (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 139.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 435
+        }
+    },
+    {
+        "id": "case-be-quiet-pure-base-500dx",
+        "name": "be quiet! Pure Base 500DX ATX Mid Tower (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 99.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 369
+        }
+    },
+    {
+        "id": "case-corsair-4000d-airflow",
+        "name": "Corsair 4000D AIRFLOW ATX Mid Tower (Tempered Glass)",
+        "category": "Case",
+        "price": 94.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 360
+        }
+    },
+    {
+        "id": "case-nzxt-h510-flow",
+        "name": "NZXT H510 Flow ATX Mid Tower (Tempered Glass)",
+        "category": "Case",
+        "price": 89.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 381
+        }
+    },
+    {
+        "id": "case-fractal-meshify-c",
+        "name": "Fractal Design Meshify 2 Compact ATX Mid Tower (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 119.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 360
+        }
+    },
+    {
+        "id": "case-coolermaster-td500",
+        "name": "Cooler Master MasterBox TD500 Mesh ATX Mid Tower (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 99.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 410
+        }
+    },
+    {
+        "id": "case-lian-li-lancool-215",
+        "name": "Lian Li LANCOOL 215 ATX Mid Tower (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 79.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 384
+        }
+    },
+    {
+        "id": "case-phanteks-p360a",
+        "name": "Phanteks Eclipse P360A ATX Mid Tower (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 69.99,
+        "attributes": {
+            "form_factor": "ATX",
+            "max_gpu_length": 400
+        }
+    },
+    {
+        "id": "case-corsair-crystal-280x",
+        "name": "Corsair Crystal 280X RGB Micro-ATX (Tempered Glass)",
+        "category": "Case",
+        "price": 149.99,
+        "attributes": {
+            "form_factor": "Micro-ATX",
+            "max_gpu_length": 300
+        }
+    },
+    {
+        "id": "case-coolermaster-nr400",
+        "name": "Cooler Master MasterBox NR400 Micro-ATX (Mesh)",
+        "category": "Case",
+        "price": 64.99,
+        "attributes": {
+            "form_factor": "Micro-ATX",
+            "max_gpu_length": 410
+        }
+    },
+    {
+        "id": "case-fractal-meshify-c-mini",
+        "name": "Fractal Design Meshify C Mini Micro-ATX (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 89.99,
+        "attributes": {
+            "form_factor": "Micro-ATX",
+            "max_gpu_length": 315
+        }
+    },
+    {
+        "id": "case-thermaltake-v200-tg",
+        "name": "Thermaltake V200 Tempered Glass Micro-ATX",
+        "category": "Case",
+        "price": 54.99,
+        "attributes": {
+            "form_factor": "Micro-ATX",
+            "max_gpu_length": 350
+        }
+    },
+    {
+        "id": "case-nzxt-h210i",
+        "name": "NZXT H210i Mini-ITX (Tempered Glass)",
+        "category": "Case",
+        "price": 99.99,
+        "attributes": {
+            "form_factor": "Mini-ITX",
+            "max_gpu_length": 325
+        }
+    },
+    {
+        "id": "case-coolermaster-nr200p",
+        "name": "Cooler Master NR200P Mini-ITX (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 89.99,
+        "attributes": {
+            "form_factor": "Mini-ITX",
+            "max_gpu_length": 330
+        }
+    },
+    {
+        "id": "case-lian-li-a4-h2o",
+        "name": "Lian Li A4-H2O X4 Mini-ITX (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 139.99,
+        "attributes": {
+            "form_factor": "Mini-ITX",
+            "max_gpu_length": 328
+        }
+    },
+    {
+        "id": "case-fractal-ridge",
+        "name": "Fractal Design Ridge Mini-ITX (Tempered Glass, Mesh)",
+        "category": "Case",
+        "price": 149.99,
+        "attributes": {
+            "form_factor": "Mini-ITX",
+            "max_gpu_length": 337
+        }
+    },
+    {
+        "id": "cooler-nzxt-kraken-z73",
+        "name": "NZXT Kraken Z73 RGB 360mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 259.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "360mm"
+        }
+    },
+    {
+        "id": "cooler-corsair-h150i-elite",
+        "name": "Corsair iCUE H150i ELITE LCD 360mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 279.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "360mm"
+        }
+    },
+    {
+        "id": "cooler-arctic-liquid-360",
+        "name": "Arctic Liquid Freezer II 360mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 99.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "360mm"
+        }
+    },
+    {
+        "id": "cooler-lian-li-galahad-360",
+        "name": "Lian Li Galahad II Trinity 360mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 139.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "360mm"
+        }
+    },
+    {
+        "id": "cooler-corsair-h100i-rgb",
+        "name": "Corsair iCUE H100i RGB Elite 240mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 139.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "240mm"
+        }
+    },
+    {
+        "id": "cooler-nzxt-kraken-240",
+        "name": "NZXT Kraken 240 RGB 240mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 119.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "240mm"
+        }
+    },
+    {
+        "id": "cooler-arctic-liquid-240",
+        "name": "Arctic Liquid Freezer II 240mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 69.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "240mm"
+        }
+    },
+    {
+        "id": "cooler-deepcool-le500",
+        "name": "DeepCool LE500 240mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 59.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "240mm"
+        }
+    },
+    {
+        "id": "cooler-noctua-nhd15",
+        "name": "Noctua NH-D15 Chromax Black Dual Tower Air Cooler",
+        "category": "Cooler",
+        "price": 109.99,
+        "attributes": {
+            "type": "Air",
+            "size": "140mm"
+        }
+    },
+    {
+        "id": "cooler-be-quiet-dark-rock-pro4",
+        "name": "be quiet! Dark Rock Pro 4 Air Cooler",
+        "category": "Cooler",
+        "price": 89.99,
+        "attributes": {
+            "type": "Air",
+            "size": "135mm"
+        }
+    },
+    {
+        "id": "cooler-deepcool-ak620",
+        "name": "DeepCool AK620 Dual Tower Air Cooler",
+        "category": "Cooler",
+        "price": 64.99,
+        "attributes": {
+            "type": "Air",
+            "size": "120mm"
+        }
+    },
+    {
+        "id": "cooler-arctic-freezer-34",
+        "name": "Arctic Freezer 34 eSports DUO Air Cooler",
+        "category": "Cooler",
+        "price": 44.99,
+        "attributes": {
+            "type": "Air",
+            "size": "120mm"
+        }
+    },
+    {
+        "id": "cooler-coolermaster-hyper-212",
+        "name": "Cooler Master Hyper 212 RGB Black Edition Air Cooler",
+        "category": "Cooler",
+        "price": 44.99,
+        "attributes": {
+            "type": "Air",
+            "size": "120mm"
+        }
+    },
+    {
+        "id": "cooler-noctua-nhu12s",
+        "name": "Noctua NH-U12S Redux Air Cooler",
+        "category": "Cooler",
+        "price": 49.99,
+        "attributes": {
+            "type": "Air",
+            "size": "120mm"
+        }
+    },
+    {
+        "id": "cooler-be-quiet-pure-rock-2",
+        "name": "be quiet! Pure Rock 2 Air Cooler",
+        "category": "Cooler",
+        "price": 39.99,
+        "attributes": {
+            "type": "Air",
+            "size": "120mm"
+        }
+    },
+    {
+        "id": "cooler-id-cooling-se-224-xt",
+        "name": "ID-COOLING SE-224-XT RGB Air Cooler",
+        "category": "Cooler",
+        "price": 29.99,
+        "attributes": {
+            "type": "Air",
+            "size": "120mm"
+        }
+    },
+    {
+        "id": "cooler-deepcool-gammaxx-400",
+        "name": "DeepCool GAMMAXX 400 V2 Air Cooler",
+        "category": "Cooler",
+        "price": 24.99,
+        "attributes": {
+            "type": "Air",
+            "size": "120mm"
+        }
+    },
+    {
+        "id": "cooler-arctic-freezer-7x",
+        "name": "Arctic Freezer 7 X Compact Air Cooler",
+        "category": "Cooler",
+        "price": 19.99,
+        "attributes": {
+            "type": "Air",
+            "size": "92mm"
+        }
+    },
+    {
+        "id": "cooler-corsair-h60",
+        "name": "Corsair iCUE H60 RGB Elite 120mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 79.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "120mm"
+        }
+    },
+    {
+        "id": "cooler-thermaltake-th120",
+        "name": "Thermaltake TH120 ARGB Sync 120mm AIO Liquid Cooler",
+        "category": "Cooler",
+        "price": 64.99,
+        "attributes": {
+            "type": "AIO",
+            "size": "120mm"
+        }
+    }
+]
