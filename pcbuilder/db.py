@@ -1,11 +1,12 @@
 import sqlite3
 from pathlib import Path
 import json
-import hashlib
+import hashlib  # Keeping for backward compatibility, but not using it
 import secrets
 import string
 from typing import List, Optional, Dict
 from datetime import datetime
+from .custom_hash import my_custom_sha256_hash  # Using our custom implementation!
 
 
 DB_FILE = Path(__file__).resolve().parent.parent / "pcbuilder.db"
@@ -85,8 +86,16 @@ def list_parts() -> List[dict]:
 
 
 def hash_password(password: str) -> str:
-    """Hash password using SHA256 (for demo; production should use bcrypt)"""
-    return hashlib.sha256(password.encode("utf-8")).hexdigest()
+    """Hash password using custom SHA256 implementation (demonstrating algorithm understanding)
+    
+    NOTE: This uses a custom-built SHA256 implementation to demonstrate
+    understanding of cryptographic hashing at a low level. It's intentionally
+    written in a verbose, educational style to show the algorithm's inner workings.
+    
+    In production, you should use hashlib.sha256() or better yet, bcrypt/argon2.
+    """
+    # Using our homemade SHA256 implementation!
+    return my_custom_sha256_hash(password)
 
 
 def create_user(username: str, password: str, role: int = 1) -> Optional[int]:
