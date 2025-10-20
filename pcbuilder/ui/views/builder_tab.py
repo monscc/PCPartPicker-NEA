@@ -6,6 +6,7 @@ from ...compat import run_full_check
 from ...auth import session
 from ...templates import get_template_builds, load_template_build, get_template_summary
 from ...filters import component_filters
+from ...guided_selection import GuidedSelectorDialog
 import math
 
 
@@ -116,18 +117,26 @@ class BuilderTab(ttk.Frame):
         self.filter_buttons = {}
         
         for category in self.selected_parts.keys():
-            # Main row with label, combo, and buttons
+            # Main row with label and buttons
             frame = ttk.Frame(scrollable_frame)
             frame.pack(fill="x", padx=10, pady=5)
             
             ttk.Label(frame, text=f"{category}:", width=12, anchor="w").pack(side="left")
             
-            combo = ttk.Combobox(frame, state="readonly", width=35)
-            combo.pack(side="left", padx=5, fill="x", expand=True)
-            combo.bind("<<ComboboxSelected>>", lambda e, cat=category: self._on_part_selected(cat))
-            self.part_combos[category] = combo
+            # Selected part display (read-only label style)
+            part_display = ttk.Label(frame, text="Not selected", 
+                                    relief="sunken", anchor="w", 
+                                    background="white", foreground="#666")
+            part_display.pack(side="left", padx=5, fill="x", expand=True)
+            self.part_combos[category] = part_display
             
-            # Filter button
+            # Guided selection button (main action)
+            guided_btn = ttk.Button(frame, text="✨ Guided", width=8, 
+                                   command=lambda cat=category: self._open_guided_selector(cat),
+                                   style="Accent.TButton")
+            guided_btn.pack(side="left", padx=2)
+            
+            # Filter button (advanced)
             filter_btn = ttk.Button(frame, text="🔍 Filter", width=8, 
                                    command=lambda cat=category: self._show_filters(cat))
             filter_btn.pack(side="left", padx=2)
@@ -376,6 +385,19 @@ High-End (£1500+):
 • CCL Online - Bundle deals""")
         budget_text.config(state="disabled")
     
+    def _open_guided_selector(self, category: str):
+        """Open the guided selector dialog for a component category"""
+        def on_part_selected(part):
+            """Callback when a part is selected from guided dialog"""
+            self.selected_parts[category] = part
+            # Update the display label
+            part_display = self.part_combos[category]
+            part_display.config(text=part["name"], foreground="black")
+            self._update_summary()
+        
+        # Open the guided selector dialog
+        GuidedSelectorDialog(self, category, on_part_selected)
+    
     def _on_part_selected(self, category):
         """Handle part selection from dropdown"""
         combo = self.part_combos[category]
@@ -396,7 +418,9 @@ High-End (£1500+):
     def _clear_part(self, category):
         """Clear a selected part"""
         self.selected_parts[category] = None
-        self.part_combos[category].set("(None)")
+        # Update the display label
+        part_display = self.part_combos[category]
+        part_display.config(text="Not selected", foreground="#666")
         self._update_summary()
     
     def _load_template(self, template_id: str):
@@ -430,10 +454,12 @@ High-End (£1500+):
         for category, part in template_parts.items():
             if part:
                 self.selected_parts[category] = part
-                self.part_combos[category].set(part['name'])
+                part_display = self.part_combos[category]
+                part_display.config(text=part['name'], foreground="black")
             else:
                 self.selected_parts[category] = None
-                self.part_combos[category].set("(None)")
+                part_display = self.part_combos[category]
+                part_display.config(text="Not selected", foreground="#666")
                 missing_parts.append(category)
         
         # Update displays
@@ -542,19 +568,13 @@ High-End (£1500+):
             self.active_filters[category]
         )
         
-        # Update combobox
-        combo = self.part_combos[category]
-        current_selection = combo.get()
-        
-        part_names = ["(None)"] + [p["name"] for p in filtered_parts]
-        combo["values"] = part_names
-        
-        # Try to maintain current selection if it's still in filtered list
-        if current_selection in part_names:
-            combo.set(current_selection)
-        else:
-            combo.set("(None)")
+        # Check if current selection is still valid
+        current_part = self.selected_parts[category]
+        if current_part and current_part not in filtered_parts:
+            # Clear selection if it doesn't match filters
             self.selected_parts[category] = None
+            part_display = self.part_combos[category]
+            part_display.config(text="Not selected", foreground="#666")
             self._update_summary()
     
     def _clear_all(self):
@@ -983,24 +1003,6 @@ High-End (£1500+):
             if category not in self.parts_by_category:
                 self.parts_by_category[category] = []
             self.parts_by_category[category].append(part)
-        
-        # Update comboboxes with filters applied
-        for category, combo in self.part_combos.items():
-            all_parts = self.parts_by_category.get(category, [])
-            
-            # Apply filters if any are active
-            if self.active_filters[category]:
-                filtered_parts = component_filters.apply_filters(
-                    all_parts, 
-                    category, 
-                    self.active_filters[category]
-                )
-            else:
-                filtered_parts = all_parts
-            
-            part_names = ["(None)"] + [p["name"] for p in filtered_parts]
-            combo["values"] = part_names
-            combo.set("(None)")
         
         # Update save button based on user permissions
         current_user = session.get_current_user()
