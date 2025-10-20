@@ -229,9 +229,16 @@ class BuildsTab(ttk.Frame):
         for category, part in build["parts"].items():
             if part and category in builder_tab.selected_parts:
                 builder_tab.selected_parts[category] = part
-                combo = builder_tab.part_combos.get(category)
-                if combo:
-                    combo.set(part["name"])
+                # Update the label display (not combo.set anymore)
+                label = builder_tab.part_combos.get(category)
+                if label:
+                    label.config(text=part["name"], foreground="black")
+            else:
+                builder_tab.selected_parts[category] = None
+                # Update the label display
+                label = builder_tab.part_combos.get(category)
+                if label:
+                    label.config(text="Not selected", foreground="#666")
         
         builder_tab._update_summary()
         
@@ -329,14 +336,16 @@ class BuildsTab(ttk.Frame):
         for category, part in template_parts.items():
             if part and category in builder_tab.selected_parts:
                 builder_tab.selected_parts[category] = part
-                combo = builder_tab.part_combos.get(category)
-                if combo:
-                    combo.set(part["name"])
+                # Update the label display (not combo.set anymore)
+                label = builder_tab.part_combos.get(category)
+                if label:
+                    label.config(text=part["name"], foreground="black")
             else:
                 builder_tab.selected_parts[category] = None
-                combo = builder_tab.part_combos.get(category)
-                if combo:
-                    combo.set("(None)")
+                # Update the label display
+                label = builder_tab.part_combos.get(category)
+                if label:
+                    label.config(text="Not selected", foreground="#666")
         
         builder_tab._update_summary()
         

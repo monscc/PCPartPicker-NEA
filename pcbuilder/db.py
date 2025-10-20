@@ -80,7 +80,14 @@ def save_build(user_id: int, build_name: str, parts: Dict[str, Optional[Dict]]) 
 def load_user_builds(user_id: int) -> List[Dict]:
     """Load all builds for a user"""
     builds = _db_manager.load_user_builds(user_id)
-    return [build.to_dict() for build in builds]
+    result = []
+    for build in builds:
+        build_dict = build.to_dict()
+        # Convert 'components' key to 'parts' for backward compatibility
+        if 'components' in build_dict:
+            build_dict['parts'] = build_dict.pop('components')
+        result.append(build_dict)
+    return result
 
 
 def load_build_by_id(build_id: int) -> Optional[Dict]:
@@ -88,7 +95,11 @@ def load_build_by_id(build_id: int) -> Optional[Dict]:
     build = _db_manager.load_build(build_id)
     if build is None:
         return None
-    return build.to_dict()
+    build_dict = build.to_dict()
+    # Convert 'components' key to 'parts' for backward compatibility
+    if 'components' in build_dict:
+        build_dict['parts'] = build_dict.pop('components')
+    return build_dict
 
 
 def load_build_by_share_key(share_key: str) -> Optional[Dict]:
@@ -96,7 +107,11 @@ def load_build_by_share_key(share_key: str) -> Optional[Dict]:
     build = _db_manager.load_build_by_share_key(share_key)
     if build is None:
         return None
-    return build.to_dict()
+    build_dict = build.to_dict()
+    # Convert 'components' key to 'parts' for backward compatibility
+    if 'components' in build_dict:
+        build_dict['parts'] = build_dict.pop('components')
+    return build_dict
 
 
 def import_build_from_share_key(user_id: int, share_key: str) -> Optional[tuple]:
