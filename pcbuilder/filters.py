@@ -154,11 +154,11 @@ class ComponentFilters:
             Filter("sata", "SATA", 
                    lambda p: "SATA" in p.get("attributes", {}).get("interface", ""), "Storage"),
             Filter("500gb", "500GB+", 
-                   lambda p: p.get("attributes", {}).get("capacity", 0) >= 500, "Storage"),
+                   lambda p: self._parse_storage_capacity(p) >= 500, "Storage"),
             Filter("1tb", "1TB+", 
-                   lambda p: p.get("attributes", {}).get("capacity", 0) >= 1000, "Storage"),
+                   lambda p: self._parse_storage_capacity(p) >= 1000, "Storage"),
             Filter("2tb", "2TB+", 
-                   lambda p: p.get("attributes", {}).get("capacity", 0) >= 2000, "Storage"),
+                   lambda p: self._parse_storage_capacity(p) >= 2000, "Storage"),
             Filter("pcie4", "PCIe 4.0", 
                    lambda p: "4.0" in p.get("attributes", {}).get("interface", "") or "Gen4" in p.get("name", ""), "Storage"),
         ]
@@ -186,6 +186,30 @@ class ComponentFilters:
         name = part.get("name", "")
         match = re.search(r'(\d+)GB', name)
         return int(match.group(1)) if match else 0
+    
+    def _parse_storage_capacity(self, part: Dict) -> int:
+        """Extract storage capacity in GB (handles both string '1TB' and int 500)"""
+        import re
+        capacity = part.get("attributes", {}).get("capacity", 0)
+        
+        # If it's already an integer, return it
+        if isinstance(capacity, int):
+            return capacity
+        
+        # If it's a string, parse it
+        if isinstance(capacity, str):
+            # Check for TB
+            if "TB" in capacity.upper():
+                match = re.search(r'(\d+)TB', capacity.upper())
+                if match:
+                    return int(match.group(1)) * 1000  # Convert TB to GB
+            # Check for GB
+            elif "GB" in capacity.upper():
+                match = re.search(r'(\d+)GB', capacity.upper())
+                if match:
+                    return int(match.group(1))
+        
+        return 0
     
     def get_filters_for_category(self, category: str) -> List[Filter]:
         """Get all available filters for a category"""
