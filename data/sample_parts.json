@@ -1,0 +1,178 @@
+[
+    {
+        "id": "cpu-i5-12400f",
+        "name": "Intel Core i5-12400F",
+        "category": "CPU",
+        "price": 159.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "cores": 6,
+            "threads": 12,
+            "power_draw": 117
+        }
+    },
+    {
+        "id": "cpu-r5-5600x",
+        "name": "AMD Ryzen 5 5600X",
+        "category": "CPU",
+        "price": 149.99,
+        "attributes": {
+            "socket": "AM4",
+            "cores": 6,
+            "threads": 12,
+            "power_draw": 65
+        }
+    },
+    {
+        "id": "mobo-b660m-pro",
+        "name": "MSI B660M PRO-A DDR4",
+        "category": "Motherboard",
+        "price": 104.99,
+        "attributes": {
+            "socket": "LGA1700",
+            "form_factor": "micro-ATX",
+            "memory_type": "DDR4",
+            "memory_slots": 4
+        }
+    },
+    {
+        "id": "mobo-b550-strix",
+        "name": "ASUS ROG STRIX B550-F GAMING",
+        "category": "Motherboard",
+        "price": 139.99,
+        "attributes": {
+            "socket": "AM4",
+            "form_factor": "ATX",
+            "memory_type": "DDR4",
+            "memory_slots": 4
+        }
+    },
+    {
+        "id": "ram-vengeance-16gb",
+        "name": "Corsair Vengeance LPX 16GB (2x8GB) DDR4 3200MHz",
+        "category": "RAM",
+        "price": 34.99,
+        "attributes": {
+            "memory_type": "DDR4",
+            "sticks": 2,
+            "speed": 3200
+        }
+    },
+    {
+        "id": "ram-trident-32gb",
+        "name": "G.Skill Trident Z5 RGB 32GB (2x16GB) DDR5 6000MHz",
+        "category": "RAM",
+        "price": 109.99,
+        "attributes": {
+            "memory_type": "DDR5",
+            "sticks": 2,
+            "speed": 6000
+        }
+    },
+    {
+        "id": "gpu-rtx4060",
+        "name": "NVIDIA GeForce RTX 4060 8GB",
+        "category": "GPU",
+        "price": 289.99,
+        "attributes": {
+            "power_draw": 115,
+            "gpu_length": 244,
+            "memory": "8GB"
+        }
+    },
+    {
+        "id": "gpu-rx7600",
+        "name": "AMD Radeon RX 7600 8GB",
+        "category": "GPU",
+        "price": 249.99,
+        "attributes": {
+            "power_draw": 165,
+            "gpu_length": 267,
+            "memory": "8GB"
+        }
+    },
+    {
+        "id": "psu-rm750e",
+        "name": "Corsair RM750e 650W 80+ Gold",
+        "category": "PSU",
+        "price": 69.99,
+        "attributes": {
+            "wattage": 650,
+            "efficiency": "80+ Gold"
+        }
+    },
+    {
+        "id": "psu-supernova750",
+        "name": "EVGA SuperNOVA 750 G5 750W 80+ Gold",
+        "category": "PSU",
+        "price": 89.99,
+        "attributes": {
+            "wattage": 750,
+            "efficiency": "80+ Gold"
+        }
+    },
+    {
+        "id": "case-h510",
+        "name": "NZXT H510 Mid Tower",
+        "category": "Case",
+        "price": 74.99,
+        "attributes": {
+            "mobo_support": "ATX,micro-ATX,mini-ITX",
+            "case_max_gpu_length": 381
+        }
+    },
+    {
+        "id": "case-meshify-c",
+        "name": "Fractal Design Meshify C",
+        "category": "Case",
+        "price": 89.99,
+        "attributes": {
+            "mobo_support": "ATX,micro-ATX,mini-ITX",
+            "case_max_gpu_length": 315
+        }
+    },
+    {
+        "id": "storage-970evo-1tb",
+        "name": "Samsung 970 EVO Plus 1TB NVMe SSD",
+        "category": "Storage",
+        "price": 54.99,
+        "attributes": {
+            "power_draw": 5,
+            "capacity": "1TB",
+            "interface": "NVMe"
+        }
+    },
+    {
+        "id": "storage-mx500-1tb",
+        "name": "Crucial MX500 1TB SATA SSD",
+        "category": "Storage",
+        "price": 54.99,
+        "attributes": {
+            "power_draw": 4,
+            "capacity": "1TB",
+            "interface": "SATA"
+        }
+    },
+    {
+        "id": "cooler-hyper212",
+        "name": "Cooler Master Hyper 212 Black Edition",
+        "category": "Cooler",
+        "price": 29.99,
+        "attributes": {
+            "power_draw": 2,
+            "supported_sockets": "LGA1700,AM4",
+            "type": "Air"
+        }
+    },
+    {
+        "id": "cooler-nhu12s",
+        "name": "Noctua NH-U12S",
+        "category": "Cooler",
+        "price": 64.99,
+        "attributes": {
+            "power_draw": 2,
+            "supported_sockets": "LGA1700,AM4,AM5",
+            "type": "Air"
+        }
+    }
+]
