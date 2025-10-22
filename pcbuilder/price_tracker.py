@@ -79,3 +79,5 @@ def plot_price_history(part_id: str, part_name: str = None):
     plt.xticks(rotation=45)
     plt.tight_layout()
     return fig
+
+
