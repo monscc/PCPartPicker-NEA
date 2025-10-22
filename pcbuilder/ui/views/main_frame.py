@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from .builder_tab import BuilderTab
 from .builds_tab import BuildsTab
-from .tracker_tab import TrackerTab
 from .guide_tab import GuideTab
 from ...auth import session, UserRole
 
@@ -36,12 +35,10 @@ class MainFrame(ttk.Frame):
         # Create tabs
         self.builder_tab = BuilderTab(self.notebook, controller)
         self.builds_tab = BuildsTab(self.notebook, controller)
-        self.tracker_tab = TrackerTab(self.notebook, controller)
         self.guide_tab = GuideTab(self.notebook)
         
         self.notebook.add(self.builder_tab, text="Build PC")
         self.notebook.add(self.builds_tab, text="My Builds")
-        self.notebook.add(self.tracker_tab, text="Price Tracker")
         self.notebook.add(self.guide_tab, text="📚 PC Guide")
         
         # Bind tab change event
@@ -59,9 +56,7 @@ class MainFrame(ttk.Frame):
         # Refresh the selected tab
         if tab_index == 1:  # Builds tab
             self.builds_tab.refresh()
-        elif tab_index == 2:  # Tracker tab
-            self.tracker_tab.refresh()
-        # Guide tab (index 3) doesn't need refresh - it's static content
+        # Guide tab (index 2) doesn't need refresh - it's static content
     
     def on_show(self):
         """Called when frame is shown"""
