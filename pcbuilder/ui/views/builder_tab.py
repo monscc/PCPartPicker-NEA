@@ -10,6 +10,76 @@ from ...guided_selection import GuidedSelectorDialog
 import math
 
 
+class RoundedButton(tk.Canvas):
+    """Custom button with rounded corners"""
+    def __init__(self, parent, text="", command=None, bg="#2196F3", fg="white", 
+                 width=120, height=40, radius=8, font=("Segoe UI", 10, "bold"), **kwargs):
+        # Get parent background color
+        try:
+            parent_bg = parent.cget('background')
+        except:
+            parent_bg = "#e8f4f8"
+        
+        super().__init__(parent, width=width, height=height, 
+                        highlightthickness=0, background=parent_bg, **kwargs)
+        
+        self.command = command
+        self.bg_color = bg
+        self.fg_color = fg
+        self.hover_color = self._darken_color(bg, 0.9)
+        self.text = text
+        self.radius = radius
+        self.font = font
+        
+        self._draw_button()
+        self.bind("<Button-1>", self._on_click)
+        self.bind("<Enter>", self._on_enter)
+        self.bind("<Leave>", self._on_leave)
+    
+    def _darken_color(self, color, factor):
+        """Darken a hex color by a factor"""
+        if color.startswith('#'):
+            color = color[1:]
+        r, g, b = int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)
+        r, g, b = int(r * factor), int(g * factor), int(b * factor)
+        return f"#{r:02x}{g:02x}{b:02x}"
+    
+    def _draw_button(self, color=None):
+        """Draw rounded rectangle button"""
+        if color is None:
+            color = self.bg_color
+        
+        self.delete("all")
+        w, h = self.winfo_reqwidth(), self.winfo_reqheight()
+        r = self.radius
+        
+        # Draw rounded rectangle
+        self.create_arc(0, 0, r*2, r*2, start=90, extent=90, fill=color, outline="")
+        self.create_arc(w-r*2, 0, w, r*2, start=0, extent=90, fill=color, outline="")
+        self.create_arc(0, h-r*2, r*2, h, start=180, extent=90, fill=color, outline="")
+        self.create_arc(w-r*2, h-r*2, w, h, start=270, extent=90, fill=color, outline="")
+        self.create_rectangle(r, 0, w-r, h, fill=color, outline="")
+        self.create_rectangle(0, r, w, h-r, fill=color, outline="")
+        
+        # Draw text
+        self.create_text(w/2, h/2, text=self.text, fill=self.fg_color, font=self.font)
+    
+    def _on_click(self, event):
+        """Handle button click"""
+        if self.command:
+            self.command()
+    
+    def _on_enter(self, event):
+        """Handle mouse enter"""
+        self._draw_button(self.hover_color)
+        self.configure(cursor="hand2")
+    
+    def _on_leave(self, event):
+        """Handle mouse leave"""
+        self._draw_button()
+        self.configure(cursor="")
+
+
 class BuilderTab(ttk.Frame):
     """PC Builder tab for selecting parts and checking compatibility"""
     
@@ -40,66 +110,85 @@ class BuilderTab(ttk.Frame):
         # Active filters for each category
         self.active_filters = {category: [] for category in self.selected_parts.keys()}
         
-        # Component colors for pie chart
+        # Component colors for pie chart - More vibrant
         self.component_colors = {
-            "CPU": "#FF6B6B",
-            "Motherboard": "#4ECDC4",
-            "RAM": "#45B7D1",
-            "GPU": "#FFA07A",
-            "PSU": "#98D8C8",
-            "Case": "#F7DC6F",
-            "Storage": "#BB8FCE",
-            "Cooler": "#85C1E2"
+            "CPU": "#FF6B6B",      # Coral red
+            "Motherboard": "#4ECDC4",  # Turquoise
+            "RAM": "#45B7D1",      # Sky blue
+            "GPU": "#FFA07A",      # Light salmon
+            "PSU": "#98D8C8",      # Mint
+            "Case": "#FFD93D",     # Bright yellow
+            "Storage": "#BB8FCE",  # Lavender
+            "Cooler": "#85C1E2"    # Light blue
         }
         
         self._create_widgets()
     
     def _create_widgets(self):
-        """Create the builder interface"""
-        # Left panel - Part selection
-        left_panel = ttk.Frame(self)
-        left_panel.pack(side="left", fill="both", expand=True, padx=5, pady=5)
+        """Create the builder interface with modern styling"""
+        # Main container with better proportions
+        main_container = ttk.PanedWindow(self, orient="horizontal")
+        main_container.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Left panel - Part selection (60% width)
+        left_panel = ttk.Frame(main_container, style="TFrame")
+        main_container.add(left_panel, weight=60)
+        
+        # Right panel - Build summary and compatibility (40% width)
+        right_panel = ttk.Frame(main_container, style="TFrame")
+        main_container.add(right_panel, weight=40)
         
         # Component selection section (top part of left panel)
-        selection_section = ttk.Frame(left_panel)
+        selection_section = ttk.Frame(left_panel, style="TFrame")
         selection_section.pack(side="top", fill="both", expand=True)
         
-        # Template builds section
-        template_frame = ttk.LabelFrame(selection_section, text="📋 Quick Start Templates")
-        template_frame.pack(fill="x", padx=10, pady=5)
+        # Header with modern styling
+        header_frame = ttk.Frame(selection_section, style="TFrame")
+        header_frame.pack(fill="x", padx=10, pady=(0, 10))
         
-        ttk.Label(template_frame, text="Load a pre-configured build:", font=("Arial", 9)).pack(pady=5)
+        ttk.Label(header_frame, text="🖥️ Build Your PC", style="Title.TLabel").pack(anchor="w")
+        ttk.Label(header_frame, text="Select components to create your perfect build", 
+                 style="Secondary.TLabel").pack(anchor="w", pady=(2, 0))
         
-        template_buttons = ttk.Frame(template_frame)
-        template_buttons.pack(fill="x", padx=5, pady=5)
+        # Template builds section - Modern card style with color
+        template_frame = ttk.LabelFrame(selection_section, text="🚀 Quick Start Templates", 
+                                       padding=15, style="Primary.TLabelframe")
+        template_frame.pack(fill="x", padx=10, pady=(0, 15))
         
-        ttk.Button(
-            template_buttons, 
-            text="💰 Budget", 
-            command=lambda: self._load_template('budget'),
-            width=12
-        ).pack(side="left", padx=2)
+        ttk.Label(template_frame, text="Start with a pre-configured build:", 
+                 font=("Segoe UI", 9), style="Secondary.TLabel").pack(pady=(0, 8))
         
-        ttk.Button(
-            template_buttons, 
-            text="🎮 Mid-Range", 
-            command=lambda: self._load_template('mid_range'),
-            width=12
-        ).pack(side="left", padx=2)
+        template_buttons = ttk.Frame(template_frame, style="TFrame")
+        template_buttons.pack(fill="x", pady=(0, 5))
         
-        ttk.Button(
-            template_buttons, 
-            text="🚀 High-End", 
-            command=lambda: self._load_template('high_end'),
-            width=12
-        ).pack(side="left", padx=2)
+        # Use rounded buttons for templates - Increased width for text
+        budget_btn = RoundedButton(template_buttons, text="💰 Budget Build", 
+                                  command=lambda: self._load_template('budget'),
+                                  bg="#4CAF50", width=160, height=48, radius=10)
+        budget_btn.pack(side="left", padx=5, expand=True)
         
-        ttk.Label(selection_section, text="Select Components", font=("Arial", 14, "bold")).pack(pady=5)
+        gaming_btn = RoundedButton(template_buttons, text="🎮 Gaming Build", 
+                                  command=lambda: self._load_template('mid_range'),
+                                  bg="#2196F3", width=160, height=48, radius=10)
+        gaming_btn.pack(side="left", padx=5, expand=True)
+        
+        highend_btn = RoundedButton(template_buttons, text="🚀 High-End Build", 
+                                   command=lambda: self._load_template('high_end'),
+                                   bg="#9C27B0", width=160, height=48, radius=10)
+        highend_btn.pack(side="left", padx=5, expand=True)
+        
+        # Component selection header
+        component_header = ttk.Frame(selection_section, style="TFrame")
+        component_header.pack(fill="x", padx=10, pady=(5, 10))
+        
+        ttk.Label(component_header, text="Components", style="Subtitle.TLabel").pack(side="left")
+        ttk.Label(component_header, text="Select each component for your build", 
+                 style="Secondary.TLabel", font=("Segoe UI", 9)).pack(side="left", padx=(10, 0))
         
         # Scrollable frame for part selection
-        canvas = tk.Canvas(selection_section, highlightthickness=0)
+        canvas = tk.Canvas(selection_section, highlightthickness=0, bg="#f0f2f5")
         scrollbar = ttk.Scrollbar(selection_section, orient="vertical", command=canvas.yview)
-        scrollable_frame = ttk.Frame(canvas)
+        scrollable_frame = ttk.Frame(canvas, style="TFrame")
         
         scrollable_frame.bind(
             "<Configure>",
@@ -112,287 +201,201 @@ class BuilderTab(ttk.Frame):
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
         
-        # Create dropdowns for each component category
+        # Create dropdowns for each component category with modern styling
         self.part_combos = {}
         self.filter_buttons = {}
         
+        # Component icons with vibrant colors
+        component_icons = {
+            "CPU": "🖥️",
+            "Motherboard": "🔌",
+            "RAM": "💾",
+            "GPU": "🎮",
+            "PSU": "⚡",
+            "Case": "📦",
+            "Storage": "💿",
+            "Cooler": "❄️"
+        }
+        
+        # Icon background colors for visual variety
+        icon_bg_colors = {
+            "CPU": "#FFE5E5",      # Light red
+            "Motherboard": "#E0F7FA",  # Light cyan
+            "RAM": "#E3F2FD",      # Light blue
+            "GPU": "#FFF3E0",      # Light orange
+            "PSU": "#E8F5E9",      # Light green
+            "Case": "#FFF9C4",     # Light yellow
+            "Storage": "#F3E5F5",  # Light purple
+            "Cooler": "#E1F5FE"    # Light blue
+        }
+        
         for category in self.selected_parts.keys():
-            # Main row with label and buttons
-            frame = ttk.Frame(scrollable_frame)
-            frame.pack(fill="x", padx=10, pady=5)
+            # Card-style container for each component with colored background
+            card_frame = ttk.Frame(scrollable_frame, style="TFrame")
+            card_frame.pack(fill="x", padx=10, pady=6)
             
-            ttk.Label(frame, text=f"{category}:", width=12, anchor="w").pack(side="left")
+            # Component row with modern layout and colored left border
+            row_frame = tk.Frame(card_frame, bg="white", relief="solid", borderwidth=1, 
+                               highlightbackground=self.component_colors[category], 
+                               highlightthickness=3, highlightcolor=self.component_colors[category])
+            row_frame.pack(fill="x", padx=2, pady=2)
             
-            # Selected part display (read-only label style)
-            part_display = ttk.Label(frame, text="Not selected", 
-                                    relief="sunken", anchor="w", 
-                                    background="white", foreground="#666")
-            part_display.pack(side="left", padx=5, fill="x", expand=True)
+            # Icon with colored background
+            icon = component_icons.get(category, "🔧")
+            icon_bg = icon_bg_colors.get(category, "#f0f0f0")
+            label_frame = tk.Frame(row_frame, bg=icon_bg)
+            label_frame.pack(side="left", padx=0, pady=0, ipadx=10, ipady=8)
+            
+            tk.Label(label_frame, text=icon, font=("Segoe UI", 16), bg=icon_bg).pack(side="left", padx=(8, 8))
+            tk.Label(label_frame, text=category, font=("Segoe UI", 10, "bold"), bg=icon_bg).pack(side="left", padx=(0, 8))
+            
+            # Selected part display (modern card style)
+            part_display_frame = tk.Frame(row_frame, bg="white")
+            part_display_frame.pack(side="left", fill="x", expand=True, padx=10, pady=8)
+            
+            part_display = tk.Label(part_display_frame, text="Not selected", 
+                                   relief="flat", anchor="w", 
+                                   background="#f8f9fa", foreground="#6c757d",
+                                   font=("Segoe UI", 9), padx=10, pady=6)
+            part_display.pack(fill="x")
             self.part_combos[category] = part_display
             
-            # Guided selection button (main action)
-            guided_btn = ttk.Button(frame, text="✨ Guided", width=8, 
-                                   command=lambda cat=category: self._open_guided_selector(cat),
-                                   style="Accent.TButton")
-            guided_btn.pack(side="left", padx=2)
+            # Action buttons (modern compact)
+            button_frame = tk.Frame(row_frame, bg="white")
+            button_frame.pack(side="right", padx=10, pady=8)
             
-            # Filter button (advanced)
-            filter_btn = ttk.Button(frame, text="🔍 Filter", width=8, 
+            # Guided selection button (primary action) - rounded with better width
+            guided_btn = RoundedButton(button_frame, text="✨ Select", 
+                                      command=lambda cat=category: self._open_guided_selector(cat),
+                                      bg="#2196F3", width=100, height=38, radius=8,
+                                      font=("Segoe UI", 9, "bold"))
+            guided_btn.pack(side="left", padx=3)
+            
+            # Filter button (secondary) - standard ttk button
+            filter_btn = ttk.Button(button_frame, text="🔍", width=4, 
                                    command=lambda cat=category: self._show_filters(cat))
-            filter_btn.pack(side="left", padx=2)
+            filter_btn.pack(side="left", padx=3)
             self.filter_buttons[category] = filter_btn
             
-            clear_btn = ttk.Button(frame, text="Clear", width=6, 
-                                  command=lambda cat=category: self._clear_part(cat))
-            clear_btn.pack(side="left")
+            # Clear button (minimal)
+            
+            # Clear button (red/danger style) - rounded
+            clear_btn = RoundedButton(button_frame, text="✕", 
+                                     command=lambda cat=category: self._clear_part(cat),
+                                     bg="#F44336", width=38, height=38, radius=8,
+                                     font=("Segoe UI", 11, "bold"))
+            clear_btn.pack(side="left", padx=3)
         
-        # Beginner's Guide Panel (bottom of left panel)
-        self._create_guide_panel(left_panel)
+        # RIGHT PANEL - Build summary and compatibility with modern styling
+        # Header
+        header_frame = ttk.Frame(right_panel, style="TFrame")
+        header_frame.pack(fill="x", padx=10, pady=(0, 10))
         
-        # Right panel - Build summary and compatibility
-        right_panel = ttk.Frame(self)
-        right_panel.pack(side="right", fill="both", expand=True, padx=5, pady=5)
+        ttk.Label(header_frame, text="📊 Your Build", style="Title.TLabel").pack(anchor="w")
+        ttk.Label(header_frame, text="Review your selected components", 
+                 style="Secondary.TLabel").pack(anchor="w", pady=(2, 0))
         
-        ttk.Label(right_panel, text="Build Summary", font=("Arial", 14, "bold")).pack(pady=5)
+        # Budget input section - Modern card with color
+        budget_frame = ttk.LabelFrame(right_panel, text="💰 Budget Tracker", 
+                                     padding=15, style="Success.TLabelframe")
+        budget_frame.pack(fill="x", padx=10, pady=(0, 10))
         
-        # Budget input section
-        budget_frame = ttk.LabelFrame(right_panel, text="💰 Budget Tracker")
-        budget_frame.pack(fill="x", padx=5, pady=5)
+        budget_input_frame = ttk.Frame(budget_frame, style="TFrame")
+        budget_input_frame.pack(fill="x", pady=(0, 10))
         
-        budget_input_frame = ttk.Frame(budget_frame)
-        budget_input_frame.pack(fill="x", padx=10, pady=10)
+        ttk.Label(budget_input_frame, text="Budget: £", 
+                 font=("Segoe UI", 11, "bold")).pack(side="left")
+        budget_entry = ttk.Entry(budget_input_frame, textvariable=self.budget, 
+                                width=12, font=("Segoe UI", 11))
+        budget_entry.pack(side="left", padx=8)
         
-        ttk.Label(budget_input_frame, text="Budget: £", font=("Arial", 10, "bold")).pack(side="left")
-        budget_entry = ttk.Entry(budget_input_frame, textvariable=self.budget, width=15, font=("Arial", 10))
-        budget_entry.pack(side="left", padx=5)
+        self.budget_status_label = ttk.Label(budget_input_frame, text="", 
+                                            font=("Segoe UI", 10))
+        self.budget_status_label.pack(side="left", padx=15)
         
-        self.budget_status_label = ttk.Label(budget_input_frame, text="", font=("Arial", 9))
-        self.budget_status_label.pack(side="left", padx=10)
+        # Clear Build button - rounded with better width
+        clear_all_btn = RoundedButton(budget_input_frame, text="🗑️ Clear All", 
+                                     command=self._clear_all,
+                                     bg="#F44336", width=120, height=40, radius=8,
+                                     font=("Segoe UI", 9, "bold"))
+        clear_all_btn.pack(side="right", padx=5)
         
-        # Clear Build button in budget section
-        ttk.Button(budget_input_frame, text="🗑️ Clear Build", command=self._clear_all).pack(side="right", padx=5)
+        # Pie chart canvas - Made more compact
+        chart_container = ttk.Frame(budget_frame, style="TFrame")
+        chart_container.pack(fill="both", padx=5, pady=(0, 5))
         
-        # Pie chart canvas
-        chart_container = ttk.Frame(budget_frame)
-        chart_container.pack(fill="both", expand=True, padx=10, pady=5)
-        
-        self.pie_canvas = tk.Canvas(chart_container, width=200, height=200, bg='white', highlightthickness=1, highlightbackground='#ccc')
+        self.pie_canvas = tk.Canvas(chart_container, width=180, height=180, 
+                                    bg='white', highlightthickness=0)
         self.pie_canvas.pack(side="left", padx=5)
         
         # Legend frame
-        self.legend_frame = ttk.Frame(chart_container)
+        self.legend_frame = ttk.Frame(chart_container, style="TFrame")
         self.legend_frame.pack(side="left", fill="both", expand=True, padx=10)
         
-        # Build summary text
-        summary_frame = ttk.LabelFrame(right_panel, text="Selected Parts")
-        summary_frame.pack(fill="both", expand=True, padx=5, pady=5)
+        # Build summary text - Modern card style
+        summary_frame = ttk.LabelFrame(right_panel, text="📝 Selected Parts", padding=10)
+        summary_frame.pack(fill="both", padx=10, pady=(0, 10))
         
-        self.summary_text = tk.Text(summary_frame, height=12, width=50, wrap="word", state="disabled")
-        self.summary_text.pack(fill="both", expand=True, padx=5, pady=5)
+        # Add scrollbar to summary
+        summary_scroll_frame = ttk.Frame(summary_frame, style="TFrame")
+        summary_scroll_frame.pack(fill="both", expand=True)
         
-        # PC Statistics Panel
-        stats_frame = ttk.LabelFrame(right_panel, text="📊 PC Statistics")
-        stats_frame.pack(fill="both", padx=5, pady=5)
+        summary_scrollbar = ttk.Scrollbar(summary_scroll_frame)
+        summary_scrollbar.pack(side="right", fill="y")
         
-        self.stats_text = tk.Text(stats_frame, height=6, width=50, wrap="word", state="disabled", font=("Arial", 9))
-        self.stats_text.pack(fill="both", expand=True, padx=5, pady=5)
+        self.summary_text = tk.Text(summary_scroll_frame, height=8, width=50, wrap="word", 
+                                   state="disabled", yscrollcommand=summary_scrollbar.set,
+                                   font=("Segoe UI", 9), bg="white", relief="flat",
+                                   borderwidth=0, padx=10, pady=5)
+        self.summary_text.pack(side="left", fill="both", expand=True)
+        summary_scrollbar.config(command=self.summary_text.yview)
         
-        # Compatibility results
-        compat_frame = ttk.LabelFrame(right_panel, text="Compatibility Check")
-        compat_frame.pack(fill="both", expand=True, padx=5, pady=5)
+        # Compatibility results - MAXIMUM SPACE FOR VISIBILITY with colorful styling
+        compat_frame = ttk.LabelFrame(right_panel, text="✓ Compatibility Check", 
+                                     padding=10, style="Primary.TLabelframe")
+        compat_frame.pack(fill="both", expand=True, padx=10, pady=(0, 10))
         
-        self.compat_text = tk.Text(compat_frame, height=10, width=50, wrap="word", state="disabled")
-        self.compat_text.pack(fill="both", expand=True, padx=5, pady=5)
+        # Action buttons AT THE TOP of compatibility frame - Rounded buttons with better sizing
+        button_frame = tk.Frame(compat_frame, bg="white")
+        button_frame.pack(fill="x", pady=(0, 10))
         
-        # Action buttons
-        button_frame = ttk.Frame(right_panel)
-        button_frame.pack(fill="x", padx=5, pady=5)
+        check_btn = RoundedButton(button_frame, text="✓ Check Compatibility", 
+                                 command=self._check_compatibility,
+                                 bg="#2196F3", width=200, height=45, radius=10,
+                                 font=("Segoe UI", 10, "bold"))
+        check_btn.pack(side="left", padx=5)
         
-        ttk.Button(button_frame, text="Check Compatibility", command=self._check_compatibility).pack(side="left", padx=5)
-        self.save_btn = ttk.Button(button_frame, text="Save Build", command=self._save_build)
-        self.save_btn.pack(side="left", padx=5)
-        ttk.Button(button_frame, text="Clear All", command=self._clear_all).pack(side="left", padx=5)
-    
-    def _create_guide_panel(self, parent):
-        """Create the beginner's guide panel"""
-        guide_frame = ttk.LabelFrame(parent, text="📚 Beginner's Guide")
-        guide_frame.pack(side="bottom", fill="both", padx=5, pady=5)
+        self.save_btn_canvas = RoundedButton(button_frame, text="💾 Save Build", 
+                                            command=self._save_build,
+                                            bg="#4CAF50", width=150, height=45, radius=10,
+                                            font=("Segoe UI", 10, "bold"))
+        self.save_btn_canvas.pack(side="left", padx=5)
+        self.save_btn = self.save_btn_canvas  # Keep reference for enable/disable
         
-        # Create notebook for different guide sections
-        guide_notebook = ttk.Notebook(guide_frame)
-        guide_notebook.pack(fill="both", expand=True, padx=5, pady=5)
+        # Add scrollbar for compatibility text
+        compat_scroll_frame = ttk.Frame(compat_frame, style="TFrame")
+        compat_scroll_frame.pack(fill="both", expand=True)
         
-        # Tab 1: Getting Started
-        start_frame = ttk.Frame(guide_notebook)
-        guide_notebook.add(start_frame, text="Getting Started")
+        compat_scrollbar = ttk.Scrollbar(compat_scroll_frame)
+        compat_scrollbar.pack(side="right", fill="y")
         
-        start_text = tk.Text(start_frame, wrap="word", height=8, font=("Arial", 9))
-        start_text.pack(fill="both", expand=True, padx=5, pady=5)
-        start_text.insert("1.0", """🎯 How to Build Your PC:
-
-1. Start with the CPU - This determines your socket type
-2. Choose a compatible Motherboard (matching socket)
-3. Select RAM that matches your motherboard type
-4. Pick a GPU for gaming/graphics work
-5. Choose a PSU with enough wattage
-6. Select a Case that fits everything
-7. Add Storage for your files
-8. Add a Cooler to keep CPU cool
-
-💡 Tip: Click "Check Compatibility" after selecting parts!""")
-        start_text.config(state="disabled")
-        
-        # Tab 2: Component Explanations
-        explain_frame = ttk.Frame(guide_notebook)
-        guide_notebook.add(explain_frame, text="Components")
-        
-        explain_scroll = tk.Scrollbar(explain_frame)
-        explain_scroll.pack(side="right", fill="y")
-        
-        explain_text = tk.Text(explain_frame, wrap="word", height=8, font=("Arial", 9), yscrollcommand=explain_scroll.set)
-        explain_text.pack(fill="both", expand=True, padx=5, pady=5)
-        explain_scroll.config(command=explain_text.yview)
-        
-        explain_text.insert("1.0", """🔧 Component Guide:
-
-CPU (Processor):
-• The "brain" of your PC
-• Intel uses LGA1700 sockets (i3, i5, i7)
-• AMD uses AM4 or AM5 sockets (Ryzen 5, 7, 9)
-• More cores = better multitasking
-
-Motherboard:
-• Connects all components together
-• Must match CPU socket (LGA1700 or AM4/AM5)
-• Size: ATX (large), micro-ATX (medium), mini-ITX (small)
-• Check if it supports DDR4 or DDR5 RAM
-
-RAM (Memory):
-• Short-term storage for running programs
-• 16GB minimum for gaming, 32GB for heavy work
-• Must match motherboard type (DDR4 or DDR5)
-• Higher MHz = faster performance
-
-GPU (Graphics Card):
-• Handles graphics and gaming
-• NVIDIA RTX or AMD Radeon
-• Check length fits in your case
-• Budget: £200-300, Mid: £400-600, High: £600+
-
-PSU (Power Supply):
-• Powers all components
-• Calculate total wattage + 25% headroom
-• 80+ Bronze/Gold/Platinum = efficiency rating
-• Don't cheap out on this!
-
-Case:
-• Houses all components
-• Must fit motherboard size
-• Check GPU length clearance
-• Good airflow = cooler temps
-
-Storage:
-• NVMe SSD = Fastest (for OS and games)
-• SATA SSD = Good for storage
-• 500GB minimum, 1TB recommended
-
-Cooler:
-• Keeps CPU from overheating
-• Air coolers = quieter, cheaper
-• AIO liquid coolers = better cooling, pricier
-• Check socket compatibility""")
-        explain_text.config(state="disabled")
-        
-        # Tab 3: Common Mistakes
-        mistakes_frame = ttk.Frame(guide_notebook)
-        guide_notebook.add(mistakes_frame, text="Common Mistakes")
-        
-        mistakes_text = tk.Text(mistakes_frame, wrap="word", height=8, font=("Arial", 9))
-        mistakes_text.pack(fill="both", expand=True, padx=5, pady=5)
-        mistakes_text.insert("1.0", """⚠️ Avoid These Mistakes:
-
-❌ Mismatched CPU & Motherboard Socket
-• Intel i5 (LGA1700) won't fit AM4 motherboard
-• Always check socket compatibility!
-
-❌ Wrong RAM Type
-• DDR4 RAM won't work in DDR5 motherboard
-• Check motherboard specifications
-
-❌ Insufficient PSU Wattage
-• High-end GPU + CPU needs 750W+ PSU
-• Budget builds need 550W minimum
-• Add 25% headroom for safety
-
-❌ GPU Too Large for Case
-• Check GPU length (e.g., 285mm)
-• Check case max GPU clearance
-• Most mid-towers fit up to 350mm
-
-❌ Incompatible Cooler
-• LGA1700 coolers don't fit AM4 sockets
-• Check cooler socket compatibility
-
-✅ Pro Tips:
-• Start with CPU, then motherboard
-• Use "Check Compatibility" button often
-• Budget 20-30% on GPU for gaming
-• Don't forget Windows license (£100+)
-• Watch build guides on YouTube!""")
-        mistakes_text.config(state="disabled")
-        
-        # Tab 4: Budget Tips
-        budget_frame = ttk.Frame(guide_notebook)
-        guide_notebook.add(budget_frame, text="Budget Tips")
-        
-        budget_text = tk.Text(budget_frame, wrap="word", height=8, font=("Arial", 9))
-        budget_text.pack(fill="both", expand=True, padx=5, pady=5)
-        budget_text.insert("1.0", """💰 Budget Building Tips:
-
-Entry Level (£500-700):
-• CPU: Intel i3 or Ryzen 5 5600
-• GPU: RX 6600 or RTX 4060
-• RAM: 16GB DDR4
-• Storage: 500GB NVMe SSD
-• PSU: 550W Bronze
-
-Mid-Range (£800-1200):
-• CPU: Intel i5 or Ryzen 5 5600X
-• GPU: RX 7600 or RTX 4060 Ti
-• RAM: 16-32GB DDR4
-• Storage: 1TB NVMe SSD
-• PSU: 650W Gold
-
-High-End (£1500+):
-• CPU: Intel i7 or Ryzen 7 7800X3D
-• GPU: RTX 4070/4080 or RX 7800 XT
-• RAM: 32GB DDR5
-• Storage: 1-2TB NVMe SSD
-• PSU: 850W+ Gold
-
-💡 Money-Saving Tips:
-• Buy CPU without 'K' (no overclocking)
-• Use stock cooler if included
-• Prioritize GPU for gaming
-• 16GB RAM is fine for most users
-• Get case on sale (£50-100)
-• Re-use old Windows license if possible
-
-🛒 Where to Buy (UK):
-• Overclockers UK - Great service
-• Scan Computers - Good prices
-• Amazon UK - Fast delivery
-• CCL Online - Bundle deals""")
-        budget_text.config(state="disabled")
+        self.compat_text = tk.Text(compat_scroll_frame, height=20, width=50, wrap="word", 
+                                   state="disabled", font=("Segoe UI", 10),
+                                   yscrollcommand=compat_scrollbar.set,
+                                   bg="white", relief="flat", borderwidth=0,
+                                   padx=10, pady=5)
+        self.compat_text.pack(side="left", fill="both", expand=True)
+        compat_scrollbar.config(command=self.compat_text.yview)
     
     def _open_guided_selector(self, category: str):
         """Open the guided selector dialog for a component category"""
         def on_part_selected(part):
             """Callback when a part is selected from guided dialog"""
             self.selected_parts[category] = part
-            # Update the display label
+            # Update the display label with modern styling
             part_display = self.part_combos[category]
-            part_display.config(text=part["name"], foreground="black")
+            part_display.config(text=part["name"], foreground="#1c1e21", 
+                              background="white", font=("Segoe UI", 9, "bold"))
             self._update_summary()
         
         # Open the guided selector dialog
@@ -418,9 +421,10 @@ High-End (£1500+):
     def _clear_part(self, category):
         """Clear a selected part"""
         self.selected_parts[category] = None
-        # Update the display label
+        # Update the display label with default styling
         part_display = self.part_combos[category]
-        part_display.config(text="Not selected", foreground="#666")
+        part_display.config(text="Not selected", foreground="#6c757d", 
+                          background="#f8f9fa", font=("Segoe UI", 9))
         self._update_summary()
     
     def _load_template(self, template_id: str):
@@ -599,117 +603,8 @@ High-End (£1500+):
         self.summary_text.insert(tk.END, f"\nTotal Price: £{total_price:.2f}")
         self.summary_text.config(state="disabled")
         
-        # Update statistics panel
-        self._update_stats()
-        
         # Update budget display and pie chart
         self._update_budget_display()
-    
-    def _update_stats(self):
-        """Update the PC statistics panel with key specs"""
-        self.stats_text.config(state="normal")
-        self.stats_text.delete("1.0", tk.END)
-        
-        stats = []
-        
-        # CPU Info
-        cpu = self.selected_parts.get("CPU")
-        if cpu:
-            attrs = cpu.get("attributes", {})
-            cores = attrs.get("cores", "?")
-            threads = attrs.get("threads", "?")
-            stats.append(f"🖥️ CPU: {cores} cores / {threads} threads")
-        
-        # RAM Info
-        ram = self.selected_parts.get("RAM")
-        if ram:
-            attrs = ram.get("attributes", {})
-            name = ram.get("name", "")
-            
-            # Try to extract total capacity from name (e.g., "32GB (2x16GB)" or "16GB (2x8GB)")
-            import re
-            # Look for pattern like "32GB" or "16GB" at the start
-            capacity_match = re.search(r'(\d+)GB', name)
-            if capacity_match:
-                total_capacity = capacity_match.group(1)
-                # Look for stick configuration like "(2x8GB)" or "(2x16GB)"
-                config_match = re.search(r'\((\d+x\d+)GB\)', name)
-                if config_match:
-                    stats.append(f"💾 RAM: {total_capacity}GB ({config_match.group(1)}GB)")
-                else:
-                    stats.append(f"💾 RAM: {total_capacity}GB")
-            else:
-                # Fallback to sticks count if no capacity found
-                sticks = attrs.get("sticks", "?")
-                stats.append(f"💾 RAM: {sticks} sticks")
-        
-        # GPU Info
-        gpu = self.selected_parts.get("GPU")
-        if gpu:
-            attrs = gpu.get("attributes", {})
-            memory = attrs.get("memory", "?")
-            # Memory might already include "GB", so don't add it again
-            if "GB" in str(memory):
-                stats.append(f"🎮 GPU Memory: {memory} VRAM")
-            else:
-                stats.append(f"🎮 GPU Memory: {memory}GB VRAM")
-        
-        # Storage Info
-        storage = self.selected_parts.get("Storage")
-        if storage:
-            attrs = storage.get("attributes", {})
-            capacity = attrs.get("capacity", "?")
-            interface = attrs.get("interface", "?")
-            stats.append(f"💿 Storage: {capacity}GB {interface}")
-        
-        # PSU Info
-        psu = self.selected_parts.get("PSU")
-        if psu:
-            attrs = psu.get("attributes", {})
-            wattage = attrs.get("wattage", "?")
-            efficiency = attrs.get("efficiency", "")
-            if efficiency:
-                stats.append(f"⚡ PSU: {wattage}W ({efficiency})")
-            else:
-                stats.append(f"⚡ PSU: {wattage}W")
-        
-        # Total Power Draw (estimated)
-        total_power = 0
-        cpu_power = 0
-        gpu_power = 0
-        
-        if cpu:
-            try:
-                cpu_power = int(cpu.get("attributes", {}).get("power_draw", 0))
-            except (ValueError, TypeError):
-                cpu_power = 0
-        
-        if gpu:
-            try:
-                gpu_power = int(gpu.get("attributes", {}).get("power_draw", 0))
-            except (ValueError, TypeError):
-                gpu_power = 0
-        
-        if cpu_power > 0 or gpu_power > 0:
-            # Add CPU + GPU + ~100W for other components
-            total_power = cpu_power + gpu_power + 100
-            stats.append(f"📊 Est. Power Draw: ~{total_power}W")
-        
-        # Case Info
-        case = self.selected_parts.get("Case")
-        if case:
-            attrs = case.get("attributes", {})
-            form_factor = attrs.get("form_factor", "")
-            if form_factor:
-                stats.append(f"📦 Case: {form_factor}")
-        
-        # Display stats
-        if stats:
-            self.stats_text.insert(tk.END, "\n".join(stats))
-        else:
-            self.stats_text.insert(tk.END, "No components selected yet")
-        
-        self.stats_text.config(state="disabled")
     
     def _check_compatibility(self):
         """Run compatibility check and display results"""
@@ -874,9 +769,9 @@ High-End (£1500+):
         except ValueError:
             budget_value = 0
         
-        # Draw pie chart
-        center_x = center_y = 100
-        radius = 80
+        # Draw pie chart with adjusted dimensions
+        center_x = center_y = 90
+        radius = 70
         start_angle = 0
         
         # If no budget is set, just show component allocation
@@ -884,9 +779,9 @@ High-End (£1500+):
             if total_cost == 0:
                 # No parts selected and no budget - show message
                 self.pie_canvas.create_text(
-                    100, 100,
+                    90, 90,
                     text="Set a budget\nand add components",
-                    font=("Arial", 10),
+                    font=("Arial", 9),
                     fill="#666",
                     justify="center"
                 )
@@ -962,7 +857,7 @@ High-End (£1500+):
             ttk.Label(legend_row, text=label_text, font=("Arial", 8)).pack(side="left")
         
         # Draw center circle for donut effect
-        inner_radius = 35
+        inner_radius = 30
         self.pie_canvas.create_oval(
             center_x - inner_radius, center_y - inner_radius,
             center_x + inner_radius, center_y + inner_radius,
@@ -975,7 +870,7 @@ High-End (£1500+):
             self.pie_canvas.create_text(
                 center_x, center_y - 8,
                 text=f"£{total_cost:.0f}",
-                font=("Arial", 11, "bold"),
+                font=("Arial", 10, "bold"),
                 fill="#333"
             )
             self.pie_canvas.create_text(
@@ -989,7 +884,7 @@ High-End (£1500+):
             self.pie_canvas.create_text(
                 center_x, center_y,
                 text=f"£{total_cost:.0f}",
-                font=("Arial", 11, "bold"),
+                font=("Arial", 10, "bold"),
                 fill="#333"
             )
     
@@ -1007,11 +902,12 @@ High-End (£1500+):
         # Update save button based on user permissions
         current_user = session.get_current_user()
         if current_user and current_user.can_save():
-            self.save_btn.config(state="normal")
+            # Enable the rounded button (canvas)
+            if hasattr(self.save_btn, 'configure'):
+                self.save_btn.configure(state="normal")
         else:
-            self.save_btn.config(state="disabled")
-            if current_user and current_user.is_guest():
-                # Add tooltip or update button text
-                self.save_btn.config(text="Save Build (Sign in required)")
+            # Disable or update the rounded button
+            if hasattr(self.save_btn, 'configure'):
+                self.save_btn.configure(state="disabled")
         
         self._update_summary()

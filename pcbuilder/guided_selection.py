@@ -250,9 +250,12 @@ class GuidedSelectorDialog(tk.Toplevel):
         self.title(f"Choose {category} - Guided Selection")
         self.geometry("700x600")
         self.transient(parent)
-        self.grab_set()
         
         self._create_widgets()
+        
+        # Grab focus after window is created and visible
+        self.update_idletasks()
+        self.grab_set()
     
     def _create_widgets(self):
         """Create the dialog interface"""
@@ -384,7 +387,6 @@ class GuidedSelectorDialog(tk.Toplevel):
         results_dialog.title(f"Select {self.category}")
         results_dialog.geometry("800x500")
         results_dialog.transient(self)
-        results_dialog.grab_set()
         
         # Header
         header_frame = ttk.Frame(results_dialog, padding=10)
@@ -407,6 +409,12 @@ class GuidedSelectorDialog(tk.Toplevel):
         # Results list
         list_frame = ttk.Frame(results_dialog)
         list_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # ... rest of the code ...
+        
+        # Grab focus after everything is created
+        results_dialog.update_idletasks()
+        results_dialog.grab_set()
         
         # Treeview
         columns = ("name", "price")
@@ -472,6 +480,10 @@ class GuidedSelectorDialog(tk.Toplevel):
         
         # Double-click to select
         tree.bind("<Double-Button-1>", lambda e: select_part())
+        
+        # Grab focus after everything is created
+        results_dialog.update_idletasks()
+        results_dialog.grab_set()
 
 
 # Global instance
