@@ -325,9 +325,9 @@ class BuilderTab(ttk.Frame):
         self.legend_frame = ttk.Frame(chart_container, style="TFrame")
         self.legend_frame.pack(side="left", fill="both", expand=True, padx=10)
         
-        # Build summary text - Modern card style
+        # Build summary text - Modern card style (SMALLER)
         summary_frame = ttk.LabelFrame(right_panel, text="📝 Selected Parts", padding=10)
-        summary_frame.pack(fill="both", padx=10, pady=(0, 10))
+        summary_frame.pack(fill="x", padx=10, pady=(0, 10))
         
         # Add scrollbar to summary
         summary_scroll_frame = ttk.Frame(summary_frame, style="TFrame")
@@ -336,14 +336,14 @@ class BuilderTab(ttk.Frame):
         summary_scrollbar = ttk.Scrollbar(summary_scroll_frame)
         summary_scrollbar.pack(side="right", fill="y")
         
-        self.summary_text = tk.Text(summary_scroll_frame, height=8, width=50, wrap="word", 
+        self.summary_text = tk.Text(summary_scroll_frame, height=5, width=50, wrap="word", 
                                    state="disabled", yscrollcommand=summary_scrollbar.set,
                                    font=("Segoe UI", 9), bg="white", relief="flat",
                                    borderwidth=0, padx=10, pady=5)
         self.summary_text.pack(side="left", fill="both", expand=True)
         summary_scrollbar.config(command=self.summary_text.yview)
         
-        # Compatibility results - MAXIMUM SPACE FOR VISIBILITY with colorful styling
+        # Compatibility results - LARGER SPACE FOR BETTER VISIBILITY with colorful styling
         compat_frame = ttk.LabelFrame(right_panel, text="✓ Compatibility Check", 
                                      padding=10, style="Primary.TLabelframe")
         compat_frame.pack(fill="both", expand=True, padx=10, pady=(0, 10))
@@ -372,7 +372,7 @@ class BuilderTab(ttk.Frame):
         compat_scrollbar = ttk.Scrollbar(compat_scroll_frame)
         compat_scrollbar.pack(side="right", fill="y")
         
-        self.compat_text = tk.Text(compat_scroll_frame, height=20, width=50, wrap="word", 
+        self.compat_text = tk.Text(compat_scroll_frame, height=30, width=50, wrap="word", 
                                    state="disabled", font=("Segoe UI", 10),
                                    yscrollcommand=compat_scrollbar.set,
                                    bg="white", relief="flat", borderwidth=0,
