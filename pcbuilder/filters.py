@@ -42,12 +42,10 @@ class ComponentFilters:
                    lambda p: p.get("attributes", {}).get("cores", 0) >= 8, "CPU"),
             Filter("12_cores", "12+ Cores", 
                    lambda p: p.get("attributes", {}).get("cores", 0) >= 12, "CPU"),
-            Filter("high_boost", "4.0+ GHz Boost", 
-                   lambda p: p.get("attributes", {}).get("boost_clock", 0) >= 4.0, "CPU"),
             Filter("unlocked", "Unlocked (K/X)", 
-                   lambda p: any(x in p.get("name", "") for x in ["K", "X", "KF"]), "CPU"),
+                   lambda p: any(x in p.get("name", "").upper() for x in ["K", "X", "KF", "KS"]), "CPU"),
             Filter("integrated_gpu", "Integrated Graphics", 
-                   lambda p: not p.get("name", "").endswith("F"), "CPU"),
+                   lambda p: "F" not in p.get("name", "") or "G" in p.get("name", ""), "CPU"),
         ]
     
     def _get_motherboard_filters(self) -> List[Filter]:

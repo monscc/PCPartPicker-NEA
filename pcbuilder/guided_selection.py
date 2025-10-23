@@ -22,10 +22,10 @@ class GuidedSelector:
                 {
                     "question": "What will you primarily use this PC for?",
                     "options": {
-                        "Gaming": ["6_cores", "high_boost"],
-                        "Video Editing / 3D Work": ["8_cores", "12_cores"],
-                        "Office Work / Browsing": [],
-                        "Streaming": ["8_cores", "high_boost"]
+                        "Gaming": ["6_cores"],
+                        "Video Editing / 3D Work": ["8_cores"],
+                        "High-End Workstation": ["12_cores"],
+                        "Office Work / Browsing": []
                     }
                 },
                 {

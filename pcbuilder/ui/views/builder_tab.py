@@ -5,7 +5,6 @@ from ...db import list_parts, save_build
 from ...compat import run_full_check
 from ...auth import session
 from ...templates import get_template_builds, load_template_build, get_template_summary
-from ...filters import component_filters
 from ...guided_selection import GuidedSelectorDialog
 import math
 
@@ -107,8 +106,11 @@ class BuilderTab(ttk.Frame):
         self.all_parts = []
         self.parts_by_category = {}
         
-        # Active filters for each category
-        self.active_filters = {category: [] for category in self.selected_parts.keys()}
+        # Template selection
+        self.selected_template = None
+        
+        # Initialize part lists from database
+        self.parts_by_category = {}
         
         # Component colors for pie chart - More vibrant
         self.component_colors = {
@@ -203,7 +205,6 @@ class BuilderTab(ttk.Frame):
         
         # Create dropdowns for each component category with modern styling
         self.part_combos = {}
-        self.filter_buttons = {}
         
         # Component icons with vibrant colors
         component_icons = {
@@ -265,19 +266,11 @@ class BuilderTab(ttk.Frame):
             button_frame.pack(side="right", padx=10, pady=8)
             
             # Guided selection button (primary action) - rounded with better width
-            guided_btn = RoundedButton(button_frame, text="✨ Select", 
+            guided_btn = RoundedButton(button_frame, text="❓ Guide", 
                                       command=lambda cat=category: self._open_guided_selector(cat),
                                       bg="#2196F3", width=100, height=38, radius=8,
                                       font=("Segoe UI", 9, "bold"))
             guided_btn.pack(side="left", padx=3)
-            
-            # Filter button (secondary) - standard ttk button
-            filter_btn = ttk.Button(button_frame, text="🔍", width=4, 
-                                   command=lambda cat=category: self._show_filters(cat))
-            filter_btn.pack(side="left", padx=3)
-            self.filter_buttons[category] = filter_btn
-            
-            # Clear button (minimal)
             
             # Clear button (red/danger style) - rounded
             clear_btn = RoundedButton(button_frame, text="✕", 
@@ -484,102 +477,8 @@ class BuilderTab(ttk.Frame):
                 f"{summary['name']} loaded successfully!\n\n"
                 f"Total: £{summary['actual_price']:.2f}"
             )
-    
-    def _show_filters(self, category: str):
-        """Show filter dialog for a category"""
-        dialog = tk.Toplevel(self)
-        dialog.title(f"Filter {category}")
-        dialog.geometry("350x500")
-        dialog.transient(self)
-        dialog.grab_set()
         
-        ttk.Label(dialog, text=f"Filters for {category}", 
-                 font=("Arial", 12, "bold")).pack(pady=10)
-        
-        # Get available filters for this category
-        available_filters = component_filters.get_filters_for_category(category)
-        
-        if not available_filters:
-            ttk.Label(dialog, text="No filters available for this component").pack(pady=20)
-            ttk.Button(dialog, text="Close", command=dialog.destroy).pack(pady=10)
-            return
-        
-        # Scrollable frame for filters
-        canvas = tk.Canvas(dialog, highlightthickness=0)
-        scrollbar = ttk.Scrollbar(dialog, orient="vertical", command=canvas.yview)
-        filter_frame = ttk.Frame(canvas)
-        
-        filter_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-        
-        canvas.create_window((0, 0), window=filter_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-        
-        canvas.pack(side="left", fill="both", expand=True, padx=10)
-        scrollbar.pack(side="right", fill="y")
-        
-        # Create checkboxes for each filter
-        filter_vars = {}
-        for filter_obj in available_filters:
-            var = tk.BooleanVar(value=filter_obj.name in self.active_filters[category])
-            filter_vars[filter_obj.name] = var
-            
-            cb = ttk.Checkbutton(filter_frame, text=filter_obj.display_name, 
-                               variable=var)
-            cb.pack(anchor="w", pady=3, padx=10)
-        
-        # Button frame
-        btn_frame = ttk.Frame(dialog)
-        btn_frame.pack(fill="x", padx=10, pady=10)
-        
-        def apply_filters():
-            # Update active filters
-            self.active_filters[category] = [
-                fname for fname, var in filter_vars.items() if var.get()
-            ]
-            
-            # Update filter button text to show active count
-            active_count = len(self.active_filters[category])
-            if active_count > 0:
-                self.filter_buttons[category].config(text=f"🔍 Filter ({active_count})")
-            else:
-                self.filter_buttons[category].config(text="🔍 Filter")
-            
-            # Refresh the parts list for this category
-            self._refresh_category_parts(category)
-            
-            dialog.destroy()
-        
-        def clear_filters():
-            for var in filter_vars.values():
-                var.set(False)
-        
-        ttk.Button(btn_frame, text="Apply", command=apply_filters).pack(side="left", padx=5)
-        ttk.Button(btn_frame, text="Clear All", command=clear_filters).pack(side="left", padx=5)
-        ttk.Button(btn_frame, text="Cancel", command=dialog.destroy).pack(side="right", padx=5)
-    
-    def _refresh_category_parts(self, category: str):
-        """Refresh the parts list for a specific category with filters applied"""
-        # Get all parts for this category
-        all_category_parts = self.parts_by_category.get(category, [])
-        
-        # Apply filters
-        filtered_parts = component_filters.apply_filters(
-            all_category_parts, 
-            category, 
-            self.active_filters[category]
-        )
-        
-        # Check if current selection is still valid
-        current_part = self.selected_parts[category]
-        if current_part and current_part not in filtered_parts:
-            # Clear selection if it doesn't match filters
-            self.selected_parts[category] = None
-            part_display = self.part_combos[category]
-            part_display.config(text="Not selected", foreground="#666")
-            self._update_summary()
+        self._update_summary()
     
     def _clear_all(self):
         """Clear all selected parts"""
