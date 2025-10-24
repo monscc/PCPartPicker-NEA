@@ -1,9 +1,0 @@
-id,name,category,price,source,url,socket,power_draw,cores,threads,form_factor,memory_type,memory_slots,sticks,speed,gpu_length,memory,wattage,efficiency,capacity,interface,mobo_support,case_max_gpu_length,supported_sockets,type
-cpu-i5-12400f,Intel Core i5-12400F,CPU,159.99,Overclockers UK,https://www.overclockers.co.uk/...,LGA1700,117,6,12,,,,,,,,,,,,,,,
-mobo-b660m-pro,MSI B660M PRO-A DDR4,Motherboard,104.99,Scan UK,https://www.scan.co.uk/...,LGA1700,,,,micro-ATX,DDR4,4,,,,,,,,,,,,
-ram-vengeance-16gb,Corsair Vengeance LPX 16GB (2x8GB) DDR4 3200MHz,RAM,34.99,Amazon UK,https://www.amazon.co.uk/...,,,,,,DDR4,,2,3200,,,,,,,,,,
-gpu-rtx4060,NVIDIA GeForce RTX 4060 8GB,GPU,289.99,Overclockers UK,https://www.overclockers.co.uk/...,,115,,,,,,,,244,8GB,,,,,,,,
-psu-rm750e,Corsair RM750e 650W 80+ Gold,PSU,69.99,Scan UK,https://www.scan.co.uk/...,,,,,,,,,,,,650,80+ Gold,,,,,,
-case-h510,NZXT H510 Mid Tower,Case,74.99,Amazon UK,https://www.amazon.co.uk/...,,,,,,,,,,,,,,,,"ATX,micro-ATX,mini-ITX",381,,
-storage-970evo-1tb,Samsung 970 EVO Plus 1TB NVMe SSD,Storage,54.99,Overclockers UK,https://www.overclockers.co.uk/...,,5,,,,,,,,,,,,1TB,NVMe,,,,
-cooler-hyper212,Cooler Master Hyper 212 Black Edition,Cooler,29.99,Scan UK,https://www.scan.co.uk/...,,2,,,,,,,,,,,,,,,,"LGA1700,AM4",Air
