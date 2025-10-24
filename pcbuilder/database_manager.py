@@ -54,7 +54,11 @@ class DatabaseManager:
     
     def __get_connection(self) -> sqlite3.Connection:
         """Get database connection (private method)"""
-        return sqlite3.connect(self.__db_path)
+        # Add timeout to handle OneDrive sync issues
+        conn = sqlite3.connect(self.__db_path, timeout=30.0)
+        # Enable WAL mode for better concurrent access
+        conn.execute("PRAGMA journal_mode=WAL")
+        return conn
     
     def __initialize_schema(self) -> None:
         """Initialize database schema (private method)"""
