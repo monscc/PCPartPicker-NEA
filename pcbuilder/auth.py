@@ -10,11 +10,9 @@ import functools
 
 
 class UserRole(Enum):
-    """Enumeration of user roles with hierarchical privilege levels"""
+    """Enumeration of user roles with two access levels"""
     GUEST = 0       # Read-only access, no save capability
     STANDARD = 1    # Full user with save/load builds
-    PREMIUM = 2     # Future: Advanced features like price tracking
-    ADMIN = 3       # Database management, user management
     
     def __lt__(self, other):
         """Enable role comparison for privilege checking"""
@@ -105,21 +103,6 @@ PERMISSIONS = {
         'DELETE_BUILD',
         'Delete saved builds',
         UserRole.STANDARD
-    ),
-    'TRACK_PRICES': Permission(
-        'TRACK_PRICES',
-        'Track component price history',
-        UserRole.PREMIUM
-    ),
-    'MANAGE_DATABASE': Permission(
-        'MANAGE_DATABASE',
-        'Add/edit/delete components',
-        UserRole.ADMIN
-    ),
-    'MANAGE_USERS': Permission(
-        'MANAGE_USERS',
-        'Create/modify/delete user accounts',
-        UserRole.ADMIN
     ),
 }
 
@@ -215,8 +198,8 @@ def requires_role(minimum_role: UserRole):
     
     Usage:
         @requires_role(UserRole.STANDARD)
-        def premium_feature(self):
-            # Only executes if user is STANDARD or higher
+        def standard_feature(self):
+            # Only executes if user is STANDARD level
             ...
     """
     def decorator(func: Callable):

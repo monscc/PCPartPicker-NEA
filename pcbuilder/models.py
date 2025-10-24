@@ -315,49 +315,6 @@ class ComponentFactory:
         return component_class(component_id, name, price, attributes)
 
 
-class User(ABC):
-    """
-    Abstract base class for users
-    Demonstrates: Abstraction, Encapsulation
-    """
-    
-    def __init__(self, user_id: int, username: str, password_hash: str, role: int):
-        # Private attributes
-        self.__user_id: int = user_id
-        self.__username: str = username
-        self.__password_hash: str = password_hash
-        self.__role: int = role
-        self.__created_at: datetime = datetime.now()
-    
-    @property
-    def user_id(self) -> int:
-        """Get user ID (read-only)"""
-        return self.__user_id
-    
-    @property
-    def username(self) -> str:
-        """Get username (read-only)"""
-        return self.__username
-    
-    @property
-    def role(self) -> int:
-        """Get user role"""
-        return self.__role
-    
-    @abstractmethod
-    def get_permissions(self) -> List[str]:
-        """Abstract method: Get list of permissions for this user"""
-        pass
-    
-    @abstractmethod
-    def can_perform(self, action: str) -> bool:
-        """Abstract method: Check if user can perform an action"""
-        pass
-    
-    def __str__(self) -> str:
-        return f"User: {self.__username} (Role: {self.__role})"
-
-
 class Build:
     """
     Represents a PC build with encapsulated components

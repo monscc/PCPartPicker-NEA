@@ -10,11 +10,9 @@ from .database_manager import get_database_manager
 
 
 class UserRole(Enum):
-    """User role enumeration with hierarchical levels"""
-    GUEST = 0
-    STANDARD = 1
-    PREMIUM = 2
-    ADMIN = 3
+    """User role enumeration with two access levels"""
+    GUEST = 0       # Read-only access, no save capability
+    STANDARD = 1    # Full user with save/load builds
     
     def __lt__(self, other):
         if isinstance(other, UserRole):
@@ -95,10 +93,6 @@ class UserSession:
     def can_save_builds(self) -> bool:
         """Check if user can save builds"""
         return self.__role.value >= UserRole.STANDARD.value
-    
-    def can_manage_users(self) -> bool:
-        """Check if user can manage other users"""
-        return self.__role.value >= UserRole.ADMIN.value
     
     def logout(self) -> None:
         """Deactivate session"""

@@ -7,6 +7,7 @@ from tkinter import ttk, messagebox
 from typing import Dict, List, Optional, Callable, Any
 from .db import list_parts
 from .filters import component_filters
+from .merge_sort import merge_sort_parts_by_price
 
 
 class GuidedSelector:
@@ -385,7 +386,7 @@ class GuidedSelectorDialog(tk.Toplevel):
         """Show filtered results in a selection dialog"""
         results_dialog = tk.Toplevel(self)
         results_dialog.title(f"Select {self.category}")
-        results_dialog.geometry("800x500")
+        results_dialog.geometry("800x550")
         results_dialog.transient(self)
         
         # Header
@@ -405,6 +406,16 @@ class GuidedSelectorDialog(tk.Toplevel):
             ttk.Label(header_frame,
                      text="Try adjusting your answers or browse all components",
                      font=("Arial", 9)).pack()
+        
+        # Sort controls frame (NEW)
+        sort_frame = ttk.Frame(results_dialog, padding=(10, 5))
+        sort_frame.pack(fill="x")
+        
+        # Track sort state
+        sort_state = {"ascending": None}  # None = unsorted, True = ascending, False = descending
+        
+        sort_label = ttk.Label(sort_frame, text="Not sorted", foreground="#666", font=("Arial", 9))
+        sort_label.pack(side="left", padx=10)
         
         # Results list
         list_frame = ttk.Frame(results_dialog)
@@ -429,12 +440,62 @@ class GuidedSelectorDialog(tk.Toplevel):
         scrollbar = ttk.Scrollbar(list_frame, orient="vertical", command=tree.yview)
         tree.configure(yscrollcommand=scrollbar.set)
         
-        # Add parts to tree
-        for part in parts:
-            tree.insert("", tk.END, values=(
-                part["name"],
-                f"£{part['price']:.2f}"
-            ), tags=(part["id"],))
+        # Store original parts list
+        current_parts = parts.copy()
+        
+        # Function to populate tree with current parts list
+        def populate_tree(parts_list):
+            # Clear existing items
+            for item in tree.get_children():
+                tree.delete(item)
+            
+            # Add parts to tree
+            for part in parts_list:
+                tree.insert("", tk.END, values=(
+                    part["name"],
+                    f"£{part['price']:.2f}"
+                ), tags=(part["id"],))
+        
+        # Initially populate with unsorted parts
+        populate_tree(current_parts)
+        
+        # Sort button handler
+        def sort_by_price():
+            nonlocal current_parts
+            
+            if sort_state["ascending"] is None:
+                # First click: Sort ascending (low to high)
+                current_parts = merge_sort_parts_by_price(parts, ascending=True)
+                sort_state["ascending"] = True
+                sort_label.config(
+                    text="Sorted by price: Low → High",
+                    foreground="#4CAF50"
+                )
+            elif sort_state["ascending"] is True:
+                # Second click: Sort descending (high to low)
+                current_parts = merge_sort_parts_by_price(parts, ascending=False)
+                sort_state["ascending"] = False
+                sort_label.config(
+                    text="Sorted by price: High → Low",
+                    foreground="#2196F3"
+                )
+            else:
+                # Third click: Reset to unsorted
+                current_parts = parts.copy()
+                sort_state["ascending"] = None
+                sort_label.config(
+                    text="Not sorted",
+                    foreground="#666"
+                )
+            
+            # Repopulate tree with sorted list
+            populate_tree(current_parts)
+        
+        # Sort button
+        sort_btn = ttk.Button(sort_frame, 
+                             text="💰 Sort by Price",
+                             command=sort_by_price)
+        sort_btn.pack(side="right", padx=10)
         
         tree.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")

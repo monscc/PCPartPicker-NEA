@@ -6,6 +6,7 @@ from ...compat import run_full_check
 from ...auth import session
 from ...templates import get_template_builds, load_template_build, get_template_summary
 from ...guided_selection import GuidedSelectorDialog
+from ...undo_redo import UndoRedoManager
 import math
 
 
@@ -97,6 +98,9 @@ class BuilderTab(ttk.Frame):
             "Storage": None,
             "Cooler": None
         }
+        
+        # Undo/Redo manager using STACK data structure
+        self.undo_redo_manager = UndoRedoManager(max_history=20)
         
         # Budget tracking
         self.budget = tk.StringVar(value="0")
@@ -306,6 +310,13 @@ class BuilderTab(ttk.Frame):
                                             font=("Segoe UI", 10))
         self.budget_status_label.pack(side="left", padx=15)
         
+        # Undo button - Using STACK data structure
+        self.undo_btn = RoundedButton(budget_input_frame, text="↶ Undo", 
+                                     command=self._undo,
+                                     bg="#9E9E9E", width=90, height=40, radius=8,
+                                     font=("Segoe UI", 9, "bold"))
+        self.undo_btn.pack(side="right", padx=3)
+        
         # Clear Build button - rounded with better width
         clear_all_btn = RoundedButton(budget_input_frame, text="🗑️ Clear All", 
                                      command=self._clear_all,
@@ -379,11 +390,17 @@ class BuilderTab(ttk.Frame):
                                    padx=10, pady=5)
         self.compat_text.pack(side="left", fill="both", expand=True)
         compat_scrollbar.config(command=self.compat_text.yview)
+        
+        # Initialize undo/redo button states
+        self._update_undo_redo_buttons()
     
     def _open_guided_selector(self, category: str):
         """Open the guided selector dialog for a component category"""
         def on_part_selected(part):
             """Callback when a part is selected from guided dialog"""
+            # Save state to undo stack before making change
+            self._save_current_state()
+            
             self.selected_parts[category] = part
             # Update the display label with modern styling
             part_display = self.part_combos[category]
@@ -393,6 +410,40 @@ class BuilderTab(ttk.Frame):
         
         # Open the guided selector dialog
         GuidedSelectorDialog(self, category, on_part_selected)
+    
+    def _save_current_state(self):
+        """Save current selected parts to undo stack (PUSH operation)"""
+        self.undo_redo_manager.save_state(self.selected_parts)
+        self._update_undo_redo_buttons()
+    
+    def _undo(self):
+        """Undo last change using STACK data structure (POP from undo_stack)"""
+        previous_state = self.undo_redo_manager.undo()
+        if previous_state is not None:
+            self.selected_parts = previous_state.copy()
+            self._update_all_displays()
+            self._update_undo_redo_buttons()
+    
+    def _update_undo_redo_buttons(self):
+        """Enable/disable undo button based on stack state"""
+        # Enable undo button if undo stack has items
+        if self.undo_redo_manager.can_undo():
+            self.undo_btn.config(state="normal")
+        else:
+            self.undo_btn.config(state="disabled")
+    
+    def _update_all_displays(self):
+        """Update all part display labels after undo/redo"""
+        for category in self.selected_parts:
+            part_display = self.part_combos[category]
+            part = self.selected_parts[category]
+            if part:
+                part_display.config(text=part["name"], foreground="#1c1e21",
+                                  background="white", font=("Segoe UI", 9, "bold"))
+            else:
+                part_display.config(text="(None)", foreground="#757575",
+                                  background="#f5f5f5", font=("Segoe UI", 9))
+        self._update_summary()
     
     def _on_part_selected(self, category):
         """Handle part selection from dropdown"""
@@ -413,6 +464,9 @@ class BuilderTab(ttk.Frame):
     
     def _clear_part(self, category):
         """Clear a selected part"""
+        # Save state to undo stack before clearing (PUSH operation)
+        self._save_current_state()
+        
         self.selected_parts[category] = None
         # Update the display label with default styling
         part_display = self.part_combos[category]
@@ -445,6 +499,9 @@ class BuilderTab(ttk.Frame):
         if not template_parts:
             messagebox.showerror("Error", "Failed to load template")
             return
+        
+        # Save state to undo stack before loading template (PUSH operation)
+        self._save_current_state()
         
         # Update selected parts and UI
         missing_parts = []
@@ -482,8 +539,17 @@ class BuilderTab(ttk.Frame):
     
     def _clear_all(self):
         """Clear all selected parts"""
+        # Save state to undo stack before clearing all (PUSH operation)
+        self._save_current_state()
+        
+        # Clear all parts without saving individual states
         for category in self.selected_parts.keys():
-            self._clear_part(category)
+            self.selected_parts[category] = None
+            part_display = self.part_combos[category]
+            part_display.config(text="Not selected", foreground="#6c757d",
+                              background="#f8f9fa", font=("Segoe UI", 9))
+        
+        self._update_summary()
     
     def _update_summary(self):
         """Update the build summary text"""

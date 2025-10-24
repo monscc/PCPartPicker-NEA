@@ -1,5 +1,0 @@
-pytest
-matplotlib
-requests
-beautifulsoup4
-lxml

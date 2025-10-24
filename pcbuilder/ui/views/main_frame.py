@@ -69,9 +69,7 @@ class MainFrame(ttk.Frame):
         # Role indicator with icon
         role_icons = {
             UserRole.GUEST: "🔓",
-            UserRole.STANDARD: "👤",
-            UserRole.PREMIUM: "⭐",
-            UserRole.ADMIN: "🔑"
+            UserRole.STANDARD: "👤"
         }
         icon = role_icons.get(role, "")
         self.role_label.config(text=f"{icon} {role.name.capitalize()}")
