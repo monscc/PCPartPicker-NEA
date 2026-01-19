@@ -1,8 +1,30 @@
 """Login and registration frame with multi-level access control"""
 import tkinter as tk
 from tkinter import ttk, messagebox
-from ...accounts import register, authenticate
 from ...auth import session, UserRole
+from ...database_manager import get_database_manager
+
+
+def register(username: str, password: str) -> tuple[bool, str]:
+    """Register a new user"""
+    db = get_database_manager()
+    try:
+        user_id = db.create_user(username, password, role=1)
+        if user_id:
+            return True, "Account created successfully"
+        return False, "Username already exists"
+    except ValueError as e:
+        return False, str(e)
+
+
+def authenticate(username: str, password: str) -> tuple[bool, tuple | None, str]:
+    """Authenticate a user"""
+    db = get_database_manager()
+    result = db.authenticate_user(username, password)
+    if result:
+        user_id, role = result
+        return True, (user_id, role), "Login successful"
+    return False, None, "Invalid username or password"
 
 
 class LoginFrame(ttk.Frame):

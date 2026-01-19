@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox
 from pathlib import Path
 from .views.login_frame import LoginFrame
 from .views.main_frame import MainFrame
-from ..db import init_db, load_sample_parts
+from ..database_manager import get_database_manager
 
 
 class PCBuilderApp(tk.Tk):
@@ -19,8 +19,7 @@ class PCBuilderApp(tk.Tk):
         # Modern styling
         self._apply_modern_theme()
         
-        # Initialize database
-        init_db()
+        # Initialize database (auto-initialized by DatabaseManager)
         self._load_sample_data_if_needed()
         
         # User session
@@ -189,12 +188,12 @@ class PCBuilderApp(tk.Tk):
     
     def _load_sample_data_if_needed(self):
         """Load sample parts if database is empty"""
-        from ..db import list_parts
-        parts = list_parts()
-        if len(parts) == 0:
+        db = get_database_manager()
+        components = db.get_all_components()
+        if len(components) == 0:
             sample_path = Path(__file__).resolve().parents[2] / "data" / "sample_parts.json"
             if sample_path.exists():
-                load_sample_parts(sample_path)
+                db.load_components_from_json(sample_path)
                 print("Loaded sample parts data")
     
     def show_frame(self, frame_name):

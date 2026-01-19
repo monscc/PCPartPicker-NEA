@@ -1,13 +1,37 @@
 """Build PC tab - main builder interface with role-based access control"""
 import tkinter as tk
 from tkinter import ttk, messagebox
-from ...db import list_parts, save_build
+from ...database_manager import get_database_manager
 from ...compat import run_full_check
 from ...auth import session
 from ...templates import get_template_builds, load_template_build, get_template_summary
 from ...guided_selection import GuidedSelectorDialog
 from ...undo_redo import UndoRedoManager
 import math
+
+
+def list_parts():
+    """Get all components as dictionaries"""
+    db = get_database_manager()
+    components = db.get_all_components()
+    return [comp.to_dict() for comp in components]
+
+
+def save_build(user_id: int, build_name: str, parts: dict):
+    """Save a build to the database"""
+    from ...models import Build, ComponentFactory
+    db = get_database_manager()
+    
+    build = Build(build_id=None, name=build_name, user_id=user_id)
+    for category, part_data in parts.items():
+        if part_data:
+            component = ComponentFactory.create_component(
+                part_data['id'], part_data['name'], part_data['category'],
+                part_data['price'], part_data.get('attributes', {})
+            )
+            build.add_component(component)
+    
+    return db.save_build(build)
 
 
 class RoundedButton(tk.Canvas):

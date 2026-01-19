@@ -1,9 +1,40 @@
 """Saved builds tab with template builds"""
 import tkinter as tk
 from tkinter import ttk, messagebox
-from ...db import load_user_builds, load_build_by_id, import_build_from_share_key
+from ...database_manager import get_database_manager
 from ...compat import run_full_check
 from ...templates import get_template_builds, get_template_summary
+
+
+def load_user_builds(user_id: int):
+    """Load all builds for a user"""
+    db = get_database_manager()
+    builds = db.load_user_builds(user_id)
+    result = []
+    for build in builds:
+        build_dict = build.to_dict()
+        if 'components' in build_dict:
+            build_dict['parts'] = build_dict.pop('components')
+        result.append(build_dict)
+    return result
+
+
+def load_build_by_id(build_id: int):
+    """Load a specific build by ID"""
+    db = get_database_manager()
+    build = db.load_build(build_id)
+    if build:
+        build_dict = build.to_dict()
+        if 'components' in build_dict:
+            build_dict['parts'] = build_dict.pop('components')
+        return build_dict
+    return None
+
+
+def import_build_from_share_key(user_id: int, share_key: str):
+    """Import a build from share key"""
+    db = get_database_manager()
+    return db.import_build(user_id, share_key)
 
 
 class BuildsTab(ttk.Frame):

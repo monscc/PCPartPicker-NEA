@@ -3,7 +3,7 @@ Template PC Builds System
 Provides pre-configured builds for Budget, Mid-Range, and High-End tiers
 """
 from typing import Dict, Optional, List
-from .db import list_parts
+from .database_manager import get_database_manager
 
 
 class TemplateBuild:
@@ -99,7 +99,9 @@ def load_template_build(template_id: str) -> Optional[Dict[str, Optional[dict]]]
         return None
     
     # Get all parts from database
-    all_parts = list_parts()
+    db = get_database_manager()
+    components = db.get_all_components()
+    all_parts = [comp.to_dict() for comp in components]
     parts_by_name = {part['name']: part for part in all_parts}
     
     # Build the selected_parts dictionary

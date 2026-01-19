@@ -5,7 +5,7 @@ No technical knowledge required
 import tkinter as tk
 from tkinter import ttk, messagebox
 from typing import Dict, List, Optional, Callable, Any
-from .db import list_parts
+from .database_manager import get_database_manager
 from .filters import component_filters
 from .merge_sort import merge_sort_parts_by_price
 
@@ -366,7 +366,9 @@ class GuidedSelectorDialog(tk.Toplevel):
         self.active_filters = list(set(self.active_filters))
         
         # Get all parts for this category
-        all_parts = list_parts()
+        db = get_database_manager()
+        components = db.get_all_components()
+        all_parts = [comp.to_dict() for comp in components]
         category_parts = [p for p in all_parts if p["category"] == self.category]
         
         # Apply filters
@@ -524,7 +526,9 @@ class GuidedSelectorDialog(tk.Toplevel):
         
         def show_all():
             """Show all components without filters"""
-            all_parts = list_parts()
+            db = get_database_manager()
+            components = db.get_all_components()
+            all_parts = [comp.to_dict() for comp in components]
             category_parts = [p for p in all_parts if p["category"] == self.category]
             results_dialog.destroy()
             self._show_results_dialog(category_parts)
