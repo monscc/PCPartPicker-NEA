@@ -1,8 +1,11 @@
 """
 Component filtering system with unique filters for each category
+Includes binary search optimization for price-based filtering
 """
 from typing import Dict, List, Optional, Callable, Any
 from dataclasses import dataclass
+from .search_algorithms import binary_search_by_price, binary_search_range, linear_search_by_price
+from .models import Component, ComponentFactory
 
 
 @dataclass
@@ -228,6 +231,100 @@ class ComponentFilters:
                 filtered_parts.append(part)
         
         return filtered_parts
+
+
+def find_component_by_price(parts: List[Dict], target_price: float, use_binary_search: bool = True) -> Optional[Dict]:
+    """
+    Find component closest to target price using binary or linear search
+    
+    Time Complexity:
+    - Binary search: O(log n) if already sorted, O(n log n) if needs sorting
+    - Linear search: O(n) but no sorting needed
+    
+    Args:
+        parts: List of component dictionaries
+        target_price: Target price to match
+        use_binary_search: If True, use binary search (faster for large lists)
+        
+    Returns:
+        Component dict closest to target price, or None
+    """
+    if not parts:
+        return None
+    
+    # Convert dicts to Component objects for algorithm
+    components = []
+    for part in parts:
+        try:
+            component = ComponentFactory.create_component(
+                part['id'], part['name'], part['category'],
+                part['price'], part.get('attributes', {})
+            )
+            components.append(component)
+        except Exception:
+            continue
+    
+    if not components:
+        return None
+    
+    if use_binary_search:
+        # Sort by price for binary search
+        sorted_components = sorted(components, key=lambda c: c.price)
+        result = binary_search_by_price(sorted_components, target_price)
+    else:
+        # Linear search on unsorted list
+        result = linear_search_by_price(components, target_price)
+    
+    if result:
+        return result.to_dict()
+    return None
+
+
+def find_components_in_price_range(
+    parts: List[Dict],
+    min_price: float,
+    max_price: float,
+    use_binary_search: bool = True
+) -> List[Dict]:
+    """
+    Find all components within a price range
+    
+    Time Complexity:
+    - Binary search: O(log n + k) where k is number of results
+    - Linear search: O(n)
+    
+    Args:
+        parts: List of component dictionaries
+        min_price: Minimum price (inclusive)
+        max_price: Maximum price (inclusive)
+        use_binary_search: If True, use binary search approach
+        
+    Returns:
+        List of component dicts within price range
+    """
+    if not parts or min_price > max_price:
+        return []
+    
+    if use_binary_search:
+        # Convert to Component objects
+        components = []
+        for part in parts:
+            try:
+                component = ComponentFactory.create_component(
+                    part['id'], part['name'], part['category'],
+                    part['price'], part.get('attributes', {})
+                )
+                components.append(component)
+            except Exception:
+                continue
+        
+        # Sort and use binary search range
+        sorted_components = sorted(components, key=lambda c: c.price)
+        result_components = binary_search_range(sorted_components, min_price, max_price)
+        return [c.to_dict() for c in result_components]
+    else:
+        # Linear filtering (traditional approach)
+        return [p for p in parts if min_price <= p['price'] <= max_price]
 
 
 # Global instance

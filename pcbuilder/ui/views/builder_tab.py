@@ -152,7 +152,7 @@ class BuilderTab(ttk.Frame):
         header_frame = ttk.Frame(selection_section, style="TFrame")
         header_frame.pack(fill="x", padx=10, pady=(0, 10))
         
-        ttk.Label(header_frame, text="🖥️ Build Your PC", style="Title.TLabel").pack(anchor="w")
+        ttk.Label(header_frame, text="Build Your PC", style="Title.TLabel").pack(anchor="w")
         ttk.Label(header_frame, text="Select components to create your perfect build", 
                  style="Secondary.TLabel").pack(anchor="w", pady=(2, 0))
         
@@ -210,14 +210,14 @@ class BuilderTab(ttk.Frame):
         # Create dropdowns for each component category with modern styling
         self.part_combos = {}
         
-        # Component icons with vibrant colors
+        # Component labels
         component_icons = {
-            "CPU": "🖥️",
-            "Motherboard": "🔌",
-            "RAM": "💾",
-            "GPU": "🎮",
-            "PSU": "⚡",
-            "Case": "📦",
+            "CPU": "",
+            "Motherboard": "",
+            "RAM": "",
+            "GPU": "",
+            "PSU": "",
+            "Case": "",
             "Storage": "💿",
             "Cooler": "❄️"
         }
@@ -270,7 +270,7 @@ class BuilderTab(ttk.Frame):
             button_frame.pack(side="right", padx=10, pady=8)
             
             # Guided selection button (primary action) - rounded with better width
-            guided_btn = RoundedButton(button_frame, text="❓ Guide", 
+            guided_btn = RoundedButton(button_frame, text="Guide", 
                                       command=lambda cat=category: self._open_guided_selector(cat),
                                       bg="#2196F3", width=100, height=38, radius=8,
                                       font=("Segoe UI", 9, "bold"))
@@ -288,7 +288,7 @@ class BuilderTab(ttk.Frame):
         header_frame = ttk.Frame(right_panel, style="TFrame")
         header_frame.pack(fill="x", padx=10, pady=(0, 10))
         
-        ttk.Label(header_frame, text="📊 Your Build", style="Title.TLabel").pack(anchor="w")
+        ttk.Label(header_frame, text="Your Build", style="Title.TLabel").pack(anchor="w")
         ttk.Label(header_frame, text="Review your selected components", 
                  style="Secondary.TLabel").pack(anchor="w", pady=(2, 0))
         
@@ -355,7 +355,7 @@ class BuilderTab(ttk.Frame):
         summary_scrollbar.config(command=self.summary_text.yview)
         
         # Compatibility results - LARGER SPACE FOR BETTER VISIBILITY with colorful styling
-        compat_frame = ttk.LabelFrame(right_panel, text="✓ Compatibility Check", 
+        compat_frame = ttk.LabelFrame(right_panel, text="Compatibility Check", 
                                      padding=10, style="Primary.TLabelframe")
         compat_frame.pack(fill="both", expand=True, padx=10, pady=(0, 10))
         
@@ -363,13 +363,13 @@ class BuilderTab(ttk.Frame):
         button_frame = tk.Frame(compat_frame, bg="white")
         button_frame.pack(fill="x", pady=(0, 10))
         
-        check_btn = RoundedButton(button_frame, text="✓ Check Compatibility", 
+        check_btn = RoundedButton(button_frame, text="Check Compatibility", 
                                  command=self._check_compatibility,
                                  bg="#2196F3", width=200, height=45, radius=10,
                                  font=("Segoe UI", 10, "bold"))
         check_btn.pack(side="left", padx=5)
         
-        self.save_btn_canvas = RoundedButton(button_frame, text="💾 Save Build", 
+        self.save_btn_canvas = RoundedButton(button_frame, text="Save Build", 
                                             command=self._save_build,
                                             bg="#4CAF50", width=150, height=45, radius=10,
                                             font=("Segoe UI", 10, "bold"))
@@ -580,7 +580,7 @@ class BuilderTab(ttk.Frame):
         
         all_ok = True
         for rule_id, passed, message in results:
-            status = "✓ OK" if passed else "✗ FAIL"
+            status = "OK" if passed else "FAIL"
             color = "green" if passed else "red"
             
             start_pos = self.compat_text.index(tk.END)
@@ -595,9 +595,9 @@ class BuilderTab(ttk.Frame):
                 all_ok = False
         
         if all_ok:
-            self.compat_text.insert(tk.END, "\n✓ All compatibility checks passed!")
+            self.compat_text.insert(tk.END, "\nAll compatibility checks passed!")
         else:
-            self.compat_text.insert(tk.END, "\n⚠ Some compatibility issues detected")
+            self.compat_text.insert(tk.END, "\nSome compatibility issues detected")
         
         self.compat_text.config(state="disabled")
     
@@ -648,7 +648,7 @@ class BuilderTab(ttk.Frame):
                 share_dialog.transient(self)
                 share_dialog.grab_set()
                 
-                ttk.Label(share_dialog, text=f"✓ Build '{name}' saved successfully!", 
+                ttk.Label(share_dialog, text=f"Build '{name}' saved successfully!", 
                          font=("Arial", 11, "bold"), foreground="green").pack(pady=15)
                 
                 ttk.Label(share_dialog, text="Share this key with others to share your build:", 
@@ -668,7 +668,7 @@ class BuilderTab(ttk.Frame):
                 def copy_key():
                     share_dialog.clipboard_clear()
                     share_dialog.clipboard_append(share_key)
-                    copy_btn.config(text="✓ Copied!")
+                    copy_btn.config(text="Copied!")
                     share_dialog.after(2000, lambda: copy_btn.config(text="📋 Copy"))
                 
                 copy_btn = ttk.Button(key_frame, text="📋 Copy", command=copy_key)

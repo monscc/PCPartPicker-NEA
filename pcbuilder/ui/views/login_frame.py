@@ -49,7 +49,7 @@ class LoginFrame(ttk.Frame):
         ttk.Label(guest_frame, text="Don't have an account?", font=("Arial", 9)).pack()
         self.guest_btn = ttk.Button(
             guest_frame, 
-            text="🔓 Continue as Guest", 
+            text="Continue as Guest", 
             command=self._continue_as_guest, 
             width=20
         )

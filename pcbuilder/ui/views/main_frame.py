@@ -66,13 +66,8 @@ class MainFrame(ttk.Frame):
         # Display username and role
         self.username_label.config(text=f"Logged in as: {username}")
         
-        # Role indicator with icon
-        role_icons = {
-            UserRole.GUEST: "🔓",
-            UserRole.STANDARD: "👤"
-        }
-        icon = role_icons.get(role, "")
-        self.role_label.config(text=f"{icon} {role.name.capitalize()}")
+        # Role indicator
+        self.role_label.config(text=f"{role.name.capitalize()}")
         
         # Configure tab access based on role
         current_user = session.get_current_user()
@@ -85,7 +80,7 @@ class MainFrame(ttk.Frame):
                     messagebox.showinfo(
                         "Guest Mode",
                         "You're using Guest mode.\n\n"
-                        "✓ You can build and check compatibility\n"
+                        "You can build and check compatibility\n"
                         "✗ You cannot save or load builds\n\n"
                         "Create an account to save your builds!"
                     )

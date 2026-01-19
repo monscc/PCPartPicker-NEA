@@ -21,7 +21,7 @@ class BuildsTab(ttk.Frame):
         ttk.Label(self, text="My Saved Builds", font=("Arial", 14, "bold")).pack(pady=10)
         
         # Import Build Section (at the top)
-        import_frame = ttk.LabelFrame(self, text="🔑 Import Build from Share Key")
+        import_frame = ttk.LabelFrame(self, text="Import Build from Share Key")
         import_frame.pack(fill="x", padx=10, pady=5)
         
         import_row = ttk.Frame(import_frame)
@@ -43,7 +43,7 @@ class BuildsTab(ttk.Frame):
         ttk.Separator(self, orient='horizontal').pack(fill='x', padx=10, pady=5)
         
         # Template Builds Section
-        template_frame = ttk.LabelFrame(self, text="📋 Template Builds (Available to All Users)")
+        template_frame = ttk.LabelFrame(self, text="Template Builds (Available to All Users)")
         template_frame.pack(fill="x", padx=10, pady=5)
         
         templates = get_template_builds()
@@ -198,7 +198,7 @@ class BuildsTab(ttk.Frame):
         
         results = run_full_check(build["parts"])
         for rule_id, passed, message in results:
-            status = "✓" if passed else "✗"
+            status = "OK" if passed else "FAIL"
             compat_text.insert(tk.END, f"{status} {message}\n")
         
         compat_text.config(state="disabled")
@@ -302,7 +302,7 @@ class BuildsTab(ttk.Frame):
         
         results = run_full_check(template_parts)
         for rule_id, passed, message in results:
-            status = "✓" if passed else "✗"
+            status = "OK" if passed else "FAIL"
             compat_text.insert(tk.END, f"{status} {message}\n")
         
         compat_text.config(state="disabled")
