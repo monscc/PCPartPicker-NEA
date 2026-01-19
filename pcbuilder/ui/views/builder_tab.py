@@ -360,24 +360,6 @@ class BuilderTab(ttk.Frame):
         self.legend_frame = ttk.Frame(chart_container, style="TFrame")
         self.legend_frame.pack(side="left", fill="both", expand=True, padx=10)
         
-        # Build summary text - Modern card style (SMALLER)
-        summary_frame = ttk.LabelFrame(right_panel, text="📝 Selected Parts", padding=10)
-        summary_frame.pack(fill="x", padx=10, pady=(0, 10))
-        
-        # Add scrollbar to summary
-        summary_scroll_frame = ttk.Frame(summary_frame, style="TFrame")
-        summary_scroll_frame.pack(fill="both", expand=True)
-        
-        summary_scrollbar = ttk.Scrollbar(summary_scroll_frame)
-        summary_scrollbar.pack(side="right", fill="y")
-        
-        self.summary_text = tk.Text(summary_scroll_frame, height=5, width=50, wrap="word", 
-                                   state="disabled", yscrollcommand=summary_scrollbar.set,
-                                   font=("Segoe UI", 9), bg="white", relief="flat",
-                                   borderwidth=0, padx=10, pady=5)
-        self.summary_text.pack(side="left", fill="both", expand=True)
-        summary_scrollbar.config(command=self.summary_text.yview)
-        
         # Compatibility results - LARGER SPACE FOR BETTER VISIBILITY with colorful styling
         compat_frame = ttk.LabelFrame(right_panel, text="Compatibility Check", 
                                      padding=10, style="Primary.TLabelframe")
@@ -573,24 +555,24 @@ class BuilderTab(ttk.Frame):
             part_display.config(text="Not selected", foreground="#6c757d",
                               background="#f8f9fa", font=("Segoe UI", 9))
         
-        self._update_summary()
+        # self._update_summary()  # Removed - Selected Parts tab removed
     
     def _update_summary(self):
-        """Update the build summary text"""
-        self.summary_text.config(state="normal")
-        self.summary_text.delete("1.0", tk.END)
-        
-        total_price = 0.0
-        for category, part in self.selected_parts.items():
-            if part:
-                price = part.get("price", 0)
-                total_price += price
-                self.summary_text.insert(tk.END, f"{category}: {part['name']} (£{price:.2f})\n")
-            else:
-                self.summary_text.insert(tk.END, f"{category}: (Not selected)\n")
-        
-        self.summary_text.insert(tk.END, f"\nTotal Price: £{total_price:.2f}")
-        self.summary_text.config(state="disabled")
+        """Update the build summary text - DISABLED (Selected Parts tab removed)"""
+        # self.summary_text.config(state="normal")
+        # self.summary_text.delete("1.0", tk.END)
+        # 
+        # total_price = 0.0
+        # for category, part in self.selected_parts.items():
+        #     if part:
+        #         price = part.get("price", 0)
+        #         total_price += price
+        #         self.summary_text.insert(tk.END, f"{category}: {part['name']} (£{price:.2f})\n")
+        #     else:
+        #         self.summary_text.insert(tk.END, f"{category}: (Not selected)\n")
+        # 
+        # self.summary_text.insert(tk.END, f"\nTotal Price: £{total_price:.2f}")
+        # self.summary_text.config(state="disabled")
         
         # Update budget display and pie chart
         self._update_budget_display()
