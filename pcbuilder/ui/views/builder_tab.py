@@ -61,11 +61,15 @@ class RoundedButton(tk.Canvas):
         self.bind("<Leave>", self._on_leave)
     
     def _darken_color(self, color, factor):
-        # Darken a hex color by a factor
+        # Darken a hex color by multiplying RGB values by a factor (e.g., 0.9 for 10% darker)
+        # Strip the '#' if present
         if color.startswith('#'):
             color = color[1:]
+        # Convert hex string to RGB integers (base 16)
         r, g, b = int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)
+        # Multiply each component by the factor and convert back to int
         r, g, b = int(r * factor), int(g * factor), int(b * factor)
+        # Format back to hex string with :02x (2 digits, padded with 0, hexadecimal)
         return f"#{r:02x}{g:02x}{b:02x}"
     
     def _draw_button(self, color=None):
@@ -123,11 +127,13 @@ class BuilderTab(ttk.Frame):
             "Cooler": None
         }
         
-        # Undo/Redo manager using STACK data structure
+        # Undo/Redo manager using STACK data structure (LIFO - Last In First Out)
+        # Stores up to 20 previous states so users can undo mistakes
         self.undo_redo_manager = UndoRedoManager(max_history=20)
         
-        # Budget tracking
+        # Budget tracking - StringVar so it updates the UI automatically
         self.budget = tk.StringVar(value="0")
+        # This callback fires whenever the budget changes
         self.budget.trace_add("write", lambda *args: self._update_budget_display())
         
         # Cache all parts

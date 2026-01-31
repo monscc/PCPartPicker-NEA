@@ -36,15 +36,21 @@ class ComponentFilters:
     
     def _get_cpu_filters(self) -> List[Filter]:
         # CPU-specific filters
+        # Using lambda functions - these are like mini functions that check if a part meets the criteria
         return [
+            # Check if CPU has at least 6 cores
             Filter("6_cores", "6+ Cores", 
                    lambda p: p.get("attributes", {}).get("cores", 0) >= 6, "CPU"),
+            # 8 cores for more intensive workloads
             Filter("8_cores", "8+ Cores", 
                    lambda p: p.get("attributes", {}).get("cores", 0) >= 8, "CPU"),
+            # 12+ cores for professional workstations
             Filter("12_cores", "12+ Cores", 
                    lambda p: p.get("attributes", {}).get("cores", 0) >= 12, "CPU"),
+            # "K" or "X" suffix means unlocked multiplier for overclocking
             Filter("unlocked", "Unlocked (K/X)", 
                    lambda p: any(x in p.get("name", "").upper() for x in ["K", "X", "KF", "KS"]), "CPU"),
+            # Check if CPU has integrated graphics (useful if not buying a GPU)
             Filter("integrated_gpu", "Integrated Graphics", 
                    lambda p: "F" not in p.get("name", "") or "G" in p.get("name", ""), "CPU"),
         ]

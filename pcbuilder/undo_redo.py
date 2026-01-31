@@ -32,20 +32,22 @@ class UndoRedoManager:
         #
         # Args:
         # state: Current state to save (e.g., selected parts)
-        # If we have a current state, push it to undo stack
+        # Save the previous state before updating to the new one
         if self.current_state is not None:
-            # PUSH to undo stack
+            # Add current state to the undo stack (using PUSH operation)
             self.undo_stack.append(deepcopy(self.current_state))
             
-            # Limit stack size (prevent unbounded growth)
+            # Don't let the undo history get too big
+            # If we exceed the limit, remove the oldest state
             if len(self.undo_stack) > self.max_history:
-                # Remove oldest item (bottom of stack)
-                self.undo_stack.pop(0)
+                self.undo_stack.pop(0)  # Remove from bottom of stack
         
-        # Update current state
+        # Update to the new current state
+        # Using deepcopy so changes to state don't affect our saved copy
         self.current_state = deepcopy(state)
         
-        # Clear redo stack (new action invalidates redo history)
+        # Clear redo stack because we're creating a new branch of history
+        # (you can't redo after making a new change)
         self.redo_stack.clear()
     
     def undo(self) -> Optional[Dict[str, Any]]:

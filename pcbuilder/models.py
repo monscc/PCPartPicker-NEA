@@ -23,11 +23,12 @@ class Component(ABC):
     # Demonstrates: Abstraction, Encapsulation with private attributes
     
     def __init__(self, component_id: str, name: str, price: float, attributes: Dict[str, Any]):
-        # Private attributes using name mangling
+        # Using double underscore to make these truly private
+        # Python will name-mangle these so they can't be accessed directly
         self.__id: str = component_id
         self.__name: str = name
         self.__price: float = price
-        self.__attributes: Dict[str, Any] = attributes
+        self.__attributes: Dict[str, Any] = attributes  # Stores extra info like cores, watts, etc
     
     # Property decorators for controlled access (Encapsulation)
     @property
@@ -48,6 +49,7 @@ class Component(ABC):
     @price.setter
     def price(self, value: float) -> None:
         # Set component price with validation
+        # Make sure nobody tries to set a negative price (that would be free money!)
         if value < 0:
             raise ValueError("Price cannot be negative")
         self.__price = value

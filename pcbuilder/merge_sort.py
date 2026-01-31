@@ -13,20 +13,23 @@ def merge_sort(items: List[Any], key: Optional[Callable] = None, reverse: bool =
     # New sorted list (does not modify original)
     #
     # BASE CASE: A list with 0 or 1 elements is already sorted
+    # (this is what stops the recursion from going forever)
     if len(items) <= 1:
-        return items.copy()  # Return copy to avoid modifying original
+        return items.copy()  # Return a copy to avoid accidentally modifying the original
     
-    # DIVIDE: Split the list into two halves
+    # DIVIDE: Split the list into two halves (divide and conquer approach)
     mid = len(items) // 2
     left_half = items[:mid]
     right_half = items[mid:]
     
     # CONQUER: Recursively sort both halves
-    # This is where the RECURSION happens!
-    left_sorted = merge_sort(left_half, key, reverse)   # RECURSIVE CALL
-    right_sorted = merge_sort(right_half, key, reverse) # RECURSIVE CALL
+    # The function calls itself! This is the key part of merge sort
+    # Eventually these reach the base case above
+    left_sorted = merge_sort(left_half, key, reverse)
+    right_sorted = merge_sort(right_half, key, reverse)
     
-    # COMBINE: Merge the two sorted halves
+    # COMBINE: Merge the two sorted halves back together
+    # This is where the actual sorting happens
     return _merge(left_sorted, right_sorted, key, reverse)
 
 

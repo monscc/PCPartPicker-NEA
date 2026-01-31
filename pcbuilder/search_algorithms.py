@@ -22,38 +22,43 @@ def binary_search_by_price(components: List[Component], target_price: float) -> 
     # >>> parts = [CPU($100), CPU($200), CPU($300)]
     # >>> result = binary_search_by_price(parts, 250)
     # >>> result.price  # Returns $200 CPU (closest match)
+    # Edge case: empty list
     if not components:
         return None
     
-    # Single item - return it
+    # Single item - just return it, no need to search
     if len(components) == 1:
         return components[0]
     
+    # Initialize pointers for binary search
     left = 0
     right = len(components) - 1
+    
+    # Keep track of the closest match we've found so far
     closest = components[0]
     min_diff = abs(components[0].price - target_price)
     
-    # Binary search loop
+    # Keep dividing the search space in half until we've checked everything
     while left <= right:
+        # Calculate middle index to check
         mid = (left + right) // 2
         current_price = components[mid].price
         current_diff = abs(current_price - target_price)
         
-        # Update closest if we found a better match
+        # Is this component closer to the target price than our previous best?
         if current_diff < min_diff:
             min_diff = current_diff
             closest = components[mid]
         
-        # Exact match found
+        # Perfect match! No need to search further
         if current_price == target_price:
             return components[mid]
         
-        # Target is in right half
+        # Current price is too low, search the right half (higher prices)
         elif current_price < target_price:
             left = mid + 1
         
-        # Target is in left half
+        # Current price is too high, search the left half (lower prices)
         else:
             right = mid - 1
     
