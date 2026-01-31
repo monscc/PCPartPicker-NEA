@@ -1,5 +1,7 @@
-# Database Manager with Object-Oriented Design
-# Implements: Singleton pattern, Encapsulation, Abstraction
+"""
+Database Manager with Object-Oriented Design
+Implements: Singleton pattern, Encapsulation, Abstraction
+"""
 import sqlite3
 from pathlib import Path
 import json
@@ -13,15 +15,17 @@ from .models import Component, ComponentFactory, Build
 
 
 class DatabaseManager:
-    # Singleton Database Manager
-    # Demonstrates: Singleton pattern, Encapsulation with private attributes
+    """
+    Singleton Database Manager
+    Demonstrates: Singleton pattern, Encapsulation with private attributes
+    """
     
     # Class-level attributes for singleton pattern
     __instance: Optional['DatabaseManager'] = None
     __lock: Lock = Lock()
     
     def __new__(cls, db_path: Optional[Path] = None):
-        # Ensure only one instance exists (Singleton pattern)
+        """Ensure only one instance exists (Singleton pattern)"""
         if cls.__instance is None:
             with cls.__lock:
                 if cls.__instance is None:
@@ -29,7 +33,7 @@ class DatabaseManager:
         return cls.__instance
     
     def __init__(self, db_path: Optional[Path] = None):
-        # Initialize database manager
+        """Initialize database manager"""
         # Only initialize once
         if not hasattr(self, '_initialized'):
             if db_path is None:
@@ -45,11 +49,11 @@ class DatabaseManager:
     
     @property
     def db_path(self) -> Path:
-        # Get database path (read-only)
+        """Get database path (read-only)"""
         return self.__db_path
     
     def __get_connection(self) -> sqlite3.Connection:
-        # Get database connection (private method)
+        """Get database connection (private method)"""
         # Add timeout to handle OneDrive sync issues
         conn = sqlite3.connect(self.__db_path, timeout=30.0)
         # Enable WAL mode for better concurrent access
@@ -57,7 +61,7 @@ class DatabaseManager:
         return conn
     
     def __initialize_schema(self) -> None:
-        # Initialize database schema (private method)
+        """Initialize database schema (private method)"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
@@ -70,10 +74,10 @@ class DatabaseManager:
                 price REAL NOT NULL,
                 attributes TEXT
             )
-        # )
-        #
-        # # Create users table
-        # cur.execute(
+        """)
+        
+        # Create users table
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
@@ -81,10 +85,10 @@ class DatabaseManager:
                 role INTEGER DEFAULT 1,
                 created_at TEXT NOT NULL
             )
-        # )
-        #
-        # # Create builds table
-        # cur.execute(
+        """)
+        
+        # Create builds table
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS builds (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
@@ -94,53 +98,53 @@ class DatabaseManager:
                 share_key TEXT UNIQUE,
                 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
             )
-        # )
-        #
-        # # Create indexes for performance
-        # cur.execute(
+        """)
+        
+        # Create indexes for performance
+        cur.execute("""
             CREATE INDEX IF NOT EXISTS idx_parts_category 
             ON parts(category)
-        # )
-        #
-        # cur.execute(
+        """)
+        
+        cur.execute("""
             CREATE INDEX IF NOT EXISTS idx_builds_user 
             ON builds(user_id)
-        # )
-        #
-        # cur.execute(
+        """)
+        
+        cur.execute("""
             CREATE INDEX IF NOT EXISTS idx_builds_share_key 
             ON builds(share_key)
-        # )
-        #
-        # conn.commit()
-        # conn.close()
-        #
-        # # === Component Management Methods ===
-        #
-        # def add_component(self, component: Component) -> bool:
-        # """Add a component to the database
+        """)
+        
+        conn.commit()
+        conn.close()
+    
+    # === Component Management Methods ===
+    
+    def add_component(self, component: Component) -> bool:
+        """Add a component to the database"""
         try:
             conn = self.__get_connection()
             cur = conn.cursor()
             
             comp_dict = component.to_dict()
             cur.execute(
-                # INSERT OR REPLACE INTO parts
-                # (id, name, category, price, attributes) 
-                # VALUES (?, ?, ?, ?, ?)""",
-                # (comp_dict['id'], comp_dict['name'], comp_dict['category'],
-                # comp_dict['price'], json.dumps(comp_dict['attributes']))
-                # )
-                #
-                # conn.commit()
-                # conn.close()
-                # return True
-                # except Exception as e:
-                # print(f"Error adding component: {e}")
-                # return False
-                #
-                # def get_component_by_id(self, component_id: str) -> Optional[Component]:
-                # """Get a specific component by ID
+                """INSERT OR REPLACE INTO parts 
+                   (id, name, category, price, attributes) 
+                   VALUES (?, ?, ?, ?, ?)""",
+                (comp_dict['id'], comp_dict['name'], comp_dict['category'],
+                 comp_dict['price'], json.dumps(comp_dict['attributes']))
+            )
+            
+            conn.commit()
+            conn.close()
+            return True
+        except Exception as e:
+            print(f"Error adding component: {e}")
+            return False
+    
+    def get_component_by_id(self, component_id: str) -> Optional[Component]:
+        """Get a specific component by ID"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
@@ -160,7 +164,7 @@ class DatabaseManager:
         )
     
     def get_all_components(self) -> List[Component]:
-        # Get all components from database
+        """Get all components from database"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
@@ -182,7 +186,7 @@ class DatabaseManager:
         return components
     
     def get_components_by_category(self, category: str) -> List[Component]:
-        # Get all components of a specific category
+        """Get all components of a specific category"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
@@ -207,7 +211,7 @@ class DatabaseManager:
         return components
     
     def load_components_from_json(self, json_path: Path) -> int:
-        # Load components from JSON file, returns count of loaded components
+        """Load components from JSON file, returns count of loaded components"""
         try:
             with open(json_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
@@ -232,11 +236,11 @@ class DatabaseManager:
     # === User Management Methods ===
     
     def __hash_password(self, password: str) -> str:
-        # Hash password using custom SHA256 (private method)
+        """Hash password using custom SHA256 (private method)"""
         return my_custom_sha256_hash(password)
     
     def create_user(self, username: str, password: str, role: int = 1) -> Optional[int]:
-        # Create a new user account
+        """Create a new user account"""
         # Validation
         if not username or len(username) < 3:
             raise ValueError("Username must be at least 3 characters")
@@ -249,20 +253,20 @@ class DatabaseManager:
             
             password_hash = self.__hash_password(password)
             cur.execute(
-                # INSERT INTO users (username, password_hash, role, created_at)
-                # VALUES (?, ?, ?, ?)""",
-                # (username, password_hash, role, datetime.now().isoformat())
-                # )
-                #
-                # user_id = cur.lastrowid
-                # conn.commit()
-                # conn.close()
-                # return user_id
-                # except sqlite3.IntegrityError:
-                # return None  # Username already exists
-                #
-                # def authenticate_user(self, username: str, password: str) -> Optional[tuple[int, int]]:
-                # """Authenticate user and return (user_id, role)
+                """INSERT INTO users (username, password_hash, role, created_at) 
+                   VALUES (?, ?, ?, ?)""",
+                (username, password_hash, role, datetime.now().isoformat())
+            )
+            
+            user_id = cur.lastrowid
+            conn.commit()
+            conn.close()
+            return user_id
+        except sqlite3.IntegrityError:
+            return None  # Username already exists
+    
+    def authenticate_user(self, username: str, password: str) -> Optional[tuple[int, int]]:
+        """Authenticate user and return (user_id, role)"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
@@ -283,7 +287,7 @@ class DatabaseManager:
         return None
     
     def get_user_info(self, user_id: int) -> Optional[Dict[str, Any]]:
-        # Get user information
+        """Get user information"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
@@ -307,12 +311,12 @@ class DatabaseManager:
     # === Build Management Methods ===
     
     def __generate_share_key(self) -> str:
-        # Generate unique share key (private method)
+        """Generate unique share key (private method)"""
         chars = string.ascii_uppercase + string.digits
         return ''.join(secrets.choice(chars) for _ in range(8))
     
     def save_build(self, build: Build) -> tuple[int, str]:
-        # Save a build to database, returns (build_id, share_key)
+        """Save a build to database, returns (build_id, share_key)"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
@@ -335,82 +339,82 @@ class DatabaseManager:
                 parts_dict[category] = None
         
         cur.execute(
-            # INSERT INTO builds (user_id, name, parts_json, created_at, share_key)
-            # VALUES (?, ?, ?, ?, ?)""",
-            # (build.user_id, build.name, json.dumps(parts_dict),
-            # datetime.now().isoformat(), share_key)
-            # )
-            #
-            # build_id = cur.lastrowid
-            # build.build_id = build_id
-            #
-            # conn.commit()
-            # conn.close()
-            #
-            # return (build_id, share_key)
-            #
-            # def load_build(self, build_id: int) -> Optional[Build]:
-            # """Load a build by ID
+            """INSERT INTO builds (user_id, name, parts_json, created_at, share_key)
+               VALUES (?, ?, ?, ?, ?)""",
+            (build.user_id, build.name, json.dumps(parts_dict),
+             datetime.now().isoformat(), share_key)
+        )
+        
+        build_id = cur.lastrowid
+        build.build_id = build_id
+        
+        conn.commit()
+        conn.close()
+        
+        return (build_id, share_key)
+    
+    def load_build(self, build_id: int) -> Optional[Build]:
+        """Load a build by ID"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
         cur.execute(
-            # SELECT id, user_id, name, parts_json, created_at, share_key
-            # FROM builds WHERE id = ?""",
-            # (build_id,)
-            # )
-            # row = cur.fetchone()
-            # conn.close()
-            #
-            # if row is None:
-            # return None
-            #
-            # return self.__build_from_row(row)
-            #
-            # def load_build_by_share_key(self, share_key: str) -> Optional[Build]:
-            # """Load a build by share key
+            """SELECT id, user_id, name, parts_json, created_at, share_key 
+               FROM builds WHERE id = ?""",
+            (build_id,)
+        )
+        row = cur.fetchone()
+        conn.close()
+        
+        if row is None:
+            return None
+        
+        return self.__build_from_row(row)
+    
+    def load_build_by_share_key(self, share_key: str) -> Optional[Build]:
+        """Load a build by share key"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
         cur.execute(
-            # SELECT id, user_id, name, parts_json, created_at, share_key
-            # FROM builds WHERE share_key = ?""",
-            # (share_key,)
-            # )
-            # row = cur.fetchone()
-            # conn.close()
-            #
-            # if row is None:
-            # return None
-            #
-            # return self.__build_from_row(row)
-            #
-            # def load_user_builds(self, user_id: int) -> List[Build]:
-            # """Load all builds for a user
+            """SELECT id, user_id, name, parts_json, created_at, share_key 
+               FROM builds WHERE share_key = ?""",
+            (share_key,)
+        )
+        row = cur.fetchone()
+        conn.close()
+        
+        if row is None:
+            return None
+        
+        return self.__build_from_row(row)
+    
+    def load_user_builds(self, user_id: int) -> List[Build]:
+        """Load all builds for a user"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
         cur.execute(
-            # SELECT id, user_id, name, parts_json, created_at, share_key
-            # FROM builds WHERE user_id = ?""",
-            # (user_id,)
-            # )
-            # rows = cur.fetchall()
-            # conn.close()
-            #
-            # builds = []
-            # for row in rows:
-            # try:
-            # build = self.__build_from_row(row)
-            # if build:
-            # builds.append(build)
-            # except Exception as e:
-            # print(f"Error loading build {row[0]}: {e}")
-            #
-            # return builds
-            #
-            # def __build_from_row(self, row: tuple) -> Optional[Build]:
-            # """Convert database row to Build object (private method)
+            """SELECT id, user_id, name, parts_json, created_at, share_key 
+               FROM builds WHERE user_id = ?""",
+            (user_id,)
+        )
+        rows = cur.fetchall()
+        conn.close()
+        
+        builds = []
+        for row in rows:
+            try:
+                build = self.__build_from_row(row)
+                if build:
+                    builds.append(build)
+            except Exception as e:
+                print(f"Error loading build {row[0]}: {e}")
+        
+        return builds
+    
+    def __build_from_row(self, row: tuple) -> Optional[Build]:
+        """Convert database row to Build object (private method)"""
         try:
             build_id, user_id, name, parts_json, created_at, share_key = row
             
@@ -433,7 +437,7 @@ class DatabaseManager:
             return None
     
     def import_build(self, user_id: int, share_key: str) -> Optional[tuple[int, str]]:
-        # Import a build from share key to user's account
+        """Import a build from share key to user's account"""
         build = self.load_build_by_share_key(share_key)
         if build is None:
             return None
@@ -447,7 +451,7 @@ class DatabaseManager:
         return self.save_build(new_build)
     
     def delete_build(self, build_id: int, user_id: int) -> bool:
-        # Delete a build (only if owned by user)
+        """Delete a build (only if owned by user)"""
         try:
             conn = self.__get_connection()
             cur = conn.cursor()
@@ -468,7 +472,7 @@ class DatabaseManager:
     # === Utility Methods ===
     
     def get_statistics(self) -> Dict[str, Any]:
-        # Get database statistics
+        """Get database statistics"""
         conn = self.__get_connection()
         cur = conn.cursor()
         
@@ -477,27 +481,27 @@ class DatabaseManager:
             SELECT category, COUNT(*) 
             FROM parts 
             GROUP BY category
-        # )
-        # components_by_category = dict(cur.fetchall())
-        #
-        # # Count total users
-        # cur.execute("SELECT COUNT(*) FROM users")
-        # total_users = cur.fetchone()[0]
-        #
-        # # Count total builds
-        # cur.execute("SELECT COUNT(*) FROM builds")
-        # total_builds = cur.fetchone()[0]
-        #
-        # conn.close()
-        #
-        # return {
-        # 'components_by_category': components_by_category,
-        # 'total_users': total_users,
-        # 'total_builds': total_builds
-        # }
-        #
-        # def close(self) -> None:
-        # """Close database connection (if needed)
+        """)
+        components_by_category = dict(cur.fetchall())
+        
+        # Count total users
+        cur.execute("SELECT COUNT(*) FROM users")
+        total_users = cur.fetchone()[0]
+        
+        # Count total builds
+        cur.execute("SELECT COUNT(*) FROM builds")
+        total_builds = cur.fetchone()[0]
+        
+        conn.close()
+        
+        return {
+            'components_by_category': components_by_category,
+            'total_users': total_users,
+            'total_builds': total_builds
+        }
+    
+    def close(self) -> None:
+        """Close database connection (if needed)"""
         if self.__connection is not None:
             self.__connection.close()
             self.__connection = None
@@ -505,5 +509,5 @@ class DatabaseManager:
 
 # Convenience function to get singleton instance
 def get_database_manager() -> DatabaseManager:
-    # Get the singleton DatabaseManager instance
+    """Get the singleton DatabaseManager instance"""
     return DatabaseManager()
