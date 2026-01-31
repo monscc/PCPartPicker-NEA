@@ -1,1 +1,1 @@
-"""UI package for Tkinter interface"""
+# UI package for Tkinter interface

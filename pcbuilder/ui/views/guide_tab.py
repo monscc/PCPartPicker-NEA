@@ -1,19 +1,17 @@
-"""
-PC Building Guide Tab - Comprehensive component education
-"""
+# PC Building Guide Tab - Comprehensive component education
 import tkinter as tk
 from tkinter import ttk, font as tkfont
 from typing import Dict, List, Tuple
 
 class GuideTab(ttk.Frame):
-    """Educational guide for PC building with component specifications"""
+    # Educational guide for PC building with component specifications
     
     def __init__(self, parent):
         super().__init__(parent)
         self._setup_ui()
     
     def _setup_ui(self):
-        """Setup the guide interface with expandable sections"""
+        # Setup the guide interface with expandable sections
         # Main container with scrollbar
         main_container = ttk.Frame(self)
         main_container.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
@@ -58,7 +56,7 @@ class GuideTab(ttk.Frame):
         canvas.bind_all("<MouseWheel>", lambda e: canvas.yview_scroll(int(-1*(e.delta/120)), "units"))
     
     def _create_section(self, parent, title: str, content: List[Tuple[str, str]]):
-        """Create expandable section with title and content"""
+        # Create expandable section with title and content
         section_frame = ttk.LabelFrame(parent, text=title, padding=10)
         section_frame.pack(fill=tk.X, pady=5, padx=5)
         
@@ -77,7 +75,7 @@ class GuideTab(ttk.Frame):
             content_label.pack(fill=tk.X, padx=10, pady=(0, 5))
     
     def _get_cpu_content(self) -> List[Tuple[str, str]]:
-        """CPU specifications and explanations"""
+        # CPU specifications and explanations
         return [
             ("Clock Speed (GHz)", 
              "Measures how many cycles per second the CPU can execute. Higher is faster. "
@@ -103,7 +101,7 @@ class GuideTab(ttk.Frame):
         ]
     
     def _get_motherboard_content(self) -> List[Tuple[str, str]]:
-        """Motherboard specifications"""
+        # Motherboard specifications
         return [
             ("Form Factor",
              "Physical size: ATX (standard, most features), Micro-ATX (smaller, fewer slots), "
@@ -127,7 +125,7 @@ class GuideTab(ttk.Frame):
         ]
     
     def _get_ram_content(self) -> List[Tuple[str, str]]:
-        """RAM specifications"""
+        # RAM specifications
         return [
             ("Capacity (GB)",
              "How much data RAM can hold. 16GB minimum for gaming, 32GB for multitasking, "
@@ -151,7 +149,7 @@ class GuideTab(ttk.Frame):
         ]
     
     def _get_gpu_content(self) -> List[Tuple[str, str]]:
-        """GPU specifications"""
+        # GPU specifications
         return [
             ("VRAM (GB)",
              "Video memory for textures/graphics. 8GB for 1080p, 12GB for 1440p, "
@@ -175,7 +173,7 @@ class GuideTab(ttk.Frame):
         ]
     
     def _get_storage_content(self) -> List[Tuple[str, str]]:
-        """Storage specifications"""
+        # Storage specifications
         return [
             ("SSD vs HDD",
              "SSD: Fast (3000+ MB/s), no moving parts, expensive per GB. For OS and games. "
@@ -199,7 +197,7 @@ class GuideTab(ttk.Frame):
         ]
     
     def _get_psu_content(self) -> List[Tuple[str, str]]:
-        """PSU specifications"""
+        # PSU specifications
         return [
             ("Wattage",
              "Total power output. Calculate: CPU + GPU + 150W overhead. "
@@ -224,7 +222,7 @@ class GuideTab(ttk.Frame):
         ]
     
     def _get_case_content(self) -> List[Tuple[str, str]]:
-        """Case specifications"""
+        # Case specifications
         return [
             ("Form Factor",
              "Must fit motherboard. Full Tower (E-ATX, huge), Mid Tower (ATX, standard), "
@@ -248,7 +246,7 @@ class GuideTab(ttk.Frame):
         ]
     
     def _get_cooler_content(self) -> List[Tuple[str, str]]:
-        """CPU Cooler specifications"""
+        # CPU Cooler specifications
         return [
             ("Air vs AIO Liquid",
              "Air: Fan + heatsink, reliable, quiet, cheap ($30-100). "

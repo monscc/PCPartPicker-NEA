@@ -1,7 +1,5 @@
-"""
-Binary Search Demonstration Script
-Shows the performance difference between binary search and linear search
-"""
+# Binary Search Demonstration Script
+# Shows the performance difference between binary search and linear search
 import time
 from pathlib import Path
 from pcbuilder.database_manager import get_database_manager
@@ -15,7 +13,7 @@ from pcbuilder.filters import find_component_by_price, find_components_in_price_
 
 
 def demo_search_comparison():
-    """Demonstrate binary search vs linear search performance"""
+    # Demonstrate binary search vs linear search performance
     print("=" * 70)
     print("BINARY SEARCH ALGORITHM DEMONSTRATION")
     print("=" * 70)

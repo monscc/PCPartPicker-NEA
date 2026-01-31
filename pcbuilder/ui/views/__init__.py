@@ -1,1 +1,1 @@
-"""Views package containing all UI frames"""
+# Views package containing all UI frames

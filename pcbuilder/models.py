@@ -1,7 +1,5 @@
-"""
-Core Data Models with Object-Oriented Design
-Implements abstract base classes, encapsulation, and polymorphism
-"""
+# Core Data Models with Object-Oriented Design
+# Implements abstract base classes, encapsulation, and polymorphism
 from abc import ABC, abstractmethod
 from typing import Optional, Dict, Any, List
 from datetime import datetime
@@ -9,7 +7,7 @@ from enum import Enum
 
 
 class ComponentCategory(Enum):
-    """Enumeration of all component categories"""
+    # Enumeration of all component categories
     CPU = "CPU"
     MOTHERBOARD = "Motherboard"
     RAM = "RAM"
@@ -21,10 +19,8 @@ class ComponentCategory(Enum):
 
 
 class Component(ABC):
-    """
-    Abstract base class for all PC components
-    Demonstrates: Abstraction, Encapsulation with private attributes
-    """
+    # Abstract base class for all PC components
+    # Demonstrates: Abstraction, Encapsulation with private attributes
     
     def __init__(self, component_id: str, name: str, price: float, attributes: Dict[str, Any]):
         # Private attributes using name mangling
@@ -36,60 +32,60 @@ class Component(ABC):
     # Property decorators for controlled access (Encapsulation)
     @property
     def id(self) -> str:
-        """Get component ID (read-only)"""
+        # Get component ID (read-only)
         return self.__id
     
     @property
     def name(self) -> str:
-        """Get component name (read-only)"""
+        # Get component name (read-only)
         return self.__name
     
     @property
     def price(self) -> float:
-        """Get component price"""
+        # Get component price
         return self.__price
     
     @price.setter
     def price(self, value: float) -> None:
-        """Set component price with validation"""
+        # Set component price with validation
         if value < 0:
             raise ValueError("Price cannot be negative")
         self.__price = value
     
     @property
     def attributes(self) -> Dict[str, Any]:
-        """Get component attributes (returns copy for encapsulation)"""
+        # Get component attributes (returns copy for encapsulation)
         return self.__attributes.copy()
     
     def get_attribute(self, key: str, default: Any = None) -> Any:
-        """Safely get a specific attribute"""
+        # Safely get a specific attribute
         return self.__attributes.get(key, default)
     
     @abstractmethod
     def get_category(self) -> ComponentCategory:
-        """Abstract method: Each component must define its category"""
+        # Abstract method: Each component must define its category
         pass
     
     @abstractmethod
     def is_compatible_with(self, other: 'Component') -> tuple[bool, str]:
-        """Abstract method: Check compatibility with another component"""
+        # Abstract method: Check compatibility with another component
         pass
     
     @abstractmethod
     def get_specifications(self) -> Dict[str, Any]:
-        """Abstract method: Get formatted specifications for display"""
+        # Abstract method: Get formatted specifications for display
         pass
     
     def __str__(self) -> str:
-        """String representation"""
+        # String representation
         return f"{self.__class__.__name__}: {self.__name} (£{self.__price:.2f})"
     
     def __repr__(self) -> str:
-        """Developer-friendly representation"""
+        # Developer-friendly representation
         return f"{self.__class__.__name__}(id='{self.__id}', name='{self.__name}')"
     
     def to_dict(self) -> Dict[str, Any]:
-        """Convert component to dictionary for serialization"""
+        # Convert component to dictionary for serialization
         return {
             'id': self.__id,
             'name': self.__name,
@@ -100,13 +96,13 @@ class Component(ABC):
 
 
 class CPU(Component):
-    """Concrete implementation of CPU component"""
+    # Concrete implementation of CPU component
     
     def get_category(self) -> ComponentCategory:
         return ComponentCategory.CPU
     
     def is_compatible_with(self, other: Component) -> tuple[bool, str]:
-        """Check CPU compatibility with other components"""
+        # Check CPU compatibility with other components
         if isinstance(other, Motherboard):
             cpu_socket = self.get_attribute('socket', '')
             mb_socket = other.get_attribute('socket', '')
@@ -116,7 +112,7 @@ class CPU(Component):
         return True, "No compatibility constraints"
     
     def get_specifications(self) -> Dict[str, Any]:
-        """Get CPU specifications"""
+        # Get CPU specifications
         return {
             'Cores': self.get_attribute('cores', 'N/A'),
             'Base Clock': f"{self.get_attribute('base_clock', 'N/A')} GHz",
@@ -127,13 +123,13 @@ class CPU(Component):
 
 
 class Motherboard(Component):
-    """Concrete implementation of Motherboard component"""
+    # Concrete implementation of Motherboard component
     
     def get_category(self) -> ComponentCategory:
         return ComponentCategory.MOTHERBOARD
     
     def is_compatible_with(self, other: Component) -> tuple[bool, str]:
-        """Check motherboard compatibility"""
+        # Check motherboard compatibility
         if isinstance(other, CPU):
             return other.is_compatible_with(self)
         elif isinstance(other, RAM):
@@ -147,7 +143,7 @@ class Motherboard(Component):
         return True, "No compatibility constraints"
     
     def get_specifications(self) -> Dict[str, Any]:
-        """Get motherboard specifications"""
+        # Get motherboard specifications
         return {
             'Socket': self.get_attribute('socket', 'N/A'),
             'Form Factor': self.get_attribute('form_factor', 'N/A'),
@@ -158,13 +154,13 @@ class Motherboard(Component):
 
 
 class GPU(Component):
-    """Concrete implementation of GPU component"""
+    # Concrete implementation of GPU component
     
     def get_category(self) -> ComponentCategory:
         return ComponentCategory.GPU
     
     def is_compatible_with(self, other: Component) -> tuple[bool, str]:
-        """Check GPU compatibility"""
+        # Check GPU compatibility
         if isinstance(other, PSU):
             gpu_tdp = self.get_attribute('tdp', 0)
             # Basic check - PSU should have enough headroom
@@ -172,7 +168,7 @@ class GPU(Component):
         return True, "No compatibility constraints"
     
     def get_specifications(self) -> Dict[str, Any]:
-        """Get GPU specifications"""
+        # Get GPU specifications
         return {
             'VRAM': f"{self.get_attribute('vram', 'N/A')} GB",
             'Interface': self.get_attribute('interface', 'N/A'),
@@ -182,19 +178,19 @@ class GPU(Component):
 
 
 class RAM(Component):
-    """Concrete implementation of RAM component"""
+    # Concrete implementation of RAM component
     
     def get_category(self) -> ComponentCategory:
         return ComponentCategory.RAM
     
     def is_compatible_with(self, other: Component) -> tuple[bool, str]:
-        """Check RAM compatibility"""
+        # Check RAM compatibility
         if isinstance(other, Motherboard):
             return other.is_compatible_with(self)
         return True, "No compatibility constraints"
     
     def get_specifications(self) -> Dict[str, Any]:
-        """Get RAM specifications"""
+        # Get RAM specifications
         return {
             'Capacity': self.get_attribute('capacity', 'N/A'),
             'Speed': f"{self.get_attribute('speed', 'N/A')} MHz",
@@ -204,17 +200,17 @@ class RAM(Component):
 
 
 class Storage(Component):
-    """Concrete implementation of Storage component"""
+    # Concrete implementation of Storage component
     
     def get_category(self) -> ComponentCategory:
         return ComponentCategory.STORAGE
     
     def is_compatible_with(self, other: Component) -> tuple[bool, str]:
-        """Check storage compatibility"""
+        # Check storage compatibility
         return True, "Storage is universally compatible"
     
     def get_specifications(self) -> Dict[str, Any]:
-        """Get storage specifications"""
+        # Get storage specifications
         return {
             'Capacity': self.get_attribute('capacity', 'N/A'),
             'Type': self.get_attribute('type', 'N/A'),
@@ -224,17 +220,17 @@ class Storage(Component):
 
 
 class PSU(Component):
-    """Concrete implementation of PSU component"""
+    # Concrete implementation of PSU component
     
     def get_category(self) -> ComponentCategory:
         return ComponentCategory.PSU
     
     def is_compatible_with(self, other: Component) -> tuple[bool, str]:
-        """Check PSU compatibility"""
+        # Check PSU compatibility
         return True, "PSU compatibility checked at build level"
     
     def get_specifications(self) -> Dict[str, Any]:
-        """Get PSU specifications"""
+        # Get PSU specifications
         return {
             'Wattage': f"{self.get_attribute('wattage', 'N/A')} W",
             'Efficiency': self.get_attribute('efficiency', 'N/A'),
@@ -243,13 +239,13 @@ class PSU(Component):
 
 
 class Case(Component):
-    """Concrete implementation of Case component"""
+    # Concrete implementation of Case component
     
     def get_category(self) -> ComponentCategory:
         return ComponentCategory.CASE
     
     def is_compatible_with(self, other: Component) -> tuple[bool, str]:
-        """Check case compatibility"""
+        # Check case compatibility
         if isinstance(other, Motherboard):
             case_ff = self.get_attribute('form_factor', '')
             mb_ff = other.get_attribute('form_factor', '')
@@ -260,7 +256,7 @@ class Case(Component):
         return True, "No compatibility constraints"
     
     def get_specifications(self) -> Dict[str, Any]:
-        """Get case specifications"""
+        # Get case specifications
         return {
             'Form Factor': self.get_attribute('form_factor', 'N/A'),
             'Max GPU Length': f"{self.get_attribute('max_gpu_length', 'N/A')} mm",
@@ -269,17 +265,17 @@ class Case(Component):
 
 
 class Cooler(Component):
-    """Concrete implementation of Cooler component"""
+    # Concrete implementation of Cooler component
     
     def get_category(self) -> ComponentCategory:
         return ComponentCategory.COOLER
     
     def is_compatible_with(self, other: Component) -> tuple[bool, str]:
-        """Check cooler compatibility"""
+        # Check cooler compatibility
         return True, "Cooler compatibility depends on socket and case clearance"
     
     def get_specifications(self) -> Dict[str, Any]:
-        """Get cooler specifications"""
+        # Get cooler specifications
         return {
             'Type': self.get_attribute('type', 'N/A'),
             'Fan Size': self.get_attribute('fan_size', 'N/A'),
@@ -289,10 +285,8 @@ class Cooler(Component):
 
 
 class ComponentFactory:
-    """
-    Factory pattern for creating component instances
-    Demonstrates: Factory design pattern, Polymorphism
-    """
+    # Factory pattern for creating component instances
+    # Demonstrates: Factory design pattern, Polymorphism
     
     _component_map = {
         'CPU': CPU,
@@ -308,7 +302,7 @@ class ComponentFactory:
     @classmethod
     def create_component(cls, component_id: str, name: str, category: str, 
                         price: float, attributes: Dict[str, Any]) -> Component:
-        """Create appropriate component instance based on category"""
+        # Create appropriate component instance based on category
         component_class = cls._component_map.get(category)
         if component_class is None:
             raise ValueError(f"Unknown component category: {category}")
@@ -316,10 +310,8 @@ class ComponentFactory:
 
 
 class Build:
-    """
-    Represents a PC build with encapsulated components
-    Demonstrates: Encapsulation, Composition
-    """
+    # Represents a PC build with encapsulated components
+    # Demonstrates: Encapsulation, Composition
     
     def __init__(self, build_id: Optional[int], name: str, user_id: int):
         # Private attributes
@@ -341,65 +333,65 @@ class Build:
     
     @property
     def build_id(self) -> Optional[int]:
-        """Get build ID"""
+        # Get build ID
         return self.__build_id
     
     @build_id.setter
     def build_id(self, value: int) -> None:
-        """Set build ID (for database assignment)"""
+        # Set build ID (for database assignment)
         self.__build_id = value
     
     @property
     def name(self) -> str:
-        """Get build name"""
+        # Get build name
         return self.__name
     
     @name.setter
     def name(self, value: str) -> None:
-        """Set build name with validation"""
+        # Set build name with validation
         if not value or len(value) < 3:
             raise ValueError("Build name must be at least 3 characters")
         self.__name = value
     
     @property
     def user_id(self) -> int:
-        """Get user ID"""
+        # Get user ID
         return self.__user_id
     
     @property
     def share_key(self) -> Optional[str]:
-        """Get share key"""
+        # Get share key
         return self.__share_key
     
     @share_key.setter
     def share_key(self, value: str) -> None:
-        """Set share key"""
+        # Set share key
         self.__share_key = value
     
     def add_component(self, component: Component) -> None:
-        """Add a component to the build"""
+        # Add a component to the build
         category = component.get_category().value
         self.__components[category] = component
     
     def remove_component(self, category: str) -> None:
-        """Remove a component from the build"""
+        # Remove a component from the build
         if category in self.__components:
             self.__components[category] = None
     
     def get_component(self, category: str) -> Optional[Component]:
-        """Get a component by category"""
+        # Get a component by category
         return self.__components.get(category)
     
     def get_all_components(self) -> Dict[str, Optional[Component]]:
-        """Get all components (returns copy for encapsulation)"""
+        # Get all components (returns copy for encapsulation)
         return self.__components.copy()
     
     def calculate_total_price(self) -> float:
-        """Calculate total price of all components"""
+        # Calculate total price of all components
         return sum(comp.price for comp in self.__components.values() if comp is not None)
     
     def calculate_total_wattage(self) -> int:
-        """Calculate total power consumption"""
+        # Calculate total power consumption
         total = 0
         for comp in self.__components.values():
             if comp is not None:
@@ -409,12 +401,12 @@ class Build:
         return total
     
     def is_complete(self) -> bool:
-        """Check if build has all essential components"""
+        # Check if build has all essential components
         essential = ['CPU', 'Motherboard', 'RAM', 'Storage', 'PSU', 'Case']
         return all(self.__components.get(cat) is not None for cat in essential)
     
     def get_compatibility_issues(self) -> List[str]:
-        """Check for compatibility issues between components"""
+        # Check for compatibility issues between components
         issues = []
         components = [c for c in self.__components.values() if c is not None]
         
@@ -435,7 +427,7 @@ class Build:
         return issues
     
     def to_dict(self) -> Dict[str, Any]:
-        """Convert build to dictionary for serialization"""
+        # Convert build to dictionary for serialization
         return {
             'id': self.__build_id,
             'name': self.__name,
@@ -450,6 +442,6 @@ class Build:
         }
     
     def __str__(self) -> str:
-        """String representation"""
+        # String representation
         comp_count = sum(1 for c in self.__components.values() if c is not None)
         return f"Build: {self.__name} ({comp_count}/8 components, £{self.calculate_total_price():.2f})"

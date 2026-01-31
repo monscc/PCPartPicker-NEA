@@ -1,4 +1,4 @@
-"""Build PC tab - main builder interface with role-based access control"""
+# Build PC tab - main builder interface with role-based access control
 import tkinter as tk
 from tkinter import ttk, messagebox
 from ...database_manager import get_database_manager
@@ -11,14 +11,14 @@ import math
 
 
 def list_parts():
-    """Get all components as dictionaries"""
+    # Get all components as dictionaries
     db = get_database_manager()
     components = db.get_all_components()
     return [comp.to_dict() for comp in components]
 
 
 def save_build(user_id: int, build_name: str, parts: dict):
-    """Save a build to the database"""
+    # Save a build to the database
     from ...models import Build, ComponentFactory
     db = get_database_manager()
     
@@ -35,7 +35,7 @@ def save_build(user_id: int, build_name: str, parts: dict):
 
 
 class RoundedButton(tk.Canvas):
-    """Custom button with rounded corners"""
+    # Custom button with rounded corners
     def __init__(self, parent, text="", command=None, bg="#2196F3", fg="white", 
                  width=120, height=40, radius=8, font=("Segoe UI", 10, "bold"), **kwargs):
         # Get parent background color
@@ -61,7 +61,7 @@ class RoundedButton(tk.Canvas):
         self.bind("<Leave>", self._on_leave)
     
     def _darken_color(self, color, factor):
-        """Darken a hex color by a factor"""
+        # Darken a hex color by a factor
         if color.startswith('#'):
             color = color[1:]
         r, g, b = int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)
@@ -69,7 +69,7 @@ class RoundedButton(tk.Canvas):
         return f"#{r:02x}{g:02x}{b:02x}"
     
     def _draw_button(self, color=None):
-        """Draw rounded rectangle button"""
+        # Draw rounded rectangle button
         if color is None:
             color = self.bg_color
         
@@ -89,23 +89,23 @@ class RoundedButton(tk.Canvas):
         self.create_text(w/2, h/2, text=self.text, fill=self.fg_color, font=self.font)
     
     def _on_click(self, event):
-        """Handle button click"""
+        # Handle button click
         if self.command:
             self.command()
     
     def _on_enter(self, event):
-        """Handle mouse enter"""
+        # Handle mouse enter
         self._draw_button(self.hover_color)
         self.configure(cursor="hand2")
     
     def _on_leave(self, event):
-        """Handle mouse leave"""
+        # Handle mouse leave
         self._draw_button()
         self.configure(cursor="")
 
 
 class BuilderTab(ttk.Frame):
-    """PC Builder tab for selecting parts and checking compatibility"""
+    # PC Builder tab for selecting parts and checking compatibility
     
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -155,7 +155,7 @@ class BuilderTab(ttk.Frame):
         self._create_widgets()
     
     def _create_widgets(self):
-        """Create the builder interface with modern styling"""
+        # Create the builder interface with modern styling
         # Main container with better proportions
         main_container = ttk.PanedWindow(self, orient="horizontal")
         main_container.pack(fill="both", expand=True, padx=10, pady=10)
@@ -401,9 +401,9 @@ class BuilderTab(ttk.Frame):
         self._update_undo_redo_buttons()
     
     def _open_guided_selector(self, category: str):
-        """Open the guided selector dialog for a component category"""
+        # Open the guided selector dialog for a component category
         def on_part_selected(part):
-            """Callback when a part is selected from guided dialog"""
+            # Callback when a part is selected from guided dialog
             # Save state to undo stack before making change
             self._save_current_state()
             
@@ -418,12 +418,12 @@ class BuilderTab(ttk.Frame):
         GuidedSelectorDialog(self, category, on_part_selected)
     
     def _save_current_state(self):
-        """Save current selected parts to undo stack (PUSH operation)"""
+        # Save current selected parts to undo stack (PUSH operation)
         self.undo_redo_manager.save_state(self.selected_parts)
         self._update_undo_redo_buttons()
     
     def _undo(self):
-        """Undo last change using STACK data structure (POP from undo_stack)"""
+        # Undo last change using STACK data structure (POP from undo_stack)
         previous_state = self.undo_redo_manager.undo()
         if previous_state is not None:
             self.selected_parts = previous_state.copy()
@@ -431,7 +431,7 @@ class BuilderTab(ttk.Frame):
             self._update_undo_redo_buttons()
     
     def _update_undo_redo_buttons(self):
-        """Enable/disable undo button based on stack state"""
+        # Enable/disable undo button based on stack state
         # Enable undo button if undo stack has items
         if self.undo_redo_manager.can_undo():
             self.undo_btn.config(state="normal")
@@ -439,7 +439,7 @@ class BuilderTab(ttk.Frame):
             self.undo_btn.config(state="disabled")
     
     def _update_all_displays(self):
-        """Update all part display labels after undo/redo"""
+        # Update all part display labels after undo/redo
         for category in self.selected_parts:
             part_display = self.part_combos[category]
             part = self.selected_parts[category]
@@ -452,7 +452,7 @@ class BuilderTab(ttk.Frame):
         self._update_summary()
     
     def _on_part_selected(self, category):
-        """Handle part selection from dropdown"""
+        # Handle part selection from dropdown
         combo = self.part_combos[category]
         selection = combo.get()
         
@@ -469,7 +469,7 @@ class BuilderTab(ttk.Frame):
         self._update_summary()
     
     def _clear_part(self, category):
-        """Clear a selected part"""
+        # Clear a selected part
         # Save state to undo stack before clearing (PUSH operation)
         self._save_current_state()
         
@@ -481,7 +481,7 @@ class BuilderTab(ttk.Frame):
         self._update_summary()
     
     def _load_template(self, template_id: str):
-        """Load a template build"""
+        # Load a template build
         # Get template summary
         summary = get_template_summary(template_id)
         if not summary:
@@ -544,7 +544,7 @@ class BuilderTab(ttk.Frame):
         self._update_summary()
     
     def _clear_all(self):
-        """Clear all selected parts"""
+        # Clear all selected parts
         # Save state to undo stack before clearing all (PUSH operation)
         self._save_current_state()
         
@@ -558,7 +558,7 @@ class BuilderTab(ttk.Frame):
         # self._update_summary()  # Removed - Selected Parts tab removed
     
     def _update_summary(self):
-        """Update the build summary text - DISABLED (Selected Parts tab removed)"""
+        # Update the build summary text - DISABLED (Selected Parts tab removed)
         # self.summary_text.config(state="normal")
         # self.summary_text.delete("1.0", tk.END)
         # 
@@ -578,7 +578,7 @@ class BuilderTab(ttk.Frame):
         self._update_budget_display()
     
     def _check_compatibility(self):
-        """Run compatibility check and display results"""
+        # Run compatibility check and display results
         results = run_full_check(self.selected_parts)
         
         self.compat_text.config(state="normal")
@@ -608,7 +608,7 @@ class BuilderTab(ttk.Frame):
         self.compat_text.config(state="disabled")
     
     def _save_build(self):
-        """Save the current build (requires STANDARD role or higher)"""
+        # Save the current build (requires STANDARD role or higher)
         # Check permissions
         current_user = session.get_current_user()
         if not current_user or not current_user.can_save():
@@ -688,7 +688,7 @@ class BuilderTab(ttk.Frame):
         ttk.Button(dialog, text="Save", command=do_save).pack(pady=10)
     
     def _update_budget_display(self):
-        """Update budget status and draw pie chart"""
+        # Update budget status and draw pie chart
         try:
             budget_value = float(self.budget.get() or 0)
         except ValueError:
@@ -717,7 +717,7 @@ class BuilderTab(ttk.Frame):
         self._draw_pie_chart()
     
     def _draw_pie_chart(self):
-        """Draw pie chart showing budget allocation by component"""
+        # Draw pie chart showing budget allocation by component
         self.pie_canvas.delete("all")
         
         # Clear legend
@@ -860,7 +860,7 @@ class BuilderTab(ttk.Frame):
             )
     
     def refresh(self):
-        """Refresh the parts list and update UI based on user permissions"""
+        # Refresh the parts list and update UI based on user permissions
         self.all_parts = list_parts()
         self.parts_by_category = {}
         

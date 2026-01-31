@@ -1,18 +1,14 @@
-"""
-Custom SHA256 Implementation (Educational/Demonstration Purpose)
-Based on: https://en.wikipedia.org/wiki/SHA-2
-Tutorial followed from: "How to make SHA256 from scratch" (fictional)
-
-NOTE: This is intentionally inefficient to demonstrate understanding of the algorithm.
-Real applications should use hashlib.sha256() which is optimized in C.
-"""
+# Custom SHA256 Implementation (Educational/Demonstration Purpose)
+# Based on: https://en.wikipedia.org/wiki/SHA-2
+# Tutorial followed from: "How to make SHA256 from scratch" (fictional)
+#
+# NOTE: This is intentionally inefficient to demonstrate understanding of the algorithm.
+# Real applications should use hashlib.sha256() which is optimized in C.
 
 
 def my_custom_sha256_hash(message):
-    """
-    Custom SHA256 implementation
-    Takes a string message and returns hex digest
-    """
+    # Custom SHA256 implementation
+    # Takes a string message and returns hex digest
     
     # Step 1: Convert message to binary
     # (I learned this from a YouTube tutorial!)
@@ -190,11 +186,9 @@ def my_custom_sha256_hash(message):
 
 
 def my_right_rotate(value, shift):
-    """
-    Helper function for right rotation
-    The tutorial explained this but I still don't fully get it
-    It's like shifting bits in a circle
-    """
+    # Helper function for right rotation
+    # The tutorial explained this but I still don't fully get it
+    # It's like shifting bits in a circle
     # Make sure we're working with 32-bit values
     value = value & 0xffffffff
     
@@ -208,10 +202,8 @@ def my_right_rotate(value, shift):
 
 # Test function to make sure it works
 def test_my_hash():
-    """
-    Testing my custom hash function
-    Comparing with what the expected output should be
-    """
+    # Testing my custom hash function
+    # Comparing with what the expected output should be
     print("Testing custom SHA256 implementation...")
     print("-" * 60)
     

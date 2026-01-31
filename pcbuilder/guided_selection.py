@@ -1,7 +1,5 @@
-"""
-Guided component selection with user-friendly questions
-No technical knowledge required
-"""
+# Guided component selection with user-friendly questions
+# No technical knowledge required
 import tkinter as tk
 from tkinter import ttk, messagebox
 from typing import Dict, List, Optional, Callable, Any
@@ -11,13 +9,13 @@ from .merge_sort import merge_sort_parts_by_price
 
 
 class GuidedSelector:
-    """Guided component selector with question-based filtering"""
+    # Guided component selector with question-based filtering
     
     def __init__(self):
         self.questions = self._initialize_questions()
     
     def _initialize_questions(self) -> Dict[str, List[Dict]]:
-        """Initialize user-friendly questions for each component"""
+        # Initialize user-friendly questions for each component
         return {
             "CPU": [
                 {
@@ -232,12 +230,12 @@ class GuidedSelector:
         }
     
     def get_questions(self, category: str) -> List[Dict]:
-        """Get questions for a specific component category"""
+        # Get questions for a specific component category
         return self.questions.get(category, [])
 
 
 class GuidedSelectorDialog(tk.Toplevel):
-    """Dialog for guided component selection"""
+    # Dialog for guided component selection
     
     def __init__(self, parent, category: str, on_select_callback):
         super().__init__(parent)
@@ -259,7 +257,7 @@ class GuidedSelectorDialog(tk.Toplevel):
         self.grab_set()
     
     def _create_widgets(self):
-        """Create the dialog interface"""
+        # Create the dialog interface
         # Header
         header_frame = ttk.Frame(self, padding=10)
         header_frame.pack(fill="x")
@@ -313,7 +311,7 @@ class GuidedSelectorDialog(tk.Toplevel):
                   command=self._reset_answers).pack(side="left", padx=5)
     
     def _build_questions(self):
-        """Build the question interface"""
+        # Build the question interface
         questions = self.guided_selector.get_questions(self.category)
         
         if not questions:
@@ -347,12 +345,12 @@ class GuidedSelectorDialog(tk.Toplevel):
                 rb.pack(anchor="w", pady=3, padx=20)
     
     def _reset_answers(self):
-        """Reset all answers"""
+        # Reset all answers
         for answer_data in self.answers.values():
             answer_data["var"].set("")
     
     def _show_results(self):
-        """Show filtered results based on answers"""
+        # Show filtered results based on answers
         # Collect active filters
         self.active_filters = []
         
@@ -385,7 +383,7 @@ class GuidedSelectorDialog(tk.Toplevel):
         self._show_results_dialog(filtered_parts)
     
     def _show_results_dialog(self, parts: List[Dict]):
-        """Show filtered results in a selection dialog"""
+        # Show filtered results in a selection dialog
         results_dialog = tk.Toplevel(self)
         results_dialog.title(f"Select {self.category}")
         results_dialog.geometry("800x550")
@@ -525,7 +523,7 @@ class GuidedSelectorDialog(tk.Toplevel):
                 self.destroy()
         
         def show_all():
-            """Show all components without filters"""
+            # Show all components without filters
             db = get_database_manager()
             components = db.get_all_components()
             all_parts = [comp.to_dict() for comp in components]

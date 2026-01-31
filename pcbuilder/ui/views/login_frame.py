@@ -1,4 +1,4 @@
-"""Login and registration frame with multi-level access control"""
+# Login and registration frame with multi-level access control
 import tkinter as tk
 from tkinter import ttk, messagebox
 from ...auth import session, UserRole
@@ -6,7 +6,7 @@ from ...database_manager import get_database_manager
 
 
 def register(username: str, password: str) -> tuple[bool, str]:
-    """Register a new user"""
+    # Register a new user
     db = get_database_manager()
     try:
         user_id = db.create_user(username, password, role=1)
@@ -18,7 +18,7 @@ def register(username: str, password: str) -> tuple[bool, str]:
 
 
 def authenticate(username: str, password: str) -> tuple[bool, tuple | None, str]:
-    """Authenticate a user"""
+    # Authenticate a user
     db = get_database_manager()
     result = db.authenticate_user(username, password)
     if result:
@@ -28,7 +28,7 @@ def authenticate(username: str, password: str) -> tuple[bool, tuple | None, str]
 
 
 class LoginFrame(ttk.Frame):
-    """Login/Registration frame"""
+    # Login/Registration frame
     
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -94,7 +94,7 @@ class LoginFrame(ttk.Frame):
         self.password_entry.bind("<Return>", lambda e: self._login())
     
     def _login(self):
-        """Handle login button click"""
+        # Handle login button click
         username = self.username_entry.get().strip()
         password = self.password_entry.get()
         
@@ -117,7 +117,7 @@ class LoginFrame(ttk.Frame):
             self.status_label.config(text=message, foreground="red")
     
     def _continue_as_guest(self):
-        """Handle guest login"""
+        # Handle guest login
         # Set up guest session
         guest_user = session.login_guest()
         
@@ -126,7 +126,7 @@ class LoginFrame(ttk.Frame):
         self._clear_fields()
     
     def _register(self):
-        """Handle register button click"""
+        # Handle register button click
         username = self.username_entry.get().strip()
         password = self.password_entry.get()
         
@@ -141,12 +141,12 @@ class LoginFrame(ttk.Frame):
             self.status_label.config(text=message, foreground="red")
     
     def _clear_fields(self):
-        """Clear input fields"""
+        # Clear input fields
         self.username_entry.delete(0, tk.END)
         self.password_entry.delete(0, tk.END)
         self.status_label.config(text="")
     
     def on_show(self):
-        """Called when frame is shown"""
+        # Called when frame is shown
         self._clear_fields()
         self.username_entry.focus()

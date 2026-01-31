@@ -1,13 +1,11 @@
-"""
-Template PC Builds System
-Provides pre-configured builds for Budget, Mid-Range, and High-End tiers
-"""
+# Template PC Builds System
+# Provides pre-configured builds for Budget, Mid-Range, and High-End tiers
 from typing import Dict, Optional, List
 from .database_manager import get_database_manager
 
 
 class TemplateBuild:
-    """Represents a template PC build"""
+    # Represents a template PC build
     def __init__(self, name: str, description: str, target_price: str, components: Dict[str, str]):
         self.name = name
         self.description = description
@@ -15,7 +13,7 @@ class TemplateBuild:
         self.components = components  # Category -> Part name mapping
     
     def to_dict(self) -> dict:
-        """Convert to dictionary format"""
+        # Convert to dictionary format
         return {
             'name': self.name,
             'description': self.description,
@@ -78,22 +76,20 @@ TEMPLATE_BUILDS = {
 
 
 def get_template_builds() -> Dict[str, TemplateBuild]:
-    """Get all template builds"""
+    # Get all template builds
     return TEMPLATE_BUILDS
 
 
 def get_template_build(template_id: str) -> Optional[TemplateBuild]:
-    """Get a specific template build by ID"""
+    # Get a specific template build by ID
     return TEMPLATE_BUILDS.get(template_id)
 
 
 def load_template_build(template_id: str) -> Optional[Dict[str, Optional[dict]]]:
-    """
-    Load a template build and resolve component names to actual part objects
-    
-    Returns:
-        Dictionary mapping category to part object (or None if not found)
-    """
+    # Load a template build and resolve component names to actual part objects
+    #
+    # Returns:
+    # Dictionary mapping category to part object (or None if not found)
     template = get_template_build(template_id)
     if not template:
         return None
@@ -131,7 +127,7 @@ def load_template_build(template_id: str) -> Optional[Dict[str, Optional[dict]]]
 
 
 def calculate_template_price(template_id: str) -> float:
-    """Calculate the total price of a template build"""
+    # Calculate the total price of a template build
     parts = load_template_build(template_id)
     if not parts:
         return 0.0
@@ -145,12 +141,10 @@ def calculate_template_price(template_id: str) -> float:
 
 
 def get_template_summary(template_id: str) -> Optional[dict]:
-    """
-    Get a summary of a template build including price and component count
-    
-    Returns:
-        Dictionary with name, description, target_price, actual_price, and component_count
-    """
+    # Get a summary of a template build including price and component count
+    #
+    # Returns:
+    # Dictionary with name, description, target_price, actual_price, and component_count
     template = get_template_build(template_id)
     if not template:
         return None

@@ -1,31 +1,27 @@
-"""
-Search Algorithms Module
-Demonstrates different search algorithms with time complexity analysis
-"""
+# Search Algorithms Module
+# Demonstrates different search algorithms with time complexity analysis
 from typing import List, Optional, Tuple, Callable
 from .models import Component
 
 
 def binary_search_by_price(components: List[Component], target_price: float) -> Optional[Component]:
-    """
-    Binary search to find component with price closest to target
-    REQUIRES: components list must be sorted by price
-    
-    Time Complexity: O(log n) - halves search space each iteration
-    Space Complexity: O(1) - only uses a few variables
-    
-    Args:
-        components: Sorted list of components (by price ascending)
-        target_price: Price to search for
-        
-    Returns:
-        Component closest to target price, or None if list is empty
-    
-    Example:
-        >>> parts = [CPU($100), CPU($200), CPU($300)]
-        >>> result = binary_search_by_price(parts, 250)
-        >>> result.price  # Returns $200 CPU (closest match)
-    """
+    # Binary search to find component with price closest to target
+    # REQUIRES: components list must be sorted by price
+    #
+    # Time Complexity: O(log n) - halves search space each iteration
+    # Space Complexity: O(1) - only uses a few variables
+    #
+    # Args:
+    # components: Sorted list of components (by price ascending)
+    # target_price: Price to search for
+    #
+    # Returns:
+    # Component closest to target price, or None if list is empty
+    #
+    # Example:
+    # >>> parts = [CPU($100), CPU($200), CPU($300)]
+    # >>> result = binary_search_by_price(parts, 250)
+    # >>> result.price  # Returns $200 CPU (closest match)
     if not components:
         return None
     
@@ -65,20 +61,18 @@ def binary_search_by_price(components: List[Component], target_price: float) -> 
 
 
 def binary_search_exact(components: List[Component], target_price: float) -> Optional[Component]:
-    """
-    Binary search to find component with exact price match
-    REQUIRES: components list must be sorted by price
-    
-    Time Complexity: O(log n)
-    Space Complexity: O(1)
-    
-    Args:
-        components: Sorted list of components (by price ascending)
-        target_price: Exact price to search for
-        
-    Returns:
-        Component with exact price match, or None if not found
-    """
+    # Binary search to find component with exact price match
+    # REQUIRES: components list must be sorted by price
+    #
+    # Time Complexity: O(log n)
+    # Space Complexity: O(1)
+    #
+    # Args:
+    # components: Sorted list of components (by price ascending)
+    # target_price: Exact price to search for
+    #
+    # Returns:
+    # Component with exact price match, or None if not found
     if not components:
         return None
     
@@ -100,21 +94,19 @@ def binary_search_exact(components: List[Component], target_price: float) -> Opt
 
 
 def binary_search_range(components: List[Component], min_price: float, max_price: float) -> List[Component]:
-    """
-    Binary search to find all components within a price range
-    REQUIRES: components list must be sorted by price
-    
-    Time Complexity: O(log n + k) where k is number of results
-    Space Complexity: O(k) for results list
-    
-    Args:
-        components: Sorted list of components (by price ascending)
-        min_price: Minimum price (inclusive)
-        max_price: Maximum price (inclusive)
-        
-    Returns:
-        List of components within price range
-    """
+    # Binary search to find all components within a price range
+    # REQUIRES: components list must be sorted by price
+    #
+    # Time Complexity: O(log n + k) where k is number of results
+    # Space Complexity: O(k) for results list
+    #
+    # Args:
+    # components: Sorted list of components (by price ascending)
+    # min_price: Minimum price (inclusive)
+    # max_price: Maximum price (inclusive)
+    #
+    # Returns:
+    # List of components within price range
     if not components or min_price > max_price:
         return []
     
@@ -135,12 +127,10 @@ def binary_search_range(components: List[Component], min_price: float, max_price
 
 
 def _find_left_bound(components: List[Component], target: float) -> int:
-    """
-    Find index of first component with price >= target
-    Helper function for range search
-    
-    Time Complexity: O(log n)
-    """
+    # Find index of first component with price >= target
+    # Helper function for range search
+    #
+    # Time Complexity: O(log n)
     left = 0
     right = len(components)
     
@@ -155,12 +145,10 @@ def _find_left_bound(components: List[Component], target: float) -> int:
 
 
 def _find_right_bound(components: List[Component], target: float) -> int:
-    """
-    Find index of last component with price <= target
-    Helper function for range search
-    
-    Time Complexity: O(log n)
-    """
+    # Find index of last component with price <= target
+    # Helper function for range search
+    #
+    # Time Complexity: O(log n)
     left = -1
     right = len(components) - 1
     
@@ -175,29 +163,27 @@ def _find_right_bound(components: List[Component], target: float) -> int:
 
 
 def linear_search_by_price(components: List[Component], target_price: float) -> Optional[Component]:
-    """
-    Linear search to find component closest to target price
-    NO SORTING REQUIRED - works on any list
-    
-    Time Complexity: O(n) - checks every element
-    Space Complexity: O(1)
-    
-    Comparison with binary search:
-    - Binary: O(log n) but requires sorted list
-    - Linear: O(n) but works on unsorted list
-    
-    Use this when:
-    - List is small (n < 100)
-    - List is unsorted and sorting would be expensive
-    - Need to search only once
-    
-    Args:
-        components: List of components (any order)
-        target_price: Price to search for
-        
-    Returns:
-        Component closest to target price, or None if list is empty
-    """
+    # Linear search to find component closest to target price
+    # NO SORTING REQUIRED - works on any list
+    #
+    # Time Complexity: O(n) - checks every element
+    # Space Complexity: O(1)
+    #
+    # Comparison with binary search:
+    # - Binary: O(log n) but requires sorted list
+    # - Linear: O(n) but works on unsorted list
+    #
+    # Use this when:
+    # - List is small (n < 100)
+    # - List is unsorted and sorting would be expensive
+    # - Need to search only once
+    #
+    # Args:
+    # components: List of components (any order)
+    # target_price: Price to search for
+    #
+    # Returns:
+    # Component closest to target price, or None if list is empty
     if not components:
         return None
     
@@ -215,17 +201,15 @@ def linear_search_by_price(components: List[Component], target_price: float) -> 
 
 
 def compare_search_algorithms(components: List[Component], target_price: float) -> dict:
-    """
-    Compare binary search vs linear search performance
-    Demonstrates algorithmic complexity analysis
-    
-    Args:
-        components: List of components
-        target_price: Price to search for
-        
-    Returns:
-        Dictionary with comparison results and statistics
-    """
+    # Compare binary search vs linear search performance
+    # Demonstrates algorithmic complexity analysis
+    #
+    # Args:
+    # components: List of components
+    # target_price: Price to search for
+    #
+    # Returns:
+    # Dictionary with comparison results and statistics
     import time
     
     # Linear search (works on unsorted)
@@ -264,12 +248,10 @@ def compare_search_algorithms(components: List[Component], target_price: float) 
 
 
 def _analyze_performance(n: int, linear_time: float, binary_time: float) -> str:
-    """
-    Provide analysis of search performance
-    
-    Returns:
-        Human-readable analysis string
-    """
+    # Provide analysis of search performance
+    #
+    # Returns:
+    # Human-readable analysis string
     speedup = linear_time / binary_time if binary_time > 0 else 1
     
     if n < 50:
@@ -286,29 +268,27 @@ def search_components_by_attribute(
     target_value: any,
     key_func: Optional[Callable] = None
 ) -> Optional[Component]:
-    """
-    Generic binary search by any comparable attribute
-    REQUIRES: components sorted by the specified attribute
-    
-    Time Complexity: O(log n)
-    Space Complexity: O(1)
-    
-    Args:
-        components: Sorted list of components
-        attribute: Attribute name to search by
-        target_value: Value to search for
-        key_func: Optional function to extract comparison value
-        
-    Returns:
-        Component with closest matching attribute value
-        
-    Example:
-        >>> # Search by wattage (power_draw)
-        >>> result = search_components_by_attribute(
-        ...     gpus, 'power_draw', 250,
-        ...     key_func=lambda c: c.attributes.get('power_draw', 0)
-        ... )
-    """
+    # Generic binary search by any comparable attribute
+    # REQUIRES: components sorted by the specified attribute
+    #
+    # Time Complexity: O(log n)
+    # Space Complexity: O(1)
+    #
+    # Args:
+    # components: Sorted list of components
+    # attribute: Attribute name to search by
+    # target_value: Value to search for
+    # key_func: Optional function to extract comparison value
+    #
+    # Returns:
+    # Component with closest matching attribute value
+    #
+    # Example:
+    # >>> # Search by wattage (power_draw)
+    # >>> result = search_components_by_attribute(
+    # ...     gpus, 'power_draw', 250,
+    # ...     key_func=lambda c: c.attributes.get('power_draw', 0)
+    # ... )
     if not components:
         return None
     

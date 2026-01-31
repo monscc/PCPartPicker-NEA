@@ -1,4 +1,4 @@
-"""Main Tkinter application entry point"""
+# Main Tkinter application entry point
 import tkinter as tk
 from tkinter import ttk, messagebox
 from pathlib import Path
@@ -8,7 +8,7 @@ from ..database_manager import get_database_manager
 
 
 class PCBuilderApp(tk.Tk):
-    """Main application window"""
+    # Main application window
     
     def __init__(self):
         super().__init__()
@@ -47,7 +47,7 @@ class PCBuilderApp(tk.Tk):
         self.show_frame("LoginFrame")
     
     def _apply_modern_theme(self):
-        """Apply modern color scheme and styling"""
+        # Apply modern color scheme and styling
         style = ttk.Style()
         
         # Use 'clam' theme as base for better customization
@@ -187,7 +187,7 @@ class PCBuilderApp(tk.Tk):
                  foreground=[("selected", white)])
     
     def _load_sample_data_if_needed(self):
-        """Load sample parts if database is empty"""
+        # Load sample parts if database is empty
         db = get_database_manager()
         components = db.get_all_components()
         if len(components) == 0:
@@ -197,7 +197,7 @@ class PCBuilderApp(tk.Tk):
                 print("Loaded sample parts data")
     
     def show_frame(self, frame_name):
-        """Show a frame for the given frame name"""
+        # Show a frame for the given frame name
         frame = self.frames[frame_name]
         frame.tkraise()
         # Refresh frame if it has a refresh method
@@ -205,14 +205,14 @@ class PCBuilderApp(tk.Tk):
             frame.on_show()
     
     def login_user(self, user_id, username, role=None):
-        """Set current user and show main frame"""
+        # Set current user and show main frame
         self.current_user_id = user_id
         self.current_username = username
         self.current_user_role = role
         self.show_frame("MainFrame")
     
     def logout_user(self):
-        """Clear current user and show login frame"""
+        # Clear current user and show login frame
         from ..auth import session
         session.logout()
         self.current_user_id = None
@@ -222,7 +222,7 @@ class PCBuilderApp(tk.Tk):
 
 
 def main():
-    """Entry point for GUI application"""
+    # Entry point for GUI application
     app = PCBuilderApp()
     app.mainloop()
 

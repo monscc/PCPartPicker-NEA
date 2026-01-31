@@ -1,21 +1,17 @@
-"""
-Merge Sort Implementation
-Demonstrates divide-and-conquer recursive sorting algorithm
-"""
+# Merge Sort Implementation
+# Demonstrates divide-and-conquer recursive sorting algorithm
 from typing import List, Any, Callable, Optional
 
 
 def merge_sort(items: List[Any], key: Optional[Callable] = None, reverse: bool = False) -> List[Any]:
-    """
-    Args:
-        items: List of items to sort
-        key: Optional function to extract comparison value from each item
-        reverse: If True, sort in descending order
-        
-    Returns:
-        New sorted list (does not modify original)
-        
-    """
+    # Args:
+    # items: List of items to sort
+    # key: Optional function to extract comparison value from each item
+    # reverse: If True, sort in descending order
+    #
+    # Returns:
+    # New sorted list (does not modify original)
+    #
     # BASE CASE: A list with 0 or 1 elements is already sorted
     if len(items) <= 1:
         return items.copy()  # Return copy to avoid modifying original
@@ -35,16 +31,14 @@ def merge_sort(items: List[Any], key: Optional[Callable] = None, reverse: bool =
 
 
 def _merge(left: List[Any], right: List[Any], key: Optional[Callable] = None, reverse: bool = False) -> List[Any]:
-    """
-    Args:
-        left: First sorted list
-        right: Second sorted list
-        key: Function to extract comparison value
-        reverse: If True, merge in descending order
-        
-    Returns:
-        Merged sorted list
-    """
+    # Args:
+    # left: First sorted list
+    # right: Second sorted list
+    # key: Function to extract comparison value
+    # reverse: If True, merge in descending order
+    #
+    # Returns:
+    # Merged sorted list
     result = []
     i = j = 0
     
@@ -89,27 +83,23 @@ def _merge(left: List[Any], right: List[Any], key: Optional[Callable] = None, re
 
 
 def merge_sort_parts_by_price(parts: List[dict], ascending: bool = True) -> List[dict]:
-    """
-    Convenience function to sort PC parts by price using merge sort
-    
-    Args:
-        parts: List of part dictionaries with 'price' key
-        ascending: If True, sort cheapest first; if False, most expensive first
-        
-    Returns:
-        Sorted list of parts
-    """
+    # Convenience function to sort PC parts by price using merge sort
+    #
+    # Args:
+    # parts: List of part dictionaries with 'price' key
+    # ascending: If True, sort cheapest first; if False, most expensive first
+    #
+    # Returns:
+    # Sorted list of parts
     return merge_sort(parts, key=lambda p: p.get('price', 0), reverse=not ascending)
 
 
 def merge_sort_parts_by_name(parts: List[dict]) -> List[dict]:
-    """
-    Convenience function to sort PC parts alphabetically by name
-    
-    Args:
-        parts: List of part dictionaries with 'name' key
-        
-    Returns:
-        Alphabetically sorted list of parts
-    """
+    # Convenience function to sort PC parts alphabetically by name
+    #
+    # Args:
+    # parts: List of part dictionaries with 'name' key
+    #
+    # Returns:
+    # Alphabetically sorted list of parts
     return merge_sort(parts, key=lambda p: p.get('name', '').lower())

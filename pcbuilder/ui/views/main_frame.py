@@ -1,4 +1,4 @@
-"""Main application frame with tabbed interface and role-based access"""
+# Main application frame with tabbed interface and role-based access
 import tkinter as tk
 from tkinter import ttk, messagebox
 from .builder_tab import BuilderTab
@@ -8,7 +8,7 @@ from ...auth import session, UserRole
 
 
 class MainFrame(ttk.Frame):
-    """Main frame with tabbed interface"""
+    # Main frame with tabbed interface
     
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -45,11 +45,11 @@ class MainFrame(ttk.Frame):
         self.notebook.bind("<<NotebookTabChanged>>", self._on_tab_change)
     
     def _logout(self):
-        """Handle logout"""
+        # Handle logout
         self.controller.logout_user()
     
     def _on_tab_change(self, event):
-        """Handle tab change"""
+        # Handle tab change
         selected_tab = self.notebook.select()
         tab_index = self.notebook.index(selected_tab)
         
@@ -59,7 +59,7 @@ class MainFrame(ttk.Frame):
         # Guide tab (index 2) doesn't need refresh - it's static content
     
     def on_show(self):
-        """Called when frame is shown"""
+        # Called when frame is shown
         username = self.controller.current_username or "User"
         role = self.controller.current_user_role or UserRole.GUEST
         

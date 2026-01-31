@@ -1,7 +1,5 @@
-"""
-Component filtering system with unique filters for each category
-Includes binary search optimization for price-based filtering
-"""
+# Component filtering system with unique filters for each category
+# Includes binary search optimization for price-based filtering
 from typing import Dict, List, Optional, Callable, Any
 from dataclasses import dataclass
 from .search_algorithms import binary_search_by_price, binary_search_range, linear_search_by_price
@@ -10,7 +8,7 @@ from .models import Component, ComponentFactory
 
 @dataclass
 class Filter:
-    """Represents a single filter criterion"""
+    # Represents a single filter criterion
     name: str
     display_name: str
     filter_func: Callable[[Dict], bool]
@@ -18,13 +16,13 @@ class Filter:
 
 
 class ComponentFilters:
-    """Manages filters for different component categories"""
+    # Manages filters for different component categories
     
     def __init__(self):
         self.filters = self._initialize_filters()
     
     def _initialize_filters(self) -> Dict[str, List[Filter]]:
-        """Initialize all filters for each component category"""
+        # Initialize all filters for each component category
         return {
             "CPU": self._get_cpu_filters(),
             "Motherboard": self._get_motherboard_filters(),
@@ -37,7 +35,7 @@ class ComponentFilters:
         }
     
     def _get_cpu_filters(self) -> List[Filter]:
-        """CPU-specific filters"""
+        # CPU-specific filters
         return [
             Filter("6_cores", "6+ Cores", 
                    lambda p: p.get("attributes", {}).get("cores", 0) >= 6, "CPU"),
@@ -52,7 +50,7 @@ class ComponentFilters:
         ]
     
     def _get_motherboard_filters(self) -> List[Filter]:
-        """Motherboard-specific filters"""
+        # Motherboard-specific filters
         return [
             Filter("atx", "ATX Size", 
                    lambda p: p.get("attributes", {}).get("form_factor", "").upper() == "ATX", "Motherboard"),
@@ -70,7 +68,7 @@ class ComponentFilters:
         ]
     
     def _get_ram_filters(self) -> List[Filter]:
-        """RAM-specific filters"""
+        # RAM-specific filters
         return [
             Filter("16gb", "16GB+", 
                    lambda p: self._parse_ram_capacity(p) >= 16, "RAM"),
@@ -89,7 +87,7 @@ class ComponentFilters:
         ]
     
     def _get_gpu_filters(self) -> List[Filter]:
-        """GPU-specific filters"""
+        # GPU-specific filters
         return [
             Filter("8gb_vram", "8GB+ VRAM", 
                    lambda p: p.get("attributes", {}).get("vram", 0) >= 8, "GPU"),
@@ -106,7 +104,7 @@ class ComponentFilters:
         ]
     
     def _get_psu_filters(self) -> List[Filter]:
-        """PSU-specific filters"""
+        # PSU-specific filters
         return [
             Filter("modular", "Fully Modular", 
                    lambda p: "fully modular" in p.get("attributes", {}).get("modular", "").lower(), "PSU"),
@@ -127,7 +125,7 @@ class ComponentFilters:
         ]
     
     def _get_case_filters(self) -> List[Filter]:
-        """Case-specific filters"""
+        # Case-specific filters
         return [
             Filter("atx", "ATX Support", 
                    lambda p: "ATX" in p.get("attributes", {}).get("form_factor", ""), "Case"),
@@ -144,7 +142,7 @@ class ComponentFilters:
         ]
     
     def _get_storage_filters(self) -> List[Filter]:
-        """Storage-specific filters"""
+        # Storage-specific filters
         return [
             Filter("ssd", "SSD", 
                    lambda p: "SSD" in p.get("name", ""), "Storage"),
@@ -165,7 +163,7 @@ class ComponentFilters:
         ]
     
     def _get_cooler_filters(self) -> List[Filter]:
-        """CPU Cooler-specific filters"""
+        # CPU Cooler-specific filters
         return [
             Filter("air", "Air Cooler", 
                    lambda p: "air" in p.get("attributes", {}).get("type", "").lower() or "tower" in p.get("name", "").lower(), "Cooler"),
@@ -182,14 +180,14 @@ class ComponentFilters:
         ]
     
     def _parse_ram_capacity(self, part: Dict) -> int:
-        """Extract RAM capacity from name (e.g., '32GB (2x16GB)' -> 32)"""
+        # Extract RAM capacity from name (e.g., '32GB (2x16GB)' -> 32)
         import re
         name = part.get("name", "")
         match = re.search(r'(\d+)GB', name)
         return int(match.group(1)) if match else 0
     
     def _parse_storage_capacity(self, part: Dict) -> int:
-        """Extract storage capacity in GB (handles both string '1TB' and int 500)"""
+        # Extract storage capacity in GB (handles both string '1TB' and int 500)
         import re
         capacity = part.get("attributes", {}).get("capacity", 0)
         
@@ -213,11 +211,11 @@ class ComponentFilters:
         return 0
     
     def get_filters_for_category(self, category: str) -> List[Filter]:
-        """Get all available filters for a category"""
+        # Get all available filters for a category
         return self.filters.get(category, [])
     
     def apply_filters(self, parts: List[Dict], category: str, active_filters: List[str]) -> List[Dict]:
-        """Apply active filters to a list of parts"""
+        # Apply active filters to a list of parts
         if not active_filters:
             return parts
         
@@ -234,21 +232,19 @@ class ComponentFilters:
 
 
 def find_component_by_price(parts: List[Dict], target_price: float, use_binary_search: bool = True) -> Optional[Dict]:
-    """
-    Find component closest to target price using binary or linear search
-    
-    Time Complexity:
-    - Binary search: O(log n) if already sorted, O(n log n) if needs sorting
-    - Linear search: O(n) but no sorting needed
-    
-    Args:
-        parts: List of component dictionaries
-        target_price: Target price to match
-        use_binary_search: If True, use binary search (faster for large lists)
-        
-    Returns:
-        Component dict closest to target price, or None
-    """
+    # Find component closest to target price using binary or linear search
+    #
+    # Time Complexity:
+    # - Binary search: O(log n) if already sorted, O(n log n) if needs sorting
+    # - Linear search: O(n) but no sorting needed
+    #
+    # Args:
+    # parts: List of component dictionaries
+    # target_price: Target price to match
+    # use_binary_search: If True, use binary search (faster for large lists)
+    #
+    # Returns:
+    # Component dict closest to target price, or None
     if not parts:
         return None
     
@@ -286,22 +282,20 @@ def find_components_in_price_range(
     max_price: float,
     use_binary_search: bool = True
 ) -> List[Dict]:
-    """
-    Find all components within a price range
-    
-    Time Complexity:
-    - Binary search: O(log n + k) where k is number of results
-    - Linear search: O(n)
-    
-    Args:
-        parts: List of component dictionaries
-        min_price: Minimum price (inclusive)
-        max_price: Maximum price (inclusive)
-        use_binary_search: If True, use binary search approach
-        
-    Returns:
-        List of component dicts within price range
-    """
+    # Find all components within a price range
+    #
+    # Time Complexity:
+    # - Binary search: O(log n + k) where k is number of results
+    # - Linear search: O(n)
+    #
+    # Args:
+    # parts: List of component dictionaries
+    # min_price: Minimum price (inclusive)
+    # max_price: Maximum price (inclusive)
+    # use_binary_search: If True, use binary search approach
+    #
+    # Returns:
+    # List of component dicts within price range
     if not parts or min_price > max_price:
         return []
     

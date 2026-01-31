@@ -1,4 +1,4 @@
-"""Saved builds tab with template builds"""
+# Saved builds tab with template builds
 import tkinter as tk
 from tkinter import ttk, messagebox
 from ...database_manager import get_database_manager
@@ -7,7 +7,7 @@ from ...templates import get_template_builds, get_template_summary
 
 
 def load_user_builds(user_id: int):
-    """Load all builds for a user"""
+    # Load all builds for a user
     db = get_database_manager()
     builds = db.load_user_builds(user_id)
     result = []
@@ -20,7 +20,7 @@ def load_user_builds(user_id: int):
 
 
 def load_build_by_id(build_id: int):
-    """Load a specific build by ID"""
+    # Load a specific build by ID
     db = get_database_manager()
     build = db.load_build(build_id)
     if build:
@@ -32,13 +32,13 @@ def load_build_by_id(build_id: int):
 
 
 def import_build_from_share_key(user_id: int, share_key: str):
-    """Import a build from share key"""
+    # Import a build from share key
     db = get_database_manager()
     return db.import_build(user_id, share_key)
 
 
 class BuildsTab(ttk.Frame):
-    """Saved builds tab for viewing and loading builds"""
+    # Saved builds tab for viewing and loading builds
     
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -47,7 +47,7 @@ class BuildsTab(ttk.Frame):
         self._create_widgets()
     
     def _create_widgets(self):
-        """Create the builds list interface"""
+        # Create the builds list interface
         # Top label
         ttk.Label(self, text="My Saved Builds", font=("Arial", 14, "bold")).pack(pady=10)
         
@@ -138,7 +138,7 @@ class BuildsTab(ttk.Frame):
         ttk.Button(button_frame, text="Refresh", command=self.refresh).pack(side="left", padx=5)
     
     def refresh(self):
-        """Refresh the builds list"""
+        # Refresh the builds list
         # Clear existing items
         for item in self.builds_tree.get_children():
             self.builds_tree.delete(item)
@@ -164,11 +164,11 @@ class BuildsTab(ttk.Frame):
             ))
     
     def _on_build_double_click(self, event):
-        """Handle double-click on build"""
+        # Handle double-click on build
         self._view_build()
     
     def _view_build(self):
-        """View build details in a popup"""
+        # View build details in a popup
         selection = self.builds_tree.selection()
         if not selection:
             messagebox.showwarning("No Selection", "Please select a build to view")
@@ -238,7 +238,7 @@ class BuildsTab(ttk.Frame):
         ttk.Button(details, text="Close", command=details.destroy).pack(pady=10)
     
     def _load_to_builder(self):
-        """Load selected build to the builder tab"""
+        # Load selected build to the builder tab
         selection = self.builds_tree.selection()
         if not selection:
             messagebox.showwarning("No Selection", "Please select a build to load")
@@ -279,7 +279,7 @@ class BuildsTab(ttk.Frame):
         messagebox.showinfo("Success", f"Build '{build['name']}' loaded to builder")
     
     def _view_template(self, template_id: str):
-        """View template build details"""
+        # View template build details
         from ...templates import load_template_build
         
         summary = get_template_summary(template_id)
@@ -351,7 +351,7 @@ class BuildsTab(ttk.Frame):
         ttk.Button(btn_frame, text="Close", command=details.destroy).pack(side="left", padx=5)
     
     def _load_template_to_builder(self, template_id: str, dialog=None):
-        """Load template to builder tab"""
+        # Load template to builder tab
         from ...templates import load_template_build
         
         template_parts = load_template_build(template_id)
@@ -391,7 +391,7 @@ class BuildsTab(ttk.Frame):
         messagebox.showinfo("Success", f"{summary['name']} loaded to builder!")
     
     def _import_build(self):
-        """Import a build using a share key"""
+        # Import a build using a share key
         share_key = self.share_key_var.get().strip().upper()
         
         if not share_key:
